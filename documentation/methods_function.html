@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/highlight.min.js"></script>
+    <meta charset="utf-8">
+    <title>Python Methods and Functions Documentation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+    <h2><b>03 - Methods and Functions</b></h2>
+    <h3><u>Methods</u></h3>
+    <h4><b>Methods</b></h4>
+    <p>We've already seen a few examples of methods when learning about Object and Data Structure Types in Python. Methods are essentially functions built-in to objects.</p>
+
+    <p>Methods perform specific objects on an object and can also take arguments, just like a function.</p>
+
+    <p>Methods are in the form:</p>
+    <p style="font-size:17px; font-family:monospace;">&emsp;&emsp;object.method(arg1, arg2, etc...)</p>
+
+    <p>You'll later see that we can think of methods as having an argument 'self' referring to the object itself.</p>
+
+    <p>Let's take a quick look at what an example of the various methods a list has:</p>
+    <pre><code class="python">
+        # Create a simple list
+        lst = [1, 2, 3, 4, 5]
+    </code></pre>
+
+    <p>Fortunately, with IPython and the Jupyter Notebook we can quickly see all the possible methods using the tab key. The methods for a list are:</p>
+    <ul>
+        <li>append</li>
+        <li>count</li>
+        <li>extend</li>
+        <li>insert</li>
+        <li>pop</li>
+        <li>remove</li>
+        <li>reverse</li>
+        <li>sort</li>
+    </ul>
+
+    <p>Let's try out a few of them:</p>
+
+    <p>append() allows us to add elements to the end of a list:</p>
+    <pre><code class="python">
+        lst.append(6)
+    </code></pre>
+
+    <pre><code class="python">
+        lst
+        <code>Output: [1, 2, 3, 4, 5, 6]</code>
+    </code></pre>
+
+    <p>Great! Now how about count()? The count() method will count the number of occurences of an element in a list.</p>
+    <pre><code class="python">
+        # Check how many times 2 shows up in the list
+        lst.count(2)
+        <code>Output: 2</code>
+    </code></pre>
+
+    <p>You can always use Shift+Tab in the Jupyter Notebook to get more help about the method. In general Python you can use the help() function:</p>
+    <pre><code class="python">
+        help(lst.count)
+        <code>Output: Help on built-in function count:
+            count(...) method of builtins.list instance
+            L.count(value) -> integer --  return number of occurences of value
+        </code>
+    </code></pre>
+
+    <h3><u>Functions</u></h3>
+    <h4><b>Functions</b></h4>
+    <h4>Introduction to Functions</h4>
+    <p>Functions will be one of our main building blocks when we construct larger and larger amounts of code to solve problems.</p>
+
+    <h4>What is a Function?</h4>
+    <p>Formally a function is a useful device that groups together a set of statements so they can be run more than once. They also let us specify parameters that can serve as inputs to the functions.</p>
+
+    <p>On a more fundamental level, functions allow us to not have to repeatedly write the same code again and again.If you remember back to the lessons on strings and lists, remember that we used a function len() to get the length of a string. Since checking the length of a sequence is a common task you would want to write a function that can do this repeatedly at command.</p>
+
+    <p>Functions will be one of the most basic levels of reusing code in Python, and it will also allow us to start thinking of program design.</p>
+
+    <h4>Why Even Use Functions?</h4>
+    <p>Put simply, you should use functions when you plan on using a block of code multiple times. The function will allow you to call the same block of code without having to write it multiple times. This in turn will allow you to create more complex Python scripts. To really understand this though, we should actually write our own functions!</p>
+
+    <h4>Function Topics</h4>
+    <ul>
+        <li>def keyword</li>
+        <li>simple example of a function</li>
+        <li>calling a function with ()</li>
+        <li>accepting parameters</li>
+        <li>print vs return</li>
+        <li>adding in logic inside a function</li>
+        <li>multiple returns inside a function</li>
+        <li>adding in loops inside a function</li>
+        <li>tuple unpacking</li>
+        <li>interactions between function</li>
+    </ul>
+
+    <h4>def keyword</h4>
+    <p>Let's see how to build out a function's syntax in Python. It has the following form:</p>
+    <pre><code class="python">
+        def name_of_function(arg1, arg2):
+            '''
+            This is where the function's Document String (docstring) goes.
+            When you call help() on your function it will be printed out.
+            '''
+            # Do stuff here
+            # Return desired result
+    </code></pre>
+
+    <p>We begin with <code>def</code> then a space followed by the name of the function. Try to keep names relevant, for example len() is a good name for a length() function. Also be careful with names, you wouldn't want to call a function the same name as a <a href="https://docs.python.org/3/library/functions.html">built-in function in Python</a> (such as len).</p>
+
+    <p>Next come a pair of parentheses with a number of arguments separated by a comma. These arguments are the inputs for your function. You'll be able to use these inputs in your function and reference them. After this you put a colon.</p>
+
+    <p>Now, here is the important step, you must indent to begin the code inside your function correctly. Python makes use of <i>whitespace</i> to organise code. Lots of other programming languages do not do this, so keep that in mind.</p>
+
+    <p>Next, you'll see the docstring, this is where you write a basic description of the function. Using Jupyter and Jupyter Notebooks, you'll be able to read these docstrings by pressing Shift+Tab after a function name. Docstrings are not necessary for simple functions, but it's good practice to put them in so you or other people can easily understand the code you write.</p>
+
+    <p>After all this you begin writing the code you wish to execute.</p>
+
+    <p>The best way to learn functions is by going through examples. So let's try to go through examples that relate back to the various objects and data structures we learned about before.</p>
+
+    <h4>Simple Example of a Function</h4>
+    <pre><code class="python">
+        def say_hello():
+            print('hello')
+    </code></pre>
+
+    <h4>Calling a Function with ()</h4>
+    Call the function:
+    <pre><code class="python">
+        say_hello()
+        <code>Output: hello</code>
+    </code></pre>
+
+    <p>If you forget the parentheses (), it will simply display the fact say_hello is a function. Later on we will learn we can actually pass in functions into other functions! But for now, simply remember to call functions with ().</p>
+    <pre><code class="python">
+        say_hello
+        <code>Output: &lt;function __main__.say_hello&gt;</code>
+    </code></pre>
+
+    <h4>Accepting Parameters (arguments)</h4>
+    <p>Let's write a function that greets people with their name:</p>
+    <pre><code class="python">
+        def greeting(name):
+            print(f'Hello {name}')
+    </code></pre>
+
+    <pre><code class="python">
+        greeting('Aarush')
+        <code>Output: Hello Aarush</code>
+    </code></pre>
+    
+    <h4>Using return</h4>
+    <p>So far we've only seen print() used, but if we actually want to save the resulting variable we need to use the <b>return</b> keyword.</p>
+
+    <p>Let's see some examples that use a <code>return</code> statement. <code>return</code> allows a function to <i>return</i> a result that can then be stored as a variable, or used in whatever manner a user wants.</p>
+
+    <h4>Example: Addition Function</h4>
+    <pre><code class="python">
+        def add_num(num1, num2):
+            return num1 + num2
+    </code></pre>
+
+    <pre><code class="python">
+        add_num(4, 5)
+        <code>Output: 9</code>
+    </code></pre>
+
+    <pre><code class="python">
+        # Can also save as variable due to return
+        result = add_num(4, 5)
+    </code></pre>
+
+    <pre><code class="python">
+        print(result)
+        <code>Output: 9</code>
+    </code></pre>
+
+    <p>What happens if we input two strings?</p>
+    <pre><code class="python">
+        add_num('one', 'two')
+        <code>Output: 'onetwo'</code>
+    </code></pre>
+
+    <h4>Very Common Question: "What is the difference between <i>return</i> and <i>print</i>?"</h4>
+    <p><b>The return keyword allows you to actually save the result of the output of a function as a variable. The print() function simply displays the output to you, but doesn't save it for future use. Let's explore this in more detail.</b></p>
+    <pre><code class="python">
+        def print_result(a, b):
+            print(a + b)
+    </code></pre>
+
+    <pre><code class="python">
+        def return_result(a, b):
+            return a + b
+    </code></pre>
+
+    <pre><code class="python">
+        print_result(10, 5)
+        <code>Output: 15</code>
+    </code></pre>
+
+    <pre><code class="python">
+        # You won't see any output if you run this in a .py script
+        return_result(10, 5)
+        <code>Output: 15</code>
+    </code></pre>
+
+    <p><b>But what happens if we actually want to save this result for later use?</b></p>
+    <pre><code class="python">
+        my_result = print_result(20, 20)
+        <code>Output: 40</code>
+    </code></pre>
+
+    <pre><code class="python">
+        my_result
+    </code></pre>
+
+    <pre><code class="python">
+        type(my_result)
+        <code>Output: NoneType</code>
+    </code></pre>
+
+    <p><b>Be careful! Notice how print_result() doesn't let you actually save the result to a variable! It only prints it out, with print() returning None for the assignment!</b></p>
+    <pre><code class="python">
+        my_result = return_result(10, 20)
+    </code></pre>
+
+    <pre><code class="python">
+        my_result
+    </code></pre>
+
+    <pre><code class="python">
+        my_result + my_result
+        <code>Output: 80</code>
+    </code></pre>
+
+    <h4>Adding Logic to Internal Function Operators</h4>
+    <p>So far we know quite a bit about constructing logical statements with Pythom, such as if/else/elif statements, for and while loops, checking if an item is <b>in</b> a list or <b>not in</b> a list. Let's now see how we can perform these operations within a function.</p>
+
+    <h4>Check if a Number is Even</h4>
+    <p><b>Recall the mod operator % which returns the remainder after division, if a number is even then mod (% 2) should be == to zero.</b></p>
+    <pre><code class="python">
+        2 % 2
+        <code>Output: 0</code>
+    </code></pre>
+
+    <pre><code class="python">
+        20 % 2
+        <code>Output: 0</code>
+    </code></pre>
+
+    <pre><code class="python">
+        21 % 2
+        <code>Output: 1</code>
+    </code></pre>
+
+    <pre><code class="python">
+        20 % 2 == 0
+        <code>Output: True</code>
+    </code></pre>
+
+    <pre><code class="python">
+        21 % 2 == 0
+        <code>Output: False</code>
+    </code></pre>
+
+    <p><b>Let's use this to construct a function. Notice how we simply return the boolean check.</b></p>
+    <pre><code class="python">
+        def even_check(number):
+            return number % 2 == 0
+    </code></pre>
+
+    <pre><code class="python">
+        even_check(20)
+        <code>Output: True</code>
+    </code></pre>
+
+    <pre><code class="python">
+        even_check(21)
+        <code>Output: False</code>
+    </code></pre>
+
+    <h4>Check if any Number in a List is Even</h4>
+    <p>Let's return a boolean indicating if <b>any</b> number in a list is even. Notice here how <b>reurn</b> breaks out of the loop and exits the function:</p>
+    <pre><code class="python">
+        def check_even_list(num_list):
+            # Go through each number
+            for number in num_list:
+                # Once we get a 'hit' on an even number, we return True
+                if number % 2 == 0:
+                    return True
+                # Otherwise we don't do anything
+                else:
+                    pass
+    </code></pre>
+
+    <p><b>Is this enough? NO! We're not returning anything if they are all odds.</b></p>
+    <pre><code class="python">
+        check_even_list([1, 2, 3])
+        <code>Output: True</code>
+    </code></pre>
+
+    <pre><code class="python">
+        check_even_list([1, 1, 1])
+    </code></pre>
+
+    <p><b>VERY COMMON MISTAKE! LET'S SEE A COMMON LOGIC ERROR, NOTE THIS IS WRONG!</b></p>
+    <pre><code class="python">
+        def check_even_list(num_list):
+            # Go through each number
+            for number in num_list:
+                # Once we get a 'hit' on an even number, we return True
+                if number % 2 == 0:
+                    return True
+                # Don't do anything if its not even
+                else:
+                    pass
+            # Notice the indentation! This ensures we run through the entire for loop
+            return False
+    </code></pre>
+
+    <pre><code class="python">
+        check_even_list([1, 2, 3])
+        <code>Output: True</code>
+    </code></pre>
+
+    <pre><code class="python">
+        check_even_list([1, 3, 5])
+        <code>Output: False</code>
+    </code></pre>
+
+    <h4>Return all Even Numbers in a List</h4>
+    <p>Let's add more complexity, we now will return all the even numbers in a list, otherwise return an empty list.</p>
+    <pre><code class="python">
+        def check_even_list(num_list):
+            even_numbers = []
+
+            # Go through each number
+            for number in num_list:
+                # once we get a 'hit' on an even number, we append the even number
+                if number % 2 == 0:
+                    even_numbers.append(number)
+                # Don't do anything if it's not even
+                else:
+                    pass
+            # Notice the indentation! This ensures we run through the entire for loop
+            return even_numbers
+    </code></pre>
+
+    <pre><code class="python">
+        check_even_list([1, 2, 3, 4, 5, 6])
+        <code>Output: [2, 4, 6]</code>
+    </code></pre>
+
+    <pre><code class="python">
+        check_even_list([1, 3, 5])
+        <code>Output: []</code>
+    </code></pre>
+
+    <h4>Returning Tuples for Unpacking</h4>
+    <p><b>Recall we can loop through a list of tuples and "unpack" the values within them.</b></p>
+    <pre><code class="python">
+        stock_prices = [('AAPL', 200), ('GOOG', 300), ('MSFT', 400)]
+    </code></pre>
+
+    <pre><code class="python">
+        for item in stock_prices:
+            print(item)
+        <code>Output:
+            ('AAPL', 200)
+            ('GOOG', 300)
+            ('MSFT', 400)
+        </code>
+    </code></pre>
+
+    <pre><code class="python">
+        for stock, price in stock_prices:
+            print(stock)
+        <code>Output:
+            AAPL
+            GOOG
+            MSFT
+        </code>
+    </code></pre>
+
+    <pre><code class="python">
+        for stock, price in stock_prices:
+            print(price)
+        <code>Output: 
+            200
+            300
+            400
+        </code>
+    </code></pre>
+
+    <p><b>Similarly, functions often return tuples, to easily return multiple results for later use.</b></p>
+    <p>Let's imagine the following list:</p>
+    <pre><code class="python">
+        book_copies = [('Lord of the Rings', 300), ('The Hunger Games', 500), ('Harry Potter', 800)]
+    </code></pre>
+
+    <p>The most books sold function will return both the name and number of books sold for the top performer (judged by the number of books sold).</p>
+    <pre><code class="python">
+        def books_sold(books):
+            # Set some max value to initially beat, like zero books
+            current_max = 0
+            # Set some empty value before the loop
+            most_books_sold = ''
+
+            for books, copies in books_sold:
+                if copies > current_max:
+                    curren_max = copies
+                    most_books_sold = books
+                else:
+                    pass
+
+            # Notice the indentation here
+            return(most_books_sold, current_max)
+    </code></pre>
+
+    <pre><code class="python">
+        books_sold(copies)
+        <code>Output: ('Harry Potter', 800)</code>
+    </code></pre>
+
+    <h4>Interactions Between Functions</h4>
+    <p>Functions often use results from other functions, let's see a simple example through a guessing game. There will 3 positions in the list, one of which is an 'O', a function will shuffle the list, another will take a player's guess, and finally another will check to see if it is correct. This is based on the classic carnival game of guessing which cup a red ball is under.</p>
+
+    <p><b>How to shuffle a list in Python</b></p>
+    <pre><code class="python">
+        example = [1, 2, 3, 4, 5]
+    </code></pre>
+
+    <pre><code class="python">
+        from random import shuffle
+    </code></pre>
+
+    <pre><code class="python">
+        # Note shuffle is in-place
+        shuffle(example)
+    </code></pre>
+    
+    <pre><code class="python">
+        example
+        <code>Output: [1, 3, 4, 5, 2]</code>
+    </code></pre>
+
+    <p><b>OK, let's create our simple game</b></p>
+    <pre><code class="python">
+        mylist = [' ', 'O', ' ']
+    </code></pre>
+
+    <pre><code class="python">
+        def shuffle_list(mylist):
+            # Take in list, and return shuffle versioned
+            shuffle(mylist)
+
+            return mylist
+    </code></pre>
+
+    <pre><code class="python">
+        mylist
+        <code>Output: [' ', 'O', ' ']</code>
+    </code></pre>
+
+    <pre><code class="python">
+        shuffle_list(mylist)
+        <code>Output: ['O', ' ', ' ']</code>
+    </code></pre>
+
+    <pre><code class="python">
+        def player_guess():
+            guess = ''
+
+            while guess not in ['0', '1', '2']:
+                # Recall input() returns a string
+                guess = input("Pick a number: 0, 1 or 2: ")
+            
+                return int(guess)
+    </code></pre>
+
+    <pre><code class="python">
+        player_guess()
+        <code>Output: Pick a number: 0, 1 or 2: 1
+            1
+        </code>
+    </code></pre>
+
+    <p>Now we will check the user's guess. Notice we only print here, since we have no need to save a user's guess or the shuffled list.</p>
+    <pre><code class="python">
+        def check_guess(mylist, guess):
+            if mylist[guess] == 'O':
+                print('Correct guess!')
+            else:
+                print('Wrong! Better luck next time')
+                print(mylist)
+    </code></pre>
+
+    <p>Now we create a little setup function to run all the functions. Notice how they interact with each other!</p>
+    <pre><code class="python">
+        # Initial List
+        mylist = [' ', 'O', ' ']
+
+        # Shuffle it
+        mixedup_list = shuffle_list(mylist)
+
+        # Get User's guess
+        guess = player_guess()
+
+        # Check User's guess
+        # --------------------
+        # Notice how this function takes in the input based on the output of other functions!
+        check_guess(mixedup_list, guess)
+        <code>Output: Pick a number: 0, 1 or 2: 1
+            Wrong! Better luck next time
+            [' ', ' ', 'O']
+        </code>
+    </code></pre>
+
+    <p>Great! You should now have a basic understanding of creating your own functions to save yourself from repeatedly  writing code!</p>
+
+    <h3><u>Lambda Expressions, Map and Filter</u></h3>
+    <h4><b>Lambda Expressions, Map and Filter</b></h4>
+    <p>Now it's time to quickly learn about two built-in functions, filter and map. Once we learn about how these operate, we can learn about the lambda expression, which will come in handy when you begin to develop your skills further!</p>
+
+    <h4>map Function</h4>
+    <p>The <b>map</b> function allows you to "map" a function to an iterable object. That is to say you can quickly call the same function to every item in an iterable, such as a list. For example:</p>
+    <pre><code class="python">
+        def square(num):
+            return num ** 2
+    </code></pre>
+
+    <pre><code class="python">
+        my_nums = [1, 2, 3, 4, 5]
+    </code></pre>
+
+    <pre><code class="python">
+        map(square, my_nums)
+        <code>Output: &lt;map at 0x205baec21d0</code>
+    </code></pre>
+
+    <pre><code class="python">
+        # To get the results, either iterate through map() or just cast it to a list
+        list(map(square, my_nums))
+        <code>Output: [1, 4, 9, 16, 25]</code>
+    </code></pre>
+
+    <p>The functions can also be more complex.</p>
+    <pre><code class="python">
+        def splicer(mystring):
+            if len(mystring) % 2 == 0:
+                return 'even'
+            else:
+                return mystring[0]
+    </code></pre>
+
+    <pre><code class="python">
+        mycars = ['Ford', 'BMW', 'Ferrari', 'Tesla', 'Toyota']
+    </code></pre>
+
+    <pre><code class="python">
+        list(map(splicer, mycars))
+        <code>Output:['even', 'B', 'F', 'T', 'even']</code>
+    </code></pre>
+
+    <h4>filter Function</h4>
+    <p>The filter function returns an iterator yielding those items of iterable for which function (item) is true. Meaning you need to filter by a function that returns either True or False. Then passing that into filter (along with your iterable) and you will get back only the results that would return True when passed to the function.</p>
+    <pre><code class="python">
+        def even_check(num):
+            return num % 2 == 0
+    </code></pre>
+
+    <pre><code class="python">
+        nums = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    </code></pre>
+
+    <pre><code class="python">
+        filter(check_even, nums)
+        <code>Output: &lt;filter at 0x205baed4710&gt;</code>
+    </code></pre>
+
+    <pre><code class="python">
+        list(filter(check_even, nums)
+        <code>Output: [0, 2, 4, 6, 8, 10]</code>
+    </code></pre>
+
+    <h4>lambda Expression</h4>
+    <p>One of Python's most useful (and for beginners, confusing) tools is the lambda expressions. Lambda expressions allow us to create "anonymous" functions. This basically means we can quickly make ad-hoc functions without needing to properly define a function using def.</p>
+
+    <p>Function objects returned by running lambda expressions work exactly the same as those created and assigned by defs. There is a key difference that makes lambda useful in specialised roles:</p>
+
+    <p><b>lambda's body is a single expression, not a block of statements</b></p>
+    <ul>
+        <li>The lambda's body is similar to what we would put in a def's body's return statement. We simply type the result as an expression instead of explicitly returning it. Because it is limited to an expression, a lambda is less general than a def. We can only squeeze design, to limit program nesting. Lambda is designed for coding simple functions, and def handles the larger tasks.</li>
+    </ul>
+
+    <p>Let's slowly break down a lambda expression by deconstructing a function:</p>
+    <pre><code class="python">
+        def square(num):
+            result = num ** 2
+            return result
+    </code></pre>
+
+    <pre><code class="python">
+        square(2)
+        <code>Output: 2</code>
+    </code></pre>
+
+    <p>We could simplify it:</p>
+    <pre><code class="python">
+        def square(num):
+            return num ** 2
+    </code></pre>
+
+    <pre><code class="python">
+        square(2)
+        <code>Output: 4</code>
+    </code></pre>
+
+    <p>We could actually even write this all on line:</p>
+    <pre><code class="python">
+        def square(num): return num ** 2
+    </code></pre>
+
+    <pre><code class="python">
+        square(2)
+        <code>Output: 4</code>
+    </code></pre>
+
+    <p>This is the form a function that a lambda expression intends to replicate. A lambda expression can then be written as:</p>
+    <pre><code class="python">
+        lambda num: num ** 2
+        <code>Output: &lt;function __main__.&lt;lambda&gt;&gt;</code>
+    </code></pre>
+
+    <pre><code class="python">
+        # You wouldn't usually assign a name to a lambda expression, this is just for demonstration!
+        square = lambda num: num ** 2
+    </code></pre>
+
+    <pre><code class="python">
+        square(2)
+        <code>Output: 4</code>
+    </code></pre>
+
+    <p>So why would we use this? Many function calls need a function passed in, such as map and filter. Often you only need to use the function you are passing in once, so instead of formally defining it, you can just use the lambda expression. Let's repeat some of the examples above with a lambda expression.</p>
+    <pre><code class="python">
+        list(map(lambda num: num ** 2, my_nums))
+        <code>Output: [1, 4, 9, 16, 25]</code>
+    </code></pre>
+
+    <pre><code class="python">
+        list(filter(lambda n: n % 2 == 0, nums))
+        <code>Output:[0, 2, 4, 6, 8, 10]</code>
+    </code></pre>
+
+    <p>Here are a few more examples, keep in mind the more complex a function is, the harder it is to translate into a lambda expression, meaning sometimes it is just easier (and often the only way) to create the def keyword function.</p>
+
+    <p><b>Lambda expression for grabbing the first character of a string:</b></p>
+    <pre><code class="python">
+        lambda s: s[0]
+        <code>Output: &lt;function __main__.&lt;lambda&gt;&gt;</code>
+    </code></pre>
+
+    <p><b>Lambda expression for reversing a string:</b></p>
+    <pre><code class="python">
+        lambda s: s[::-1]
+        <code>Output: &lt;function __main__.&lt;lambda&gt;&gt;</code>
+    </code></pre>
+
+    <p>You can even pass in multiple arguments into a lambda expression. Again, keep in mind that not every function can be translated into a lambda expression.</p>
+    <pre><code class="python">
+        lambda x, y : x + y
+        <code>Output: &lt;function __main__.&lt;lambda&gt;&gt;</code>
+    </code></pre>
+
+    <p>You will find yourself using lambda expressions often with certain non-built-in libraries, for example the Pandas library for data analysis works very well with lambda expressions.</p>
+
+    <h3><u>Nested Statements and Scope</u></h3>
+    <h4><b>Nested Statements and Scope</b></h4>
+    <p>Now that we have gone over writing our own functions, it's important to understand how Python deals with the variable names you assign. When you create a variable name in Python the name is stored in a <i>name-space</i>. Variable names also have a <i>scope</i>, the scope determines the visibility of that variable name to other parts of your code.</p>
+
+    <p>Let's start with a quick though experiment, imagine the following code:</p>
+    <pre><code class="python">
+        x = 25
+
+        def printer():
+            x = 50
+            return x
+
+        # print(x)
+        # print(printer())
+    </code></pre>
+
+    <p>What do you imagine the output of printer() is? 25 or 50? What is the output of print(x)? 25 or 50?</p>
+    <pre><code class="python">
+        print(x)
+        <code>Output: 25</code>
+    </code></pre>
+
+    <pre><code class="python">
+        print(printer())
+        <code>Output: 50</code>
+    </code></pre>
+
+    <p>Interesting! But how does Python know which <b>x</b> you're referring to in your code. This is where the idea of scope comes in. Python has a set of rules it follows to decide what variables (such as <b>x</b> in this case) you are referencing in your code. Let's break down the rules:</p>
+
+    <p>The idea of scope in your code is very important to understand in order to properly assign and call variable names.</p>
+
+    <p>In simple terms, the idea of scope can be described by 3 general rules:</p>
+
+    <ol>
+        <li>Name assignments will create or change local names by default.</li>
+        <li>Name references search (at most) four scopes, these are:</li>
+        <ul>
+            <li>local</li>
+            <li>enclosing functions</li>
+            <li>global</li>
+            <li>built-in</li>
+        </ul>
+        <li>Names declared in global and nonlocal statements map assigned names to a enclosing module and function scopes.</li>
+    </ol>
+
+    <p>The statememt in #2 above can be defined by the LEGB rule.</p>
+
+    <p><b>LEGB Rule:</b></p>
+    <p>L: Local - Names assigned in any way within a function (def or lambda), and not declared global in that function.</p>
+    <p>E: Enclosing function locals - Names in the local scope of any and all enclosing functions (def or lambda), from inner to outer.</p>
+    <p>Global (module) - Names assigned at the top-level of a module file, or declared global in a def within the file.</p>
+    <p>B: Built-in (Python) - Names are preassigned in the built-in names module: open, range, SyntaxError,...</p>
+
+    <h4>Quick Examples of LEGB</h4>
+    <h4>Local</h4>
+    <pre><code class="python">
+        # x is local here:
+        f = lambda x: x ** 2
+    </code></pre>
+
+    <h4>Enclosing Function Locals</h4>
+    <p>This occurs when we have a function inside a function (nested functions).</p>
+    <pre><code class="python">
+        name = 'This is a global name'
+
+        def greet():
+            # Enclosing function
+            name = 'Aarush'
+
+            def hello():
+                print('Hello ' + name)
+
+            hello()
+
+        greet()
+        <code>Output: Hello Aarush</code>
+    </code></pre>
+
+    <p>Note how Aarush was used, because the hello() function was enclosed inside of the greet function!</p>
+
+    <h4>Global</h4>
+    <p>Luckily in Jupyter a quick way to test for global variables is to see if another cell recognises the variable!</p>
+    <pre><code class="python">
+        print(name)
+        <code>Output: This is a global name</code>
+    </code></pre>
+
+    <h4>Built-in</h4>
+    <p>These are the built-in function names in Python (don't overwrite these!)</p>
+    <pre><code class="python">
+        len
+        <code>Output: &lt;funciton len&gt;</code>
+    </code></pre>
+
+    <h4>Local Variables</h4>
+    <p>When you declare variables inside a function definition, they are not related in any way to other variables with the same names outside the function - i.e variable names are local to the function. This is called the scope of the variable. All variables have the scope of the block they are declared in starting from the point of definition of the name.</p>
+
+    <p>Example:</p>
+    <pre><code class="python">
+        x = 50
+
+        def func(x):
+            print('x is', x)
+            x = 2
+            print('Changed local x to', x)
+
+        func(x)
+        print('x is still', x)
+        <code>Output:
+            x is 50
+            Changed local x to 2
+            x is still 50
+        </code>
+    </code></pre>
+
+    <p>The first time that we print the value of the name <b>x</b> with the first line in the function's body, Python uses the value of the parameter declared in the main block, above the function definition.</p>
+
+    <p>Next, we assign the value 2 to <b>x</b>. The name <b>x</b> is local to our function. So, when we change the value of <b>x</b> in the function, the <b>x</b> defined in the main block remains unaffected.</p>
+
+    <p>With the last print statement, we display the value <b>x</b> as defined in the main block, thereby confirming that is actually unaffected by the local assignment within the previously called function.</p>
+
+    <h4>The <code>global</code> statement</h4>
+    <p>If you want to assign a value to a name defined at the top level of the program (i.e not inside any kind of scope such as functions or classes), then you have to tell Python that the name is not local, but it is global. We do this using the <code>global</code> statement. It is impossible to assign a value to a variable defined outside a function without the global statement.</p>
+
+    <p>You can use the values of such variables defined outside the function (assuming there is no variable with the same name within the function). However, this is not encouraged and should be avoided since it becomes unclear to the reader of the program as to where that variable's definition is. Using the <code>global</code> statement makes it amply clear that the variable is defined in an outermost block.</p>
+
+    <p>Example:</p>
+    <pre><code class="python">
+        x = 50
+
+        def func():
+            global x
+            print('This function is now using the global x!')
+            print('Because of global x is: ', x)
+            x = 2
+            print('Ran func(), changed global x to', x)
+
+        print('Before calling func(), x is: ', x)
+        func()
+        print('Value of x (outside of func()) is: ', x)
+        <code>Output: 
+            Before calling func(), x is:  50
+            This function is now using the global x!
+            Because of global x is:  50
+            Ran func(), changed global x to 2
+            Value of x (outside of func()) is:  2</code>
+    </code></pre>
+
+    <p>The <code>global</code> statement is used to declare that <b>x</b> is a global variable - hence, when we assign a value to <b>x</b> inside the function, that change is reflected when we use the value of <b>x</b> in the main block.</p>
+
+    <p>You can specify more than one global variable using the same global statement e.g <code>global x, y, z</code>.</p>
+
+    <h4>Conclusion</h4>
+    <p>You should now have a good understanding of Scope (you may have already intuitively felt right about Scope which is great!) One last mention is that you can use the <b>globals()</b> and <b>locals()</b> functions to check what are your current local and global variables.</p>
+
+    <p>Another thing to keep in mind is that everything in Python is an object! I can assign variables to functions just like I can with numbers!</p>
+
+    <h3><u>args and kwargs</u></h3>
+    <h4><u>args and kwargs</u></h4>
+    <p>Work with Python long enough, and eventually you will encounter <code>*args</code> and <code>**kwargs</code>. These strange terms show up as parameters in function definitions. What do they do? Let's review a simple function:</p>
+    <pre><code class="python">
+        def myfunc(a, b):
+            return sum((a, b)) * 0.5
+
+        myfunc(40, 60)
+        <code>Output: 5.0</code>
+    </code></pre>
+
+    <p>This functions returns 5% of the sum of <b>a</b> and <b>b</b>. In this example, <b>a</b> and <b>b</b> are <i>positional</i>; that is, 40 is assigned to <b>a</b> because it is the first argument, and 60 to <b>b</b>. Notice also that to work with multiple positional arguments in the <code>sum()</code> function we had to pass them in as a tuple.</p>
+
+    <p>What if we want to work with more than two numbers? One way would be to assign a <i>lot</i> of parameters, and give each one a default value.</p>
+    <pre><code class="python">
+        def myfunc(a = 0, b = 0, c = 0, d = 0, e = 0):
+            return sum((a, b, c, d, e)) * .05
+
+        myfunc(40, 60, 20)
+        <code>Output: 6.0</code>
+    </code></pre>
+
+    <p>Obviously, this is not a very efficient solution, and that's where <code>*args</code> comes in.</p>
+
+    <h4><code>*args</code></h4>
+    <p>When a function parameter starts with an asterisk, it allows for an <i>arbitrary number</i> of arguments, and the function takes them in as a tuple of values. Rewriting the above function:</p>
+    <pre><code class="python">
+        def myfunc(*args):
+            return sum(args) * .05
+
+        myfunc(40, 60, 20)
+        <code>Output: 6.0</code>
+    </code></pre>
+
+    <p>Notice how passing the keyword "args" into the <code>sum()</code> function did the same thing as a tuple of arguments.</p>
+
+    <p>It is worth noting that the word "args" is itself arbitrary - any word will do so as long as it's preceded by an asterisk. To demonstrate this:</p>
+    <pre><code class="python">
+        def myfunc(*spam):
+            return sum(spam) * .05
+        
+        myfunc(40, 60, 20)
+        <code>Output: 6.0</code>
+    </code></pre>
+
+    <h4><code>**kwargs</code></h4>
+    <p>Similarly, Python offers a way to handle arbitrary numbers of <i>keyworded</i> arguments. Instead of creating a tuple of values, <code>**kwargs</code> builds a dictionary of key/value pairs. For example:</p>
+    <pre><code class="python">
+        def myfunc(**kwargs):
+            if 'fruit' in kwargs:
+                print(f'My favourite fruit is {kwargs['fruit']}')
+            else:
+                print('I don't like fruit)
+        myfunc(fruit='apple')
+        <code>Output: My favourite fruit is apple</code>
+    </code></pre>
+
+    <pre><code class="python">
+        myfunc()
+        <code>Output: I don't like fruit</code>
+    </code></pre>
+
+    <h4><code>*args</code> and <code>**kwargs</code> combined</h4>
+    <p>You can pass <code>*args</code> and <code>**kwargs</code> into the same function, but <code>*args</code> have to appear before <code>**kwargs</code>.</p>
+    <pre><code class="python">
+        def myfunc(*args, **kwargs):
+            if 'fruit' and 'juice' in kwargs:
+                print(f'I like {' and '.join(args)} and my favourite fruit is {kwargs['fruit']}')
+                print(f'May I have some {kwargs['juice']} juice?')
+            else:
+                pass
+        
+        myfunc('eggs', 'spams', fruit = 'cherries', juice = 'orange')
+        <code>Output:
+            I like eggs and spam and my favourite fruit is cherries
+            May I have some orange juice?
+        </code>
+    </code></pre>
+
+    <p>Placing keyworded arguments ahead of positional arguments raises an exception:</p>
+    <pre><code class="python">
+        myfunc(fruit = 'cherries', juice = 'orange', 'eggs', 'spam')
+    </code></pre>
+    <code>Output: <b style="color:turquoise">File</b> <b style="color:darkgreen">&lt;ipython-input-8-fc6ff65addcc&gt;"</b><b style="color:turquoise">, line</b> <b style="color:darkgreen">1</b> <br> &emsp; <b style="color:goldenrod">myfunc(fruit = 'cherries', juice = 'orange', 'eggs', 'spam')</b> <br> <b style="color:maroon">SyntaxError</b>: positional argument follows keyword argument</code>
+
+    <p>As with "args", you can use any name you'd like for keyworded arguments - "kwargs" is just a popular convention.</p>
+
+    <p>That's it! Now you should understand how <code>*args</code> and <code>**kwargs</code> provide the flexibility to work with arbitrary number of arguments!</p>
+</body>
+</html>

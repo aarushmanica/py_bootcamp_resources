@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/highlight.min.js"></script>
+    <meta charset="utf-8">
+    <title>Python Statements Documentation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+    <h2><b>02 - Python Statements</b></h2>
+    <h3><u>Introduction to Python Statements</u></h3>
+    <h4><b>Introduction to Python Statements</b></h4>
+    <p>We will be doing a quick overview of Python statements. This section will emphasise differences between Python and other languages such as C++.</p>
+
+    <p>There are two reasons we take this approach for learning the context of Python statements.</p>
+    <ol>
+        <li style="font-size: 17px; font-family: monospace">If you are coming from a different language this will rapidly accelerate your understanding of Python.</li>
+        <li style="font-size: 17px; font-family: monospace;">Learning about statements will allow you to be able to read other languages more easily in the future.</li>
+    </ol>
+
+    <h4>Python vs Other Languages</h4>
+    <p>Let's create a simple statement that says: "If a is greater than b, assign 2 to a and 4 to b.</p>
+
+    <p>Take a look at these two statements.</p>
+
+    <p><b>Version 1 (Other Languages)</b></p>
+    <pre><code class="c++">
+        if (a + b) {
+            a = 2;
+            b = 4;
+        }
+    </code></pre>
+
+    <p><b>Version 2 (Python)</b></p>
+    <pre><code class="python">
+        if a > b:
+        &emsp;&emsp;a = 2
+        &emsp;&emsp;b = 4
+    </code></pre>
+
+    <p>You'll notice that Python is less cluttered and much more readable than the first version. How does Python manages this?</p>
+
+    <p>Let's walk through the main differences.</p>
+
+    <p>Python gets rid of () and {} by incorporating two main factors: a <i>colon</i> and <i>whitespace</i>. The statement is ended with a colon, and whitespace is used (indentation) to describe what takes place in case of the statement.</p>
+
+    <p>Another major difference is the lack of semicolons in Python. Semicolons are used to denote statement endings in many other languages, but in Python, the end of a line is the same as the end of a statement.</p>
+
+    <p>Lastly, to end this brief overview of differences, let's take a closer look at indentation syntax in Python vs other languages.</p>
+
+    <h4>Indentation</h4>
+    <p>Here is some pseudocode to indicate the use of whitespace and indentation in Python:</p>
+    
+    <p><b>Other Languages</b></p>
+    <pre>
+        if (x)
+            if (y)
+                code statement
+        else
+            another-code-statement
+    </pre>
+
+    <p><b>Python</b></p>
+    <pre>
+        if x:
+            if y:
+                code statement
+        else:
+            another-code-statement
+    </pre>
+
+    <p>Note how Python is so heavily driven by code indentation and whitespace. This means that code readability is a core part of the design of the Python language.</p>
+
+    <h3><u>02 - if, else, and else Statements</u></h3>
+    <p><code>if</code> Statements in Python allow us to tell the computer to perform alternative actions based on a certain set of results.</p>
+    
+    <p>Verbally, we can imagine we are telling the computer:</p>
+
+    <p>"Hey! If this case happens, perform some action"</p>
+
+    <p>We can then expand the idea further with <code>elif</code> and <code>else</code> statements, which allow us to tell the computer:</p>
+
+    <p>"Hey! If this case happens, perform some action. Else, if another case happens, perform some other action. Else if <i>none</i> of the above cases happened, perform this action".</p>
+
+    <p>Let's go ahead and look at the syntax for <code>if</code> statements to get a better idea of this:</p>
+    <pre>
+        if case:
+            perform action1
+        elif case2: 
+            perform action2
+        else:
+            perform action3 
+    </pre>
+
+    <h4>First Example</h4>
+    <p>Let's see a quick example of this:</p>
+    <pre><code class="python">
+        if True:
+            print('It was true!')
+        <code>Output: It was True!</code>
+    </code></pre>
+
+    <p>Let's add in some else logic:</p>
+    <pre><code class="python">
+        x = False
+
+        if x:
+            print('x was True!')
+        else:
+            print('I will be printed in any case where x is not true')
+        <code>Output: I will be printed in any case where x is not true</code>
+    </code></pre>
+
+    <h4>Multiple Branches</h4>
+    <p>Let's get a fuller picture of how far <code>if</code>, <code>elif</code>, and <code>else</code> can take us!</p>
+    
+    <p>We write this out in a nested structure. Take note of how the <code>if</code>, <code>elif</code>, and <code>else</code> line up in the code. This can help you see what <code>if</code> is related to what <code>elif</code> or <code>else</code> statements.</p>
+
+    <p>We'll reintroduce a comparison syntax for Python.</p>
+    <pre><code class="python">
+        loc = 'Bank'
+
+        if loc == 'Auto Shop':
+            print('Welcome to the Auto Shop')
+        elif loc == 'Bank':
+            print('Welcome to the Bank')
+        else:
+            print('Where are you?')
+        <code>Output: Welcome to the Bank</code>
+    </code></pre>
+
+    <p>Note how the nested <code>if</code> statements are each checked until a True boolean causes the nested code below it to run. You should also note that you can put in as many <code>elif</code> statements as you want before you close off with an <code>else</code>.</p>
+
+    <p>Let's create two more simple examples for the <code>if</code>, <code>elif</code> and <code>else</code> statements.</p>
+
+    <pre><code class="python">
+        person = "Aarush"
+        
+        if person == 'Aarush':
+            print('Welcome Aarush!')
+        else:
+            print('Welcome, what's your name?)
+        <code>Output: Welcome Aarush!</code>
+    </code></pre>
+
+    <pre><code class="python">
+        person = 'Aarush'
+
+        if person == 'Aarush':
+            print('Welcome Aarush!')
+        elif person == 'John':
+            print('Welcome John!')
+        else:
+            print('Welcome, what's your name?)
+        <code>Output: Welcome Aarush!</code>
+    </code></pre>
+
+    <h4>Indentation</h4>
+    <p>It is important to keep a good understanding of how indentation works in Python to maintain the structure and order of your code.</p>
+
+    <h3><u>for Loops</u></h3>
+    <h4><b>for Loops</b></h4>
+    <p>A <code>for</code> loop acts as an iterator in Python; it goes through items that are in a <i>sequence</i> or any other iterable item. Objects that we've learned about that we can iterate over include strings, lists, tuples and even built-in iterables for dictionaries, such as keys or values.</p>
+    <p>We've already seen the <code>for</code> statement a little bit, but now let's formalise our understanding.</p>
+
+    <p>Here's the general format for a <code>for</code> loop in Python:</p>
+    <pre>
+        for item in object:
+            statements to do stuff
+    </pre>
+
+    <p>The variable name used for the item is completely up to the coder, so use your best judgement for choosing a name that makes sense and you will be able to understand when revisiting your code. The item name can then be referenced inside your loop, for exampled if you wanted to use <code>if</code> statements to perform checks.</p>
+
+    <p>Let's go ahead and work through several examples of <code>for</code> loops using a variety of data object types. We'll start simple and build more complexity later on.</p>
+
+    <h4>Example 1</h4>
+    <p>Iterating througn a list</p>
+    <pre><code class="python">
+        list1 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    </code></pre>
+
+    <pre><code class="python">
+        for num in list1:
+            print(num)
+        <code>Output:
+            1
+            2
+            3
+            4
+            5
+            6
+            7
+            8
+            9
+            10</code>
+    </code></pre>
+
+    <p>Great! Hopefully this makes sense. Now let's add an <code>if</code> statement to check for even numbers. We'll first introduce a new concept here --  the modulo.</p>
+    
+    <h4>Modulo</h4>
+    <p>The modulo allows us to get the remainder in a division and uses the % symbol. For example:</p>
+    <pre><code class="python">
+        17 % 5
+        <code>Output: 2</code>
+    </code></pre>
+
+    <p>This makes sense since 17 divided by 5 is 3 remainder 2. Let's see a few more quick examples:</p>
+    <pre><code class="python">
+        # 3 remainder 1
+        10 % 3
+        <code>Output: 1</code>
+    </code></pre>
+
+    <pre><code class="python">
+        # 2 remainder 4
+        18 % 7
+        <code>Output: 4</code>
+    </code></pre>
+
+    <pre><code class="python">
+        # no remainder
+        4 % 2
+        <code>Output: 0</code>
+    </code></pre>
+
+    <p>Notice that if a number is fully divisible with no remainder, the result of the modulo call is 0. We can use this to test for even numbers, since if a number modulo 2 is equal to 0, that means it is an even number.</p>
+
+    <p>Back to the <code>for</code> loops!</p>
+
+    <h4>Example 2</h4>
+    <p>Let's print only the even numbers from that list!</p>
+    <pre><code class="python">
+        for num in list1:
+            if num % 2 == 0:
+                print(num)
+        <code>Output:</code>
+            2
+            4
+            6
+            8
+            10
+    </code></pre>
+
+    <p>We could have also put an <code>else</code> statement in there:</p>
+    <pre><code class="python">
+        for num in list1:
+            if num % 2 == 0:
+                print(num)
+            else:
+                print('Odd Number')
+        <code>Output: 
+            Odd number
+            2
+            Odd number
+            4
+            Odd number
+            6
+            Odd number
+            8
+            Odd number
+            10</code>
+    </code></pre>
+    
+    <h4>Example 3</h4>
+    <p>Another common idea during a <code>for</code> loop is keeping some sort of running tally during multiple loops. For example, let's create a <code>for</code> loop that sums up the list:</p>
+    <pre><code class="python">
+        # Start sum at zero
+        list_sum = 0
+
+        for num in list1:
+            list_sum = list_sum + num
+
+        print(list_sum)
+        <code>Output: 55</code>
+    </code></pre>
+
+    <p>Great! Read over the above code snippet and make sure you fully understand what is going on. Also we could have implemented a <code>+=</code> to perform the addition towards the sum. For example:</p>
+    <pre><code class="python">
+        # Start sum at zero
+        list_sum = 0
+
+        for num in list1:
+            list_sum += num
+
+        print(list_sum)
+        <code>Output: 55</code>
+    </code></pre>
+
+    <h4>Example 4</h4>
+    <p>We've used <code>for</code> loops with lists, how about strings? Remember strings are a sequence so when we iterate through them we will be accessing each item in that string.</p>
+    <pre><code class="python">
+        for letter in 'This is a string':
+            print(letter)
+        <code>Output: 
+            T
+            h
+            i
+            s
+             
+            i
+            s
+             
+            a
+             
+            s
+            t
+            r
+            i
+            n
+            g</code>
+    </code></pre>
+
+    <h4>Example 5</h4>
+    <p>Let's now look at how a <code>for</code> loop can be used with a tuple:</p>
+    <pre><code class="python">
+        tup = (1, 2, 3, 4, 5)
+        
+        for t in tup:
+            print(t)
+        <code>Output:
+            1
+            2
+            3
+            4
+            5
+        </code>
+    </code></pre>
+
+    <h4>Example 6</h4>
+    <p>Tuples have a special quality when it comes to <code>for</code> loops. If you are iterating through a sequence that contains tuples, the item can actually be the tuple itself, this is an example of <i>tuple unpacking</i>. During the <code>for</code> loop we will be unpacking the tuple inside of a sequence and we can access the individual items inside that tuple!</p>
+    <pre><code class="python">
+        list2 = [(2, 4), (6, 8), (10, 12)]
+    </code></pre>
+
+    <pre><code class="python">
+        for tup in list2:
+            print(tup)
+        <code>Output:
+            (2, 4)
+            (6, 8)
+            (10, 12)
+        </code>
+    </code></pre>
+
+    <pre><code class="python">
+        # Now with unpacking!
+        for (t1, t2) in list2:
+            print(t1)
+        <code>Output:
+            2
+            6
+            10
+        </code>
+    </code></pre>
+
+    <p>Cool! With tuples in a sequence we can access the items inside of them through unpacking! The reason this is important is because many objects will deliver their iterables through tuples.</p>
+
+    <h4>Example 7</h4>
+    <pre><code class="python">
+        d = ('k1': 1, 'k2': 2, 'k3': 3)
+    </code></pre>
+
+    <pre><code class="python">
+        for item in d:
+            print(item)
+        <code>Output:
+            k1
+            k2
+            k3
+        </code>
+    </code></pre>
+
+    <p>Notice how this produces only the keys. So how can we get the values? Or both the keys and values?</p>
+
+    <p>We're going to introduce three new Dictionary methods: <b>.keys()</b>, <b>.values()</b> and <b>.items()</b>.</p>
+
+    <p>In Python each of these methods return a <i>dictionary view object</i>. It supports operations like membership test and iteration, but its contents are not independent of the original dictionary - it is only a view. Let's see it in action:</p>
+    <pre><code class="python">
+        # Create a dictionary view object
+        d.items()
+        <code>Output: dict_items([('k1', 1), ('k2', 2), ('k3', 3)])</code>
+    </code></pre>
+
+    <p>Since the .items() method supports iteration, we can perform <i>dictionary unpacking</i> to separate keys and values just as we did in the previous examples.</p>
+    <pre><code class="python">
+        # Dictionary Unpacking
+        for k, v in d.items():
+            print(k)
+            print(v)
+        <code>Output:
+            k1
+            1
+            k2
+            2
+            k3
+            3
+        </code>
+    </code></pre>
+
+    <p>If you want to obtain a true list of keys, values or key/value tuples, you can <i>cast</i> the view as a list:</p>
+    <pre><code class="python">
+        list(d.keys())
+        <code>Output: ['k1', 'k2', 'k3']</code>
+    </code></pre>
+
+    <p>Remember that dictionaries are unordered, and that keys and values come back in arbitrary order. You can obtain a sorted list using sorted():</p>
+    <pre><code class="python">
+        sorted(d.values())
+        <code>Output: [1, 2, 3]</code>
+    </code></pre>
+
+    <h4>Conclusion</h4>
+    <p>We've learned how to use for loops to iterate througn tuples, lists, strings and dictionaries. It will be an important tool, so make sure you know it well and understood the above examples.</p>
+    <p><a href="https://www.tutorialspoint.com/python/python_for_loop.htm">More Resources</a></p>
+
+    <h3><u>while Loops</u></h3>
+    <h4><b>while Loops</b></h4>
+    <p>The <code>while</code> statement in Python is one of the most general ways to perform iteration. A <code>while</code> will repeatedly execute a single statement or group of statements as long as the condition is true. The reason it is called a 'loop' is because the code statements are looped through over and over again until the condition is no longer met.</p>
+
+    <p>The general format of a while loop is:</p>
+    <pre>
+        while test:
+            code statements
+        else:
+            final code statements
+    </pre>
+
+    <p>Let's look at a few simple <code>while</code> loops in action.</p>
+    <pre><code class="python">
+        x = 0
+
+        while x < 10:
+            print('x is currently: ', x)
+            print(' x is still less than 10, adding 1 to x')
+            x += 1
+        <code>Output: 
+            x is currently:  0
+            x is still less than 10, adding 1 to x
+           x is currently:  1
+            x is still less than 10, adding 1 to x
+           x is currently:  2
+            x is still less than 10, adding 1 to x
+           x is currently:  3
+            x is still less than 10, adding 1 to x
+           x is currently:  4
+            x is still less than 10, adding 1 to x
+           x is currently:  5
+            x is still less than 10, adding 1 to x
+           x is currently:  6
+            x is still less than 10, adding 1 to x
+           x is currently:  7
+            x is still less than 10, adding 1 to x
+           x is currently:  8
+            x is still less than 10, adding 1 to x
+           x is currently:  9
+            x is still less than 10, adding 1 to x</code>
+    </code></pre>
+
+    <p>Notice how many times the print statements occured and how the <code>while</code> loop kept going until the True condition was met, which occured once x == 10. It's important to note that once this occurred the code stopped. Let's see how we could add an <code>else</code> statement.</p>
+    <pre><code class="python">
+        x = 0
+
+        while x < 10:
+            print('x is currently: ', x)
+            print(' x is still less than 10, adding 1 to x')
+            x += 1
+        else:
+            print("All Done!")
+        <code>Output:
+            x is currently:  0
+            x is still less than 10, adding 1 to x
+           x is currently:  1
+            x is still less than 10, adding 1 to x
+           x is currently:  2
+            x is still less than 10, adding 1 to x
+           x is currently:  3
+            x is still less than 10, adding 1 to x
+           x is currently:  4
+            x is still less than 10, adding 1 to x
+           x is currently:  5
+            x is still less than 10, adding 1 to x
+           x is currently:  6
+            x is still less than 10, adding 1 to x
+           x is currently:  7
+            x is still less than 10, adding 1 to x
+           x is currently:  8
+            x is still less than 10, adding 1 to x
+           x is currently:  9
+            x is still less than 10, adding 1 to x
+           All Done!</code>
+    </code></pre>
+
+    <h4>break, continue, pass</h4>
+    <p>We can use <code>break</code>, <code>continue</code> and <code>pass</code> statements in our loops to add additional functionality for various cases. The three statements are defined by:</p>
+    
+    <p style="font-size: 17px; font-family: monospace;">&emsp;&emsp;break: Breaks out of the current closest enclosing loop</p>
+    <p style="font-size: 17px; font-family: monospace;">&emsp;&emsp;continue: Goes to the top of the closest enclosing loop</p>
+    <p style="font-size: 17px; font-family: monospace;">&emsp;&emsp;pass: Does nothing at all.</p>
+
+    <p>Thinking about <code>break</code> and <code>continue</code> statements, the general format of the <code>while</code> loop looks like this:</p>
+    <pre>
+        while test:
+            code statement
+            if test:
+                break
+            if test:
+                continue
+        else:
+    </pre>
+
+    <p><code>break</code> and <code>continue</code> statements can appear anywhere inside the loop's body but we will usually put them in further nested in conjucntion with an <code>if</code> statement to perform an action based on some condition.</p>
+    
+    <p>Let's go ahead and look at some examples!</p>
+    <pre><code class="python">
+        x = 0
+
+        while x < 10:
+            print('x is currently ', x)
+            print(' x is still less than 10, adding 1 to x')
+            x += 1
+            if x == 3:
+                print('x == 3')
+            else:
+                print('continuing...')
+                continue
+        <code>Output: 
+            x is currently:  0
+            x is still less than 10, adding 1 to x
+           continuing...
+           x is currently:  1
+            x is still less than 10, adding 1 to x
+           continuing...
+           x is currently:  2
+            x is still less than 10, adding 1 to x
+           x==3
+           x is currently:  3
+            x is still less than 10, adding 1 to x
+           continuing...
+           x is currently:  4
+            x is still less than 10, adding 1 to x
+           continuing...
+           x is currently:  5
+            x is still less than 10, adding 1 to x
+           continuing...
+           x is currently:  6
+            x is still less than 10, adding 1 to x
+           continuing...
+           x is currently:  7
+            x is still less than 10, adding 1 to x
+           continuing...
+           x is currently:  8
+            x is still less than 10, adding 1 to x
+           continuing...
+           x is currently:  9
+            x is still less than 10, adding 1 to x
+           continuing...</code>
+    </code></pre>
+
+    <p>Note how we have a printed statement when x == 3, and continue being printed out as we continue through the outer while loop. Let's put in a break once x == 3 and see if the result makes sense:</p>
+    <pre><code class="python">
+        x = 0
+
+        while x < 10:
+            print('x is currently: ', x)
+            print(' x is still less than 10, adding 1 to x')
+            x += 1
+            if x == 3:
+                print('Breaking because x == 3')
+                break
+            else:
+                print('continuing...')
+                continue
+        <code>Output: 
+            x is currently:  0
+            x is still less than 10, adding 1 to x
+           continuing...
+           x is currently:  1
+            x is still less than 10, adding 1 to x
+           continuing...
+           x is currently:  2
+            x is still less than 10, adding 1 to x
+           Breaking because x==3</code>
+    </code></pre>
+
+    <p>Note how the other <code>else</code> statement wasn't reached and continuing was never printed!</p>
+
+    <p>After these brief but simple examples, you should feel comfortable using <code>while</code> statements in your code.</p>
+
+    <p><b>A word of caution however! It is possible to create an infinitely running loop with <code>while</code> statements. For example:</b></p>
+    <pre><code class="python">
+        # DO NOT RUN THIS CODE!
+        while True:
+            print('I'm in an infinite loop')
+    </code></pre>
+
+    <p>A quick note: If you <i>did</i> run the above cell, click on the Kernel menu above to restart the kernel!</p>
+
+    <h3><u>Useful Operators</u></h3>
+    <h4><b>Useful Operators</b></h4>
+    <p>There are a few built-in functions and "operators" in Python that don't fit well into any category, so we will go over them in this section.</p>
+
+    <h4>range</h4>
+    <p>The range function allows you to quickly <i>generate</i> a list of integers, this comes in handy a lot, so take not of how to use it! There are 3 parameters you can pass, a start, a stop, and a step size. Let's see some examples:</p>
+    <pre><code class="python">
+        range(0, 11)
+        <code>Output: range(0, 11)</code>
+    </code></pre>
+
+    <p>Note that this is a <b>generator</b> function, so to actually get a list out of it, we need to cast it to a list with <b>list()</b>. What is a generator? It's a special type of function that will generate information and do not need to save it to memory.</p>
+    <pre><code class="python">
+        # Notice how 11 is not included, up to but not including 11, just like slice notation!
+        list(range(0, 11))
+        <code>Output: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]</code>
+    </code></pre>
+
+    <pre><code class="python">
+        list(range(0, 12))
+        <code>Output: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]</code>
+    </code></pre>
+
+    <pre><code class="python">
+        # Third parameter is step size
+        # step size just means how big of a jump/leap/step you take from the starting number to get to the next number
+        list(range(0, 11, 2))
+        <code>Output: [0, 2, 4, 6, 8, 10]</code>
+    </code></pre>
+
+    <pre><code class="python">
+        list(range(0, 101, 10))
+        <code>Output: [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]</code>
+    </code></pre>
+
+    <h4>enumerate</h4>
+    <p>enumerate is a very useful function to use with for loops. Let's imagine the following situation:</p>
+    <pre><code class="python">
+        index_count = 0
+
+        for letter in 'abcde':
+            print("At index {} the letter is {}".format(index_count, letter))
+            index_count += 1
+        <code>Output:
+            At index 0 the letter is a
+            At index 1 the letter is b
+            At index 2 the letter is c
+            At index 3 the letter is d
+            At index 4 the letter is e</code>
+    </code></pre>
+
+    <p>Keeping track of how many loops you've gone through is so common, that enumerate was created so you don't need to worry about creating and updating this index_count or loop_count varianble.</p>
+    <pre><code class="python">
+        # Notice the tuple unpacking!
+
+        for i, letter in enumerate('abcde'):
+            print('At index {} the letter is {}'.format(i, letter))
+        <code>Output: 
+            At index 0 the letter is a
+            At index 1 the letter is b
+            At index 2 the letter is c
+            At index 3 the letter is d
+            At index 4 the letter is e
+            </code>
+    </code></pre>
+
+    <h4>zip</h4>
+    <p>Notice the format enumerate actually returns, let's take a look by transforming it to a list():</p>
+    <pre><code class="python">
+        list(enumerate('abcde'))
+        <code>Output: [(0, 'a'), (1, 'b'), (2, 'c'), (3, 'd'), (4, 'e')]</code>
+    </code></pre>
+
+    <p>It was a list of tuples, meaning we could use tuple unpacking during our for loop. This data structure is actually very common in Python, especially when working with outside libraries. You can use the <b>zip()</b> function to quickly create a list of tuple by "zipping" up together two lists.</p>
+    <pre><code class="python">
+        mylist1 = [1, 2, 3, 4, 5]
+        mylist2 = ['a', 'b', 'c', 'd', 'e']
+    </code></pre>
+
+    <pre><code class="python">
+        # This one is also a generator!
+        zip(mylist1, mylist2)
+        <code>Output: &lt;zip at 0x1d205086f08&gt;</code>
+    </code></pre>
+
+    <pre><code class="python">
+        list(zip(mylist1, mylist2))
+        <code>Output: [(1, 'a'), (2, 'b'), (3, 'c'), (4, 'd'), (5, 'e')]</code>
+    </code></pre>
+
+    <p>To use the generator, we could just use a for loop:</p>
+    <pre><code class="python">
+        for item1, item2 in zip(mylist1, mylist2):
+            print('For this tuple, first item was {} and second item was {}'.format(item1, item2))
+        <code>Output: 
+            For this tuple, first item was 1 and second item was a
+            For this tuple, first item was 2 and second item was b
+            For this tuple, first item was 3 and second item was c
+            For this tuple, first item was 4 and second item was d
+            For this tuple, first item was 5 and second item was e</code>
+    </code></pre>
+
+    <h4>in operator</h4>
+    <p>We've already seen the <b>in</b> keyword during the for loop, but we can also use it to quickly check if an object is in a list.</p>
+    <pre><code class="python">
+        'x' in ['x', 'y', 'z']
+        <code>Output: True</code>
+    </code></pre>
+
+    <pre><code class="python">
+        'x' in [1, 2, 3]
+        <code>Output: False</code>
+    </code></pre>
+
+    <h4>not in</h4>
+    <p>We can combine <b>in</b> with a <b>not</b> operator, to check if some object or variable is not present in a list.</p>
+    <pre><code class="python">
+        'x' not in ['x', 'y', 'z']
+        <code>Output: False</code>
+    </code></pre>
+
+    <pre><code class="python">
+        'x' not in [1, 2, 3]
+        <code>Output: True</code>
+    </code></pre>
+
+    <h4>min and max</h4>
+    <p>Quickly check the minimum and maximum of a list with these functions.</p>
+    <pre><code class="python">
+        mylist = [10, 20, 30, 40, 100]
+    </code></pre>
+
+    <pre><code class="python">
+        min(mylist)
+        <code>Output: 10</code>
+    </code></pre>
+
+    <pre><code class="python">
+        max(mylist)
+        <code>Output: 100</code>
+    </code></pre>
+
+    <h4>random</h4>
+    <p>Python comes in with a built-in random library. There are a lot of functions included in this random library, so we will only show you two useful functions for now.</p>
+    <pre><code class="python">
+        from random import shuffle
+    </code></pre>
+
+    <pre><code class="python">
+        # This shuffles the list "in-place" meaning it won't return anything.
+        # Instead, it will affect the list passed
+        shuffle(mylist)
+    </code></pre>
+
+    <pre><code class="python">
+        mylist
+        <code>Output: [20, 30, 100, 40, 10]</code>
+    </code></pre>
+    
+    <pre><code class="python">
+        from random import randint
+    </code></pre>
+
+    <pre><code class="python">
+        # Return random integer in range [a, b], including both end points
+        randint(0, 100)
+        <code>Output: 30</code>
+    </code></pre>
+
+    <pre><code class="python">
+        # Return random integer in range [a, b], including both end points
+        randint(0, 100)
+        <code>Output: 23</code>
+    </code></pre>
+
+    <h4>input</h4>
+    <pre><code class="python">
+        input('Enter Something into this box: ')
+        <code>Output: Enter Something into this box: great job!
+            'great job!'
+        </code>
+    </code></pre>
+
+    <h3><u>List Comprehensions</u></h3>
+    <h4><b>List Comprehensions</b></h4>
+
+    <p>In addition to sequence operations and list methods, Python includes a more advanced operation called a list comprehension.</p>
+
+    <p>List comprehensions allow us to build out lists using a different notation. You can think of it as essentially a one line <code>for</code> loop built inside of brackets. For a simple example:</p>
+
+    <h4>Example 1</h4>
+    <pre><code class="python">
+        # Grab every letter in the string
+        lst = [x for x in 'word']
+    </code></pre>
+
+    <pre><code class="python">
+        # Check
+        lst
+        <code>Output: ['w', 'o', 'r', 'd']</code>
+    </code></pre>
+
+    <p>This is the basic idea of a list comprehension. If you're familiar with mathematic notation this format should feel familiar: x ^ 2: x in {0, 1, 2... 10}</p>
+
+    <p>Let's see a few more examples of list comprehensions in Python:</p>
+
+    <h4>Example 2</h4>
+    <pre><code class="python">
+        # Square numbers in range and turn into a list
+        lst = [x ** 2 for x in range(0, 11)]
+    </code></pre>
+
+    <pre><code class="python">
+        lst
+        <code>Output: [0, 1, 4, 9, 16, 25, 36, 49, 64, 81, 100]</code>
+    </code></pre>
+
+    <h4>Example 3</h4>
+    <p>Let's see how to add in <code>if</code> statements:</p>
+    <pre><code class="python">
+        # Check for even numbers in a range
+        lst = [x for x in range(11) if x % 2 == 0]
+    </code></pre>
+
+    <pre><code class="python">
+        lst
+        <code>Output: [0, 2, 4, 6, 8, 10]</code>
+    </code></pre>
+
+    <h4>Example 4</h4>
+    <p>Can also do more complicated arithmetic:</p>
+    <pre><code class="python">
+        # Convert Celcius to Fahrenheit
+        celcius = [0, 10, 20.1, 34.5]
+        fahrenheit = [((9 / 5) * temp + 32) for temp in celcius]
+
+        fahrenheit
+        <code>Output: [32.0, 50.0, 68.18, 94.1]</code>
+    </code></pre>
+
+    <h4>Example 5</h4>
+    <p>We can also perform nested list comprehensions, for example:</p>
+    <pre><code class="python">
+        lst = [x ** 2 for x in [x ** 2 for x in range(11)]]
+        lst
+        <code>Output: [0, 1, 16, 81, 256, 625, 1296, 2401, 4096, 6561, 10000]</code>
+    </code></pre>
+</body>
+</html>

@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/highlight.min.js"></script>
+    <meta charset="utf-8">
+    <title>Python Errors and Exceptions Documentation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+    <h2><b>07 - Errors and Exceptions</b></h2>
+    <h3><u>Errors and Exception Handling</u></h3>
+    <h4><b>Errors and Exception Handling</b></h4>
+    <p>In this section, we will learn about Errors and Exception Handling in Python. You've definitely already encountered errors by this point. For example:</p>
+    <pre><code class="python">
+        print('Hello)
+    </code></pre>
+    <code>Output: <b style="color:turquoise">File</b> <b style="color:darkgreen">"&lt;ipython-input-1-db8c9988558c&gt;</b><b style="color:turquoise">, line </b><b style="color:darkgreen">1</b> <br> &emsp;&emsp; <b style="color:goldenrod">print('Hello)</b><sub>^</sub> <br> <b style="color:maroon">SyntaxError:</b> EOL while scanning string literal</code>
+
+    <p>Note how we get a SyntaxError, with the further description that it was an EOL (End of Line Error) while scanning the string literal. This is specific enough for us to see that we forgot a single quote at the end of the line. Understanding these various error types will help you debug your code much faster.</p>
+
+    <p>This type of error and description is known as an Exception. Even if a statement or expression is syntactically correct, it may cause an error when an attempt is made to execute it. Errors detected during exeuction are called exceptions and are not unconditionally fatal.</p>
+
+    <p>You can check out the full list of built-in exceptions <a href="https://docs.python.org/3/library/exceptions.html">here</a>. Now let's learn how to handle errors and exceptions in our own code.</p>
+
+    <h4>try and except</h4>
+    <p>The basic terminology and syntax used to handle errors in Python are the <code>try</code> and <code>except</code> statements. The code which can cause an exception to occur is put in the <code>try</code> block and the handling of the exception is then implemented in the <code>except</code> block of code. The syntax follows:</p>
+    <pre>
+        try:
+            You do your operations here...
+            ...
+        except ExceptionI:
+            If there is ExceptionI, then execute this block.
+        except ExceptionII:
+            If there is ExceptionII, then execute this block
+            ...
+        else:
+            If there is no exception then execute this block
+    </pre>
+
+    <p>We can also check for any exception with just using <code>except:</code>. To get a better understanding of all this, let's check out an example. We will look at some code that opens and writes a file:</p>
+    <pre><code class="python">
+        try:
+            f = open('testfile', 'w')
+            f.write('Test write this')
+
+        except IOError:
+            # This will only check for an IOError exception and then execute this print statement
+            print('Error: Could not find file or read data')
+        else:
+            print('Content written successfully')
+            f.close()
+        <code>Output: Content written successfully</code>
+    </code></pre>
+
+    <p>Now let's see what would happen if we did not have write permission (opening only with 'r'):</p>
+    <pre><code class="python">
+        try:
+            f = open('testfile', 'r')
+            f.write('Test write this')
+
+        except IOError:
+            # This will only check for an IOError exception and then execute this print statement
+            print('Error: Could not find file or read data')
+        else:
+            print('Content written successfully')
+            f.close()
+        <code>Output: Error: could not find file or read data</code>
+    </code></pre>
+    
+    <p>Great! Notice how we only printed a statement! The code still ran and we were able to continue doing actions and running code blocks. This is extremely useful when you have to account for possible input errors in your code. You can be prepared for the error and keep running code, instead of your code just breaking as we saw above.</p>
+
+    <p>We could have also just said <code>except:</code> if we weren't sure what exception would occur. For example:</p>
+    <pre><code class="python">
+        try:
+            f = open('testfile', 'r')
+            f.write('Test write this')
+        except:
+            # This will only check for an IOError exception and then execute this print statement
+            print('Error: Could not find file or read data')
+        else:
+            print('Content written successfully')
+            f.close()
+        <code>Output: Error: Could not find file or read data</code>
+    </code></pre>
+
+    <p>Great! Now we don't actually need to memorise that list of exception types! Now what if we keep wanting to run code after the exception occured? This is where <code>finally</code> comes in.</p>
+
+    <h4>finally</h4>
+    <p>The <code>finally:</code> block of code will always be run regardless if there was an exception in the <code>try</code> code block. The syntax is:</p>
+    <pre>
+        try:
+            Code block here
+            ...
+            Due to any exception, this code may be skipped!
+        finally:
+            This code block would always be executed.
+    </pre>
+
+    <p>For example:</p>
+    <pre><code class="python">
+        try:
+            f = open('testfile.txt', 'r')
+            f.write('Test write statement')
+            f.close()
+        finally:
+            print('Always execute finally code blocks')
+        <code>Output:Always execute finally code blocks</code>
+    </code></pre>
+
+    <p>We can use this in conjunction with <code>except</code>. Let's see a new example that will take into account a user providing the wrong input:</p>
+    <pre><code class="python">
+        def askint():
+            try:
+                val = int(input('Please enter an integer: '))
+            except:
+                print('Looks like you did not enter an integer!')
+            finally:
+                print('Finally, I executed!')
+            print(val)
+    </code></pre>
+
+    <pre><code class="python">
+        askint()
+        <code>Output:
+            Please enter an integer: 4
+            Finally, I executed!
+            4
+        </code>
+    </code></pre>
+
+    <pre><code class="python">
+        askint()
+        <code>Output:
+            Please enter an integer: five
+            Looks like you did not enter an integer!
+            Finally, I executed!
+        </code>
+    </code></pre>
+    <code>Output: <b style="color:maroon">UnboundLocalError</b>     Traceback (most recent call last) <br> <b style="color:darkgreen">&lt;ipython-input-8-cc291aa76c10&gt;</b> in <b style="color:turquoise">&lt;module&gt;</b><b style="color:darkblue">()</b> <br> <b style="color:darkgreen">----> 1</b> askint<b style="color:goldenrod">()</b> <br><br> <b style="color:darkgreen">&lt;ipython-input-6-c9dd1c7d524&gt;</b> in <b style="color:turquoise">askint</b><b style="color:darkblue">()</b> <br>&emsp;&emsp;7    <b style="color:darkgreen">finally</b><b style="color:goldenrod">:</b> <br>&emsp;&emsp;8&emsp;&emsp;&emsp;&emsp;print<b style="color:goldenrod">(</b><b style="color:darkblue">'Finally, I executed!'</b><b style="color:goldenrod">)</b><br><b style="color:darkgreen">----></b> 9 &emsp;&emsp;print<b style="color:goldenrod">(</b>val<b style="color:goldenrod">)</b> <br> <b style="color:maroon">UnboundLocalError</b>: local variable 'val' referenced before assignment</code>
+
+    <p>Notice how we get an error when trying to print val (because it was never properly assigned). Let's remedy this by asking the user and checking to make sure the input type is an integer:</p>
+    <pre><code class="python">
+        def askint():
+            try:   
+                val = int(input('Please enter an integer: '))
+            except:
+                print('Looks like you did not enter an integer!')
+                val = int(input('Try again - Please enter an integer: '))
+            finally:
+                print('Finally, I executed!')
+            print(val)
+        <code>Output:
+            Please enter an integer: five
+            Looks like you did not enter an integer!
+            Try again - please enter an integer:
+            Finally, I executed!
+        </code>
+    </code></pre>
+    <code>Output:</code><br>
+    <img src="error.png" style="width:365px;">
+
+   
+    <p>Hmm... that did only one check. How can we continually keep checking? We can use a while loop!</p>
+    <pre><code class="python">
+        def askint():
+            while True:
+                try:
+                    val = int(input('Please enter an integer: '))
+                except:
+                    print('Looks like you did not enter an integer!')
+                    continue
+                else:
+                    print('Yep, that's an integer!)
+                    break
+                finally:
+                    print('Finally, I executed!')
+                print(val)
+    </code></pre>
+
+    <pre><code class="python">
+        askint()
+    <code>Output: 
+        Please enter an integer: five
+        Looks like you did not enter an integer!
+        Finally, I executed!
+        Please enter an integer: four
+        Looks like you did not enter an integer!
+        Finally, I executed!
+        Please enter an integer: 3
+        Yep that's an integer!
+        Finally, I executed!</code>
+    </code></pre>
+
+    <p>So why did our function print "Finally, I executed!" after each trial, yet it never printed <code>val</code> itself? This is because with a try/except/finally clause, any <code>continue</code> or <code>break</code> statements are reserved until <i>after</i> the try clause is completed. This means that even though a successful input of <b>3</b> brought us to <code>else:</code> block and a <code>break</code> statement was thrown, and the try clause continued through to <code>finally:</code> before breaking out of the while loop. And since <code>print(val)</code> was outside the try clause, the <code>break</code> statement prevented it from running.</p>
+
+    <p>Let's make one final adjustment:</p>
+    <pre><code class="python">
+        def askint():
+            while True:
+                try:
+                    val = int(input('Please enter an integer: '))
+                except:
+                    print('Looks like you did not enter an integer!')
+                    continue
+                else:
+                    print('Yep, tha's an integer!)
+                    print(val)
+                    break
+                finally:
+                    print('Finally, I executed!')
+    </code></pre>
+
+    <pre><code class="python">
+        askint()
+        <code>Output:
+            Please enter an integer: six
+            Looks like you did not enter an integer!
+            Finally, I executed!
+            Please enter an integer: 6
+            Yep that's an integer!
+            6
+            Finally, I executed!</code>
+    </code></pre>
+
+    <p><b>Great! Now you know how to handle errors and exceptions in Python with the try, except, else and finally notation!</b></p>
+
+    <h3><u>Unit Testing</u></h3>
+    <h4><b>Unit Testing</b></h4>
+    <p>Equally important as writing good code is writing good tests. Better to find bugs yourself than have them reported to you by end users!</p>
+
+    <p>For this section we'll be working with files outside the notebook. We'll save our code to a .py file, and then save our test script to another .py file. Normally we would code these files using a text editor like Brackets or Atom, or inside an IDE like Spyder or Pycharm. But since we're here, let's use Jupyter!</p>
+
+    <p>Recall that with some IPython magic we can write the contents of a cell to a file using <code>%%writefile</code>.</p>
+
+    <p>Something we haven't seen yet; you can run terminal commands from a jupyter cell using <code>!</code></p>
+
+    <h4>Testing Tools</h4>
+    <p>There are dozens of good testing libraries out there. Most are third-party packages that require an install, such as:</p>
+    <ul>
+        <li><a href="https://www.pylint.org/">pylint</a></li>
+        <li><a href="https://pypi.org/project/pyflakes/">pyflakes</a></li>
+        <li><a href="https://pypi.org/project/pep8/">pep8</a></li>
+    </ul>
+
+    <p>These are simple tools that merely look at your code, and they'll tell you if there are style issues or simple problems like variable names being called before assignment.</p>
+
+    <p>A far better way to test your code is to write tests that send sample data to your program, and compare what's returned to a desired outcome.</p>
+
+    <p>Two such tools are available from the standard library:</p>
+    <ul>
+        <li><a href="https://docs.python.org/3/library/unittest.html">unittest</a></li>
+        <li><a href="https://docs.python.org/3/library/doctest.html">doctest</a></li>
+    </ul>
+
+    <p>Let's look at pylint first, then we'll do some heavier lifting with unittest.</p>
+
+    <h4><code>pylint</code></h4>
+    <p><code>pylint</code> tests for style as well as some very basic program logic.</p>
+
+    <p>First, if you don't have it already (and you probably do, as it's part of the Anaconda distribution), you should install <code>pylint</code>.</p>
+    
+    <p>Once that's done feel free to comment out the cell, you won't need it anymore</p>
+    <pre><code class="python">
+        ! pip install pylint
+    </code></pre>
+
+    <p>Let's save a very simple script:</p>
+    <pre><code class="python">
+        %%writefile simple1.py
+        a = 1
+        b = 2
+        print(a)
+        print(B)
+        <code>Output: Overwriting simple1.py</code>
+    </code></pre>
+
+    <p>Now let's check it using pylint</p>
+    <pre><code class="python">
+        ! pylint simple1.py
+        <code>Output: 
+            ************* Module simple1
+            C:  4, 0: Final newline missing (missing-final-newline)
+            C:  1, 0: Missing module docstring (missing-docstring)
+            C:  1, 0: Invalid constant name "a" (invalid-name)
+            C:  2, 0: Invalid constant name "b" (invalid-name)
+            E:  4, 6: Undefined variable 'B' (undefined-variable)
+            
+            ---------------------------------------------------------------------
+            
+            Your code has been rated at -12.50/10 (previous run: 8.33/10, -20.83)
+            
+            No config file found, using default configuration
+        </code>
+    </code></pre>
+
+    <p>Pylint first lists some styling issues - it would like to see an extra newline at the end, modules and function definitions should have descriptive docstrings, and single characters are a poor choice for variable names.</p>
+
+    <p>More importantly, however, pylint defined an error in our program - a variable called before assignment. This needs fixing.</p>
+
+    <p>Note that pylint scored our program a negative 12.5 out of 10. Let's try to improve that!</p>
+    <pre><code class="python">
+        %%writefile simpe1.py
+        """
+        A very simple script
+        """
+
+        def myfunc():
+            """
+            An extremely simple function
+            """
+            first = 1
+            second = 2
+            print(first)
+            print(second)
+
+        myfunc()
+        <code>Output: Overwriting simple1.py</code>
+    </code></pre>
+
+    <pre><code class="python">
+        ! pylint simpe1.py
+        <code>Output: 
+            ************* Module simple1
+            C: 14, 0: Final newline missing (missing-final-newline)
+            
+            ---------------------------------------------------------------------
+            
+            Your code has been rated at 8.33/10 (previous run: -12.50/10, +20.83)
+            
+            
+            
+            No config file found, using default configuration</code>
+    </code></pre>
+
+    <p>Much better! Our score climbed to 8.33 out of 10. Unfortunately, the final newline has to do with how Jupyter writes to a file, and there's not much we can do about that here. Still, pylint helped us troubleshoot some of our problems. But what if the problem was more complex?</p>
+    <pre><code class="python">
+        %%writefile simple2.py
+        """
+        A very simple script
+        """
+
+        def myfunc():
+            """
+            An extremely simple function
+            """
+            first = 1
+            second = 2
+            print(first)
+            print('second')
+
+        myfunc()
+        <code>Output: Overwriting simple2.py</code>
+    </code></pre>
+
+    <pre><code class="python">
+        ! pylint simple2.py
+        <code>Output: 
+            ************* Module simple2
+            C: 14, 0: Final newline missing (missing-final-newline)
+            W: 10, 4: Unused variable 'second' (unused-variable)
+            
+            ------------------------------------------------------------------
+            
+            Your code has been rated at 6.67/10 (previous run: 6.67/10, +0.00)
+            
+            
+            
+            No config file found, using default configuration</code>
+    </code></pre>
+
+    <p>pylint tells us there's an unused variable in line 10, but it doesn't know we might get an unexpected output from line 12! For this we need a more robust set of tools. That's where <code>unittest</code> comes in.</p>
+
+    <h4><code>unittest</code></h4>
+    <p><code>unittest</code> lets you write your own test programs. The goal is to send a specific set of data to your program, and analyse the returned results against an unexpected result.</p>
+
+    <p>Let's generate a simple script that capitalises words in a given string. We'll call it <b>cap.py</b>.</p>
+    <pre><code class="python">
+        %%writefile cap.py
+
+        def cap_text(text):
+            return text.capitalize()
+        <code>Output: Overwriting cap.py</code>
+    </code></pre>
+
+    <p>Now we'll write a test script. We can call it whatever we want, but <b>test_cap.py</b> seems an obvious choice.</p>
+
+    <p>When writing test functions, it's best to go from simple to complex, as each function will be run in order. Here we'll test simple, one-word strings, followed by a test of multiple word strings.</p>
+    <pre><code class="python">
+        %%writefile test_cap.py
+        import unittest
+        import cap
+
+        class TestCap(unittest.TestCase):
+            def test_one_word(self):
+                text = 'python'
+                result = cap.cap_text(self)
+                self.assertEqual(result, 'Python')
+
+            def test_multiple_words(self):
+                text = 'monty python'
+                result = cap.cap_text(self)
+                self.assertEqual(result, 'Monty Python')
+
+        if __name__ == '__main__':
+            unittest.main()
+        <code>Output: Overwriting test_cap.py</code>
+    </code></pre>
+
+    <pre><code class="python">
+        ! python test_cap.py
+        <code>Output: 
+            F.
+            ======================================================================
+            FAIL: test_multiple_words (__main__.TestCap)
+            ----------------------------------------------------------------------
+            Traceback (most recent call last):
+              File "test_cap.py", line 14, in test_multiple_words
+                self.assertEqual(result, 'Monty Python')
+            AssertionError: 'Monty python' != 'Monty Python'
+            - Monty python
+            ?       ^
+            + Monty Python
+            ?       ^
+            
+            
+            ----------------------------------------------------------------------
+            Ran 2 tests in 0.000s
+            
+            FAILED (failures=1)</code>
+    </code></pre>
+
+    <p>What happened? It turns out that the <code>capitalize()</code> method only capitalises the first letter of the first word in a string. Doing a little research on string methods, we find that <code>.title()</code> might give us what we want.</p>
+    <pre><code class="python">
+        %%writefile cap.py
+        def cap_text(text):
+            return text.title() # replace .capitalize() with .title()
+        <code>Output: Overwriting cap.py</code>
+    </code></pre>
+
+    <pre><code class="python">
+        ! python test_cap.py
+        <code>Output: 
+            ..
+            ----------------------------------------------------------------------
+            Ran 2 tests in 0.000s
+            
+            OK</code>
+    </code></pre>
+
+    <p>Hey, it passed! But have we tested all cases? Let's add another test to <b>test_cap.py</b> to see if it handles words with apostrophes, like <i>don't</i>.</p>
+    
+    <p>In a text editor this would be easy, but in Jupyter we have to start from scratch.</p>
+    <pre><code class="python">
+        %%writefile test_cap.py
+        import unittest
+        import cap
+
+        class TestCap(unittest.TestCase):
+            def test_one_word(self):
+                text = 'python'
+                result = cap.cap_text(self)
+                self.assertEqual(result, 'Python')
+
+            def test_multiple_words(self):
+                text = 'monty python'
+                result = cap.cap_text(self)
+                self.assertEqual(result, 'Monty Python')
+
+            def test_with_apostrophes(self):
+                text = "monty python's flying circus"
+                result = cap.cap_text(self)
+                self.assertEqual(result, "Monty Python's Flying Circus")
+
+        if __name__ = '__main__':
+            unittest.main()
+        <code>Output: Overwriting test_cap.py</code>
+    </code></pre>
+
+    <pre><code class="python">
+        ! python test_cap.py
+        <code>Output: 
+            ..F
+            ======================================================================
+            FAIL: test_with_apostrophes (__main__.TestCap)
+            ----------------------------------------------------------------------
+            Traceback (most recent call last):
+              File "test_cap.py", line 19, in test_with_apostrophes
+                self.assertEqual(result, "Monty Python's Flying Circus")
+            AssertionError: "Monty Python'S Flying Circus" != "Monty Python's Flying Circus"
+            - Monty Python'S Flying Circus
+            ?              ^
+            + Monty Python's Flying Circus
+            ?              ^
+            
+            
+            ----------------------------------------------------------------------
+            Ran 3 tests in 0.000s
+            
+            FAILED (failures=1)</code>
+    </code></pre>
+
+    <p>Now we have to find a solution that handles apostrophes! There is one (look up <code>capwords</code> from the <code>string</code> module) but we'll leave that as an excerise for the reader.</p>
+
+    <p>Great! Now you should have a basic understanding of unit testing!</p>
+</body>
+</html>

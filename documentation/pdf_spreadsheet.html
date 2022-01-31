@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/highlight.min.js"></script>
+    <meta charset="utf-8">
+    <title>Python PDFs and Spreadsheets Documentation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+    <h2><b>PDFs and Spreadsheets</b></h2>
+    <h3><u>Working with CSV Files</u></h3>
+    <h4><b>Working with CSV Files</b></h4>
+    <p>Let's discuss how to work with CSV files in Python. A file with the CSV file extension is a Comma Separated Value file. All CSV files are plain text, contain alphanumeric characters, and structure the data contained within them in a tabular form. Don't confuse Excel files with csv files, while csv files are formatted very similarly to excel files, they don't have data types for their values, they are all strings with no font or colour. They also don't have worksheets the way an excel file does. Python does have libraries for working with Excel files, you check them out <a href="https://www.python-excel.org/">here</a> and <a href="https://www.xlwings.org/">here</a>.</p>
+
+    <p>Files in the CSV format are generally used to exchange data, usually when there's a large amount, between different applications. Database programs, analytical software, and other applications that store massive amounts of information (like contacts and customer data), will usually support the CSV format.</p>
+
+    <p>Let's explore how we can open a csv file with Python's built-in csv library.</p>
+    <hr>
+
+    <h4>Notebook Locations</h4>
+    <p>Run <b>pwd</b> inside a notebook cell to find out where your notebook is located.</p>
+    <pre><code class="python">
+        pwd
+        <code>Output: /Users/aarush/Desktop/zero\ to\ hero\ python\ bootcamp\ stuff</code>
+    </code></pre>
+    <hr>
+
+    <h4>Reading CSV Files</h4>
+    <pre><code class="python">
+        import csv
+    </code></pre>
+
+    <p>When passing in the file path, make sure to include the extension if it has one, you should be able to Tab Autocomplete the file name. If you can't Tab autocomplete that is a good indicator your file is not in the same location as your notebook. You can always type in the entire file path (it will look similar in formatting to the output of <b>pwd</b>.</p>
+    <pre><code class="python">
+        data = open('example.csv')
+    </code></pre>
+
+    <pre><code class="python">
+        data
+        <code>Output: &lt;_io.TextIOWrapper name='example.csv' mode='r' encoding='cp1252'&gt;</code>
+    </code></pre>
+
+    <h4>Encoding</h4>
+    <p>Often csv files may contain characters that you can't interpret with standard Python, this could be something like an <b>@</b> symbol, or even foreign characters. Let's view an example of this sort of error (<a href="https://stackoverflow.com/questions/9233027/unicodedecodeerror-charmap-codec-cant-decode-byte-x-in-position-y-character">it's pretty common, so it's important to go over</a>)</p>
+    <pre><code class="python">
+        csv_data = csv.reader(data)
+    </code></pre>
+
+    <p>Cast to a list will give an error, note the <b>can't decode</b> line in the error, this is a giveaway that we have an encoding problem!</p>
+    <pre><code class="python">
+        data_lines = list(csv_data)
+    </code></pre>
+    <code>Output: </code> <img src="afec.png" style="width:600px;">
+
+    <p>Let's not try reading it with a "utf-8" encoding.</p>
+    <pre><code class="python">
+        data = open('example.csv', encoding="utf-8")
+        csv_data = csv.reader(data)
+        data_lines = list(csv_data)
+    </code></pre>
+
+    <pre><code class="python">
+        # Looks like it worked!
+        data_lines[:3]
+        <code>Output: 
+            [['id', 'first_name', 'last_name', 'email', 'gender', 'ip_address', 'city'],
+            ['1',
+             'Joseph',
+             'Zaniolini',
+             'jzaniolini0@simplemachines.org',
+             'Male',
+             '163.168.68.132',
+             'Pedro Leopoldo'],
+            ['2',
+             'Freida',
+             'Drillingcourt',
+             'fdrillingcourt1@umich.edu',
+             'Female',
+             '97.212.102.79',
+             'Buri']]</code>
+    </code></pre>
+
+    <p>Note the first item in the list is the header line, this contains the information about what each column represents. Let's format our printing just a bit:</p>
+    <pre><code class="python">
+        for line in data_lines[:5]:
+            print(line)
+        <code>Output: 
+            ['id', 'first_name', 'last_name', 'email', 'gender', 'ip_address', 'city']
+            ['1', 'Joseph', 'Zaniolini', 'jzaniolini0@simplemachines.org', 'Male', '163.168.68.132', 'Pedro Leopoldo']
+            ['2', 'Freida', 'Drillingcourt', 'fdrillingcourt1@umich.edu', 'Female', '97.212.102.79', 'Buri']
+            ['3', 'Nanni', 'Herity', 'nherity2@statcounter.com', 'Female', '145.151.178.98', 'Claver']
+            ['4', 'Orazio', 'Frayling', 'ofrayling3@economist.com', 'Male', '25.199.143.143', 'Kungur']</code>
+    </code></pre>
+
+    <p>Let's imagine we wanted a list of all the emails. For demonstration, since there are 1000 items plus the header, we will only do a few rows.</p>
+    <pre><code class="python">
+        len(data_lines)
+        <code>Output: 1001</code>
+    </code></pre>
+
+    <pre><code class="python">
+        all_emails = []
+        for line in data_lines[1:15]:
+            all_emails.append(line[3])
+    </code></pre>
+
+    <pre><code class="python">
+        print(all_emails)
+        <code>Output: 
+            ['jzaniolini0@simplemachines.org', 'fdrillingcourt1@umich.edu', 'nherity2@statcounter.com', 'ofrayling3@economist.com', 'jmurrison4@cbslocal.com', 'lgamet5@list-manage.com', 'dhowatt6@amazon.com', 'kherion7@amazon.com', 'chedworth8@china.com.cn', 'hgasquoine9@google.ru', 'ftarra@shareasale.com', 'abathb@umn.edu', 'lchastangc@goo.gl', 'cceried@yale.edu']</code>
+    </code></pre>
+
+    <p>What if we wanted a list of full names?</p>
+    <pre><code class="python">
+        full_names = []
+        for line in data_lines[1:15]:
+            full_names.append(line[1] + ' ' + line[2])
+    </code></pre>
+
+    <pre><code class="python">
+        full_names
+        <code>Output: 
+            ['Joseph Zaniolini',
+            'Freida Drillingcourt',
+            'Nanni Herity',
+            'Orazio Frayling',
+            'Julianne Murrison',
+            'Lucy Gamet',
+            'Dyana Howatt',
+            'Kassey Herion',
+            'Chrissy Hedworth',
+            'Hyatt Gasquoine',
+            'Felicdad Tarr',
+            'Andrew Bath',
+            'Lucais Chastang',
+            'Car Cerie']</code>
+    </code></pre>
+
+    <h4>Writing to CSV Files</h4>
+    <p>We can also write csv files, either new ones or add on to existing files.</p>
+
+    <h4>New File</h4>
+    <p><b>This will also overwrite any existing file with the same name, so be careful with this!</b></p>
+    <pre><code class="python">
+        # newline controls how universal newlines works (it only applies to text mode.)
+        # It can be None, '', '\n', '\r' and '\r\n'.
+        file_to_output = open('to_save_file.csv', 'w', newline = '')
+    </code></pre>
+
+    <pre><code class="python">
+        csv_writer = csv.writer(file_to_output, delimiter = ',')
+    </code></pre>
+
+    <pre><code class="python">
+        csv_writer.writerow(['a', 'b', 'c'])
+        <code>Output: 7</code>
+    </code></pre>
+
+    <pre><code class="python">
+        csv_writer.writerows([['1', '2', '3'], ['4', '5', '6']])
+    </code></pre>
+
+    <pre><code class="python">
+        file_to_output.close()
+    </code></pre>
+    <hr>
+
+    <h4>Existing File</h4>
+    <pre><code class="python">
+        f = open('to_save_file.csv', 'a', newline = '')
+    </code></pre>
+
+    <pre><code class="python">
+        csv_writer = csv.writer(f)
+    </code></pre>
+
+    <pre><code class="python">
+        csv_writer.writerow(['new', 'new', 'new'])
+        <code>Output: 13</code>
+    </code></pre>
+
+    <pre><code class="python">
+        f.close()
+    </code></pre>
+
+    <p>That is all for the basics! If you believe you will be working with CSV files often, you may want to check out the powerful <a href="https://pandas.pydata.org/">pandas library</a>.</p>
+
+    <h3><u>Working with PDFs</u></h3>
+    <h4><b>Working with PDFs</b></h4>
+    <p>Often you will have to deal with PDF files. There are many libraries in Python for working with PDFs, each with their pros and cons, the most common one being <b>PyPDF2</b>. You can install it with (note the case-sensitivity, you need to make sure your capitalisation matches):</p>
+    <p style="font-size:17px; font-family: monospace;">&emsp;&emsp;pip install PyPDF2</p> 
+
+    <p>Keep in mind that not every PDF file can be read with this library. PDFs that are too blurry, have a special encoding, encrypted or maybe just created with a particular program that doesn't work well with PyPDF2 won't be able to read. If you find yourself in this situation, use alternative libraries, but keep in mind, these may also not work. The reason for this is because of the many different parameters for a PDF and how non-standard the settings can be, text could be shown as an image instead of a utf-8 encoding. There are many parameters to consider in this aspect.</p>
+
+    <p>As far as PyPDF2 is concerned, it can only read the text from a PDF doucment, it won't be able to grab images or other media files from a PDF.</p>
+    <hr>
+
+    <h4>Working with PyPDF2</h4>
+    <p>Let's begin showing the basics of the PyPDF2 library.</p>
+    <pre><code class="python">
+        # note the capitalisation 
+        import PyPDF2
+    </code></pre>
+
+    <h4>Reading PDFs</h4>
+    <p>Similar to the csv library, we open a pdf, then create a reader object for it. Notice how we use the binary method of reading, 'rb', instead of just 'r'.</p>
+    <pre><code class="python">
+        # Notice we read it as a binary with 'rb'
+        f = open('Working_Business_Proposal.pdf', 'rb')
+    </code></pre>
+
+    <pre><code class="python">
+        pdf_reader = PyPDF2.PdfFileReader(f)
+    </code></pre>
+
+    <pre><code class="python">
+        pdf_reader.numPages
+        <code>Output: 5</code>
+    </code></pre>
+
+    <pre><code class="python">
+        page_one = pdf_reader.getPage(0)
+    </code></pre>
+
+    <p>We can then extract the text:</p>
+    <pre><code class="python">
+        page_one_text = page_one.extractText()
+    </code></pre>
+
+    <pre><code class="python">
+        page_one_text
+        <code>Output: 'Business Proposal\n The Revolution is Coming\n Leverage agile frameworks to provide a robust synopsis for high level \noverviews. Iterative approaches to corporate strategy foster collaborative \nthinking to further the overall value proposition. Organically grow the \nholistic world view of disruptive innovation via workplace diversity and \nempowerment. \nBring to the table win-win survival strategies to ensure proactive \ndomination. At the end of the day, going forward, a new normal that has \nevolved from generation X is on the runway heading towards a streamlined \ncloud solution. User generated content in real-time will have multiple \ntouchpoints for offshoring. \nCapitalize on low hanging fruit to identify a ballpark value added activity to \nbeta test. Override the digital divide with additional clickthroughs from \nDevOps. Nanotechnology immersion along the information highway will \nclose the loop on focusing solely on the bottom line. Podcasting operational change management inside of workßows to \nestablish a framework. Taking seamless key performance indicators ofßine \nto maximise the long tail. Keeping your eye on the ball while performing a \ndeep dive on the start-up mentality to derive convergence on cross-\nplatform integration. \nCollaboratively administrate empowered markets via plug-and-play \nnetworks. Dynamically procrastinate B2C users after installed base \nbeneÞts. Dramatically visualize customer directed convergence without \nrevolutionary ROI. \nEfÞciently unleash cross-media information without cross-media value. \nQuickly maximize timely deliverables for real-time schemas. Dramatically \nmaintain clicks-and-mortar solutions without functional solutions. \nBUSINESS PROPOSAL\n!1'</code>
+    </code></pre>
+
+    <pre><code class="python">
+        f.close()
+    </code></pre>
+
+    <h4>Adding to PDFs</h4>
+    <p>We can not write to PDFs using Python because of the differences between the single string type of Python, and the variety of fonts, placements, and other parameters that a PDF could have.</p>
+
+    <p>What we can do is copy pages and append pages to the end.</p>
+    <pre><code class="python">
+        f = open('Working_Business_Proposal.pdf', 'rb')
+        pdf_reader = PyPDF2.PdfFileReader(f)
+    </code></pre>
+
+    <pre><code class="python">
+        first_page = pdf_reader.getPage(0)
+    </code></pre>
+
+    <pre><code class="python">
+        pdf_writer = PyPDF2.PdfFileWriter()
+    </code></pre>
+
+    <pre><code class="python">
+        pdf_writer.addPage(first_page)
+    </code></pre>
+
+    <pre><code class="python">
+        pdf_output = open('Some_New_Doc.pdf', "wb")
+    </code></pre>
+
+    <pre><code class="python">
+        pdf_writer.write(pdf_output)
+    </code></pre>
+
+    <pre><code class="python">
+        f.close()
+    </code></pre>
+
+    <p>Now we have a copied a page and added it to another new document!</p>
+    <hr>
+
+    <h4>Simple Example</h4>
+    <p>Let's try to grab all the text from this PDF file:</p>
+    <pre><code class="python">
+        f = open('Working_Business_Proposal', 'rb')
+
+        # List of every page's text
+        # The index will correspond to the page number
+        pdf_text = []
+
+        pdf_reader = PyPDF2.PdfFileReader(f)
+
+        for p in range(pdf_reader.numPages):
+            page = pdf_reader.getPage(p)
+            pdf_text.append(page.extractText())
+    </code></pre>
+
+    <pre><code class="python">
+        pdf_text
+        <code>Output: ['Business Proposal\n The Revolution is Coming\n Leverage agile frameworks to provide a robust synopsis for high level \noverviews. Iterative approaches to corporate strategy foster collaborative \nthinking to further the overall value proposition. Organically grow the \nholistic world view of disruptive innovation via workplace diversity and \nempowerment. \nBring to the table win-win survival strategies to ensure proactive \ndomination. At the end of the day, going forward, a new normal that has \nevolved from generation X is on the runway heading towards a streamlined \ncloud solution. User generated content in real-time will have multiple \ntouchpoints for offshoring. \nCapitalize on low hanging fruit to identify a ballpark value added activity to \nbeta test. Override the digital divide with additional clickthroughs from \nDevOps. Nanotechnology immersion along the information highway will \nclose the loop on focusing solely on the bottom line. Podcasting operational change management inside of workßows to \nestablish a framework. Taking seamless key performance indicators ofßine \nto maximise the long tail. Keeping your eye on the ball while performing a \ndeep dive on the start-up mentality to derive convergence on cross-\nplatform integration. \nCollaboratively administrate empowered markets via plug-and-play \nnetworks. Dynamically procrastinate B2C users after installed base \nbeneÞts. Dramatically visualize customer directed convergence without \nrevolutionary ROI. \nEfÞciently unleash cross-media information without cross-media value. \nQuickly maximize timely deliverables for real-time schemas. Dramatically \nmaintain clicks-and-mortar solutions without functional solutions. \nBUSINESS PROPOSAL\n!1',
+            'Completely synergize resource taxing relationships via premier niche \nmarkets. Professionally cultivate one-to-one customer service with robust \nideas. Dynamically innovate resource-leveling customer service for state of \nthe art customer service. \nObjectively innovate empowered manufactured products whereas parallel \nplatforms. Holisticly predominate extensible testing procedures for reliable \nsupply chains. Dramatically engage top-line web services vis-a-vis \ncutting-edge deliverables. Proactively envisioned multimedia based expertise and cross-media \ngrowth strategies. Seamlessly visualize quality intellectual capital without \nsuperior collaboration and idea-sharing. Holistically pontiÞcate installed \nbase portals after maintainable products. \nPhosßuorescently engage worldwide methodologies with web-enabled \ntechnology. Interactively coordinate proactive e-commerce via process-\ncentric "outside the box" thinking. Completely pursue scalable customer \nservice through sustainable potentialities. \nCollaboratively administrate turnkey channels whereas virtual e-tailers. \nObjectively seize scalable metrics whereas proactive e-services. \nSeamlessly empower fully researched growth strategies and interoperable \ninternal or "organic" sources. \nCredibly innovate granular internal or "organic" sources whereas high \nstandards in web-readiness. Energistically scale future-proof core \ncompetencies vis-a-vis impactful experiences. Dramatically synthesize \nintegrated schemas with optimal networks. Interactively procrastinate high-payoff content without backward-\ncompatible data. Quickly cultivate optimal processes and tactical \narchitectures. Completely iterate covalent strategic theme areas via \naccurate e-markets. Globally incubate standards compliant channels before scalable beneÞts. \nQuickly disseminate superior deliverables whereas web-enabled \nBUSINESS PROPOSAL\n!2',
+            'applications. Quickly drive clicks-and-mortar catalysts for change before \nvertical architectures. \nCredibly reintermediate backend ideas for cross-platform models. \nContinually reintermediate integrated processes through technically sound \nintellectual capital. Holistically foster superior methodologies without \nmarket-driven best practices. Distinctively exploit optimal alignments for intuitive bandwidth. Quickly \ncoordinate e-business applications through revolutionary catalysts for \nchange. Seamlessly underwhelm optimal testing procedures whereas \nbricks-and-clicks processes. \nSynergistically evolve 2.0 technologies rather than just in time initiatives. \nQuickly deploy strategic networks with compelling e-business. Credibly \npontiÞcate highly efÞcient manufactured products and enabled data. \nDynamically target high-payoff intellectual capital for customized \ntechnologies. Objectively integrate emerging core competencies before \nprocess-centric communities. Dramatically evisculate holistic innovation \nrather than client-centric data. Progressively maintain extensive infomediaries via extensible niches. \nDramatically disseminate standardized metrics after resource-leveling \nprocesses. Objectively pursue diverse catalysts for change for \ninteroperable meta-services. \nProactively fabricate one-to-one materials via effective e-business. \nCompletely synergize scalable e-commerce rather than high standards in \ne-services. Assertively iterate resource maximizing products after leading-\nedge intellectual capital. Distinctively re-engineer revolutionary meta-services and premium \narchitectures. Intrinsically incubate intuitive opportunities and real-time \npotentialities. Appropriately communicate one-to-one technology after \nplug-and-play networks. Quickly aggregate B2B users and worldwide potentialities. Progressively \nplagiarize resource-leveling e-commerce through resource-leveling core \nBUSINESS PROPOSAL\n!3',
+            'competencies. Dramatically mesh low-risk high-yield alignments before \ntransparent e-tailers. \nAppropriately empower dynamic leadership skills after business portals. \nGlobally myocardinate interactive supply chains with distinctive quality \nvectors. Globally revolutionize global sources through interoperable \nservices. Enthusiastically mesh long-term high-impact infrastructures vis-a-vis \nefÞcient customer service. Professionally fashion wireless leadership rather \nthan prospective experiences. Energistically myocardinate clicks-and-\nmortar testing procedures whereas next-generation manufactured \nproducts. \nDynamically reinvent market-driven opportunities and ubiquitous \ninterfaces. Energistically fabricate an expanded array of niche markets \nthrough robust products. Appropriately implement visionary e-services vis-\na-vis strategic web-readiness. \nCompellingly embrace empowered e-business after user friendly \nintellectual capital. Interactively actualize front-end processes with \neffective convergence. Synergistically deliver performance based \nmethods of empowerment whereas distributed expertise. \nEfÞciently enable enabled sources and cost effective products. \nCompletely synthesize principle-centered information after ethical \ncommunities. EfÞciently innovate open-source infrastructures via \ninexpensive materials. Objectively integrate enterprise-wide strategic theme areas with \nfunctionalized infrastructures. Interactively productize premium \ntechnologies whereas interdependent quality vectors. Rapaciously utilize \nenterprise experiences via 24/7 markets. Uniquely matrix economically sound value through cooperative \ntechnology. Competently parallel task fully researched data and enterprise \nprocess improvements. Collaboratively expedite quality manufactured \nproducts via client-focused results. \nBUSINESS PROPOSAL\n!4',
+            'Quickly communicate enabled technology and turnkey leadership skills. \nUniquely enable accurate supply chains rather than frictionless \ntechnology. Globally network focused materials vis-a-vis cost effective \nmanufactured products. \nBUSINESS PROPOSAL\n!5']
+           </code>
+    </code></pre>
+
+    <pre><code class="python">
+        print(pdf_text[3])
+        <code>Output: 
+            competencies. Dramatically mesh low-risk high-yield alignments before 
+            transparent e-tailers. 
+            Appropriately empower dynamic leadership skills after business portals. 
+            Globally myocardinate interactive supply chains with distinctive quality 
+            vectors. Globally revolutionize global sources through interoperable 
+            services. Enthusiastically mesh long-term high-impact infrastructures vis-a-vis 
+            efÞcient customer service. Professionally fashion wireless leadership rather 
+            than prospective experiences. Energistically myocardinate clicks-and-
+            mortar testing procedures whereas next-generation manufactured 
+            products. 
+            Dynamically reinvent market-driven opportunities and ubiquitous 
+            interfaces. Energistically fabricate an expanded array of niche markets 
+            through robust products. Appropriately implement visionary e-services vis-
+            a-vis strategic web-readiness. 
+            Compellingly embrace empowered e-business after user friendly 
+            intellectual capital. Interactively actualize front-end processes with 
+            effective convergence. Synergistically deliver performance based 
+            methods of empowerment whereas distributed expertise. 
+            EfÞciently enable enabled sources and cost effective products. 
+            Completely synthesize principle-centered information after ethical 
+            communities. EfÞciently innovate open-source infrastructures via 
+            inexpensive materials. Objectively integrate enterprise-wide strategic theme areas with 
+            functionalized infrastructures. Interactively productize premium 
+            technologies whereas interdependent quality vectors. Rapaciously utilize 
+            enterprise experiences via 24/7 markets. Uniquely matrix economically sound value through cooperative 
+            technology. Competently parallel task fully researched data and enterprise 
+            process improvements. Collaboratively expedite quality manufactured 
+            products via client-focused results. 
+            BUSINESS PROPOSAL
+            !4</code>
+    </code></pre>
+
+    <p>Excellent work! That is all for PyPDF2 for now, remember that this won't work with every PDF file and is limited in its scope to only text of PDFs.</p>
+</body>
+</html>

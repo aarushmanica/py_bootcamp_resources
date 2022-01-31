@@ -1,0 +1,1564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/highlight.min.js"></script>
+    <meta charset="utf-8">
+    <title>Python Advanced Modules Documentation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+    <h2><b>12 - Advanced Python Modules</b></h2>
+    <h3><u>Collections Module</u></h3>
+    <h4><b>Collections Module</b></h4>
+    <p>The collections module is a built-in module that implements specialised container data types providing alternatives to Python's general purpose built-in containers.</p>
+    
+    <p>We've already gone over the basics: dict, list, set and tuple.</p>
+
+    <p>Now we'll learn about the alternatives that the collections module provides.</p>
+
+    <h4>Counter</h4>
+    <p>Counter is a <i>dict</i> subclass which helps count hashable objects. Inside of it elements are stored as dictionary keys and the counts of the objects are stored as the value.</p>
+
+    <p>Let's see how it can be used:</p>
+    <pre><code class="python">
+        from collections import Counter
+    </code></pre>
+
+    <p><b>Counter() with Lists</b></p>
+    <pre><code class="python">
+        lst = [1, 2, 2, 2, 2, 3, 3, 3, 1, 2, 1, 12, 3, 2, 32, 1, 21, 1, 223, 1]
+        Counter(lst)
+        <code>Output: Counter ({1: 6, 2: 5, 3: 4, 12: 1, 21: 1, 32: 1, 223: 1})</code>
+    </code></pre>
+
+    <p><b>Counter with Strings</b></p>
+    <pre><code class="python">
+        Counter('aabsbsbsbhshhbbsbs')
+        <code>Output: Counter({'a': 2, 'b': 7, 'h': 3, 's': 6})</code>
+    </code></pre>
+
+    <p><b>Counter with Words in a Sentence</b></p>
+    <pre><code class="python">
+        s = "How many times does each word show up in this sentence word times each each word"
+        words = s.split()
+
+        Counter(words)
+        <code>Output: 
+            Counter({'How': 1,
+            'does': 1,
+            'each': 3,
+            'in': 1,
+            'many': 1,
+            'sentence': 1,
+            'show': 1,
+            'this': 1,
+            'times': 2,
+            'up': 1,
+            'word': 3})</code>
+    </code></pre>
+
+    <pre><code class="python">
+        # Methods with Counter()
+        c = Counter(words)
+        c.most_common(2)
+        <code>Output:[('each', 3), ('word', 3)]</code>
+    </code></pre>
+
+    <h4>Common Patterns when Using the Counter() Object</h4>
+    <pre>
+        sum(c.values())                 # total of all counts
+        c.clear()                       # reset all counts
+        list(c)                         # list unique elements
+        set(c)                          # convert to a set
+        dict(c)                         # convert to a regular dictionary
+        c.items()                       # convert to a list of (elem, cnt) pairs
+        Counter(dict(list_of_pairs))    # convert from a list of (elem, cnt) pairs
+        c.most_common()[:-n-1:-1]       # n least common elements
+        c += Counter()                  # remove zero and negative counts
+    </pre>
+
+    <h4>defaultdict</h4>
+    <p>defaultdict is a dictionary-like object which provides all methods provided by a dictionary but takes a first argument (default_factory) as a default data type for the dictionary. Using defaultdict is faster than doing the same, using dict.set_default method.</p>
+
+    <p><b>A defaultdict will never raise a KeyError. Any key that does not exist gets the value returned by the default factory.</b></p>
+    <pre><code class="python">
+        from collections import defaultdict
+    </code></pre>
+
+    <pre><code class="python">
+        d = {}
+    </code></pre>
+
+    <pre><code class="python">
+        d['one']
+    </code></pre>
+    <code>Output: <b style="color:maroon">KeyError</b>      Traceback (most recent call last) <br> <b style="color:darkgreen">&lt;ipython-input-8-07706fc5dc20&gt;</b> in <b style="color:turquoise">&lt;module&gt;</b><b style="color:darkblue">()</b> <br> <b style="color:darkgreen">----> 1</b> d<b style="color:goldenrod">[</b><b style="color:dodgerblue">'one'</b><b style="color:goldenrod">]</b> <br> <b style="color:maroon">KeyError</b>: 'one'</code>
+
+    <pre><code class="python">
+        d = defaultdict(object)
+    </code></pre>
+
+    <pre><code class="python">
+        d['one']
+        <code>Output:&lt;object at 0x216de27bcf0&gt;</code>
+    </code></pre>
+
+    <pre><code class="python">
+        for item in d:
+            print(item)
+        <code>Output: one</code>
+    </code></pre>
+
+    <p>Can also initialise with default values:</p>
+    <pre><code class="python">
+        d = defaultdict(lambda: 0)
+    </code></pre>
+
+    <pre><code class="python">
+        d['one']
+        <code>Output: 0</code>
+    </code></pre>
+
+    <h4>namedtuple</h4>
+    <p>The standard tuple uses numerical indexes to access its members, for example:</p>
+    <pre><code class="python">
+        t = (12, 13, 14)
+    </code></pre>
+
+    <pre><code class="python">
+        t[0]
+        <code>Output: 12</code>
+    </code></pre>
+
+    <p>For simple use cases, this is usually enough. On the other hand, remembering which index should be used for each value can lead to errors, especially if the tuple has a lot of fields and is constructed far from where it is used. A namedtuple assigns name, as well as the numerical index, to each member.</p>
+
+    <p>Each kind of namedtuple is represented by its own class, created by using the namedtuple() factory function. The arguments are the name of the new class and a string containing the names of the elements.</p>
+
+    <p>You can basically think of namedtuples as a very quick way of creating a new object/class type with some attribute fields. For example:</p>
+    <pre><code class="python">
+        from collections import namedtuple
+    </code></pre>
+
+    <pre><code class="python">
+        Dog = namedtuple('Dog', ['age', 'breed', 'name'])
+
+        john = Dog(age = 2, breed = 'Lab', name = 'John')
+        frank = Dog(age = 2, breed = 'Terrier', name = 'Frank')
+    </code></pre>
+
+    <p>We can construct the namedtuple by first passing the object type name (Dog) and then passing a string with the variety of fields as a string with spaces between the field names. We can then call on the various attributes:</p>
+    <pre><code class="python">
+        john
+        <code>Output: Dog(age = 2, breed = 'Lab', name = 'John')</code>
+    </code></pre>
+
+    <pre><code class="python">
+        john.age
+        <code>Output: 2</code>
+    </code></pre>
+
+    <pre><code class="python">
+        john.breed
+        <code>Output: 'Lab'</code>
+    </code></pre>
+
+    <pre><code class="python">
+        john[0] 
+        <code>Output: 2</code>
+    </code></pre>
+
+    <h4>Conclusion</h4>
+    <p>Hopefully now you see how incredibly useful the collections module is in Python and it should be your go-to module for a variety of common tasks!</p>
+
+    <h3><u>Opening and Reading Files and Folders</u></h3>
+    <h4><b>Opening Files</b></h4>
+    <p>So far we've discussed how to open files manually, one by one. Let's explore how we can open files programatically.</p>
+
+    <h4>Review: Understanding File Paths</h4>
+    <pre><code class="python">
+        pwd
+        <code>Output: /Users/aarush/Desktop/zero\ to\ hero\ python\ bootcamp\ stuff</code>
+    </code></pre>
+
+    <h4>Creating Practice File</h4>
+    <p>We will begin by creating a practice text file that we will be using for demonstration.</p>
+    <pre><code class="python">
+        f = open('practice.txt', 'w+')
+    </code></pre>
+
+    <pre><code class="python">
+        f.write('test')
+        f.close()
+    </code></pre>
+
+    <h4>Getting Directories</h4>
+    <p>Python has a built-in <a href="https://docs.python.org/3/library/os.html">os module</a> that allows us to use operating system dependent functionality.</p>
+
+    <p>You can get the current directory:</p>
+    <pre><code class="python">
+        import os
+    </code></pre>
+
+    <pre><code class="python">
+        os.getcwd()
+        <code>Output: /Users/aarush/Desktop/zero\ to\ hero\ python\ bootcamp\ stuff</code>
+    </code></pre>
+
+    <h4>Listing Files in a Directory</h4>
+    <p>You can also use the os module to list directories.</p>
+    <pre><code class="python">
+        # In your current directory
+        os.listdir()
+        <code>Output:
+            ['advanced_modules.html',
+            'errors_exception.html',	
+            'objdsbasics.html',
+            'comparison.html',		
+            'generator.html',	
+            'oop.html',
+            'decorators.html',
+            'methods_function.html',
+            'statements.html',
+            'error.png',		
+            'modules_packages.html']</code>
+    </code></pre>
+
+    <pre><code class="python">
+        # In any directory you pass
+        os.listdir(/Users/aarush/Documents/notebooks)
+        <code>Output: 
+            ['NoteBook 3.0.ipynb',
+            'Notebook 2.0.ipynb',
+            'myfirstnotebook.ipynb']</code>
+    </code></pre>
+
+    <h4>Moving Files</h4>
+    <p>You can use the built-in <b>shutil</b> method to move files to different locations. Keep in mind, there are permission restrictions, for example if you are logged in a User A, you won't be able to make changes to the top level Users folder without the proper information, <a href="https://stackoverflow.com/questions/23253439/shutil-movescr-dst-gets-me-ioerror-errno-13-permission-denied-and-3-more-e">more info</a>.</p>
+    
+    <h4>Deleting Files</h4>
+    <hr>
+    <p><b>NOTE: The os module provides 3 methods for deleting files:</b></p>
+    <ul>
+        <li>os.unlink(path) which deletes a file at the path you provide.</li>
+        <li>os.rmdir(path) which deletes a folder (folder must be empty) at the path you provide.</li>
+        <li>shutil.rmtree(path), this is the most dangerous, as it will remove all files and folders contained in the path. <b>All of these methods can not be reversed! Which means if you make a mistake you won't be able to recover the file. Instead we will use the send2trash module. A safer alternative that sends deleted files to the trash bin instead of permanent removal.</b></li>
+    </ul>
+    <hr>
+
+    <p>Install the send2trash module with:</p>
+    <p style="font-size:17px; font-family:monospace;">&emsp;&emsp;pip install send2trash</p>
+    <p>at your command line.</p>
+    <pre><code class="python">
+        import send2trash
+    </code></pre>
+
+    <h4>Walking Through a Directory</h4>
+    <p>Often you will need to "walk" through a directory, that is visit every file or folder and check to see if a file is in the directory, and then perhaps do something with that file. Usually recursively walking through every file and folder in a directory would be quite tricky to program, but luckily the os module has a direct method call for this called os.walk().</p>
+    <hr>
+    <p>Excellent, you should be aware of how to work with a computer's file and folders in whichever directory they are in. Remember that the os module works for any operating system that supports Python, which means these commands will work across Linux, Mac OS, or Windows without need for adjustment.</p>
+
+    <h3><u>Datetime Module</u></h3>
+    <h4><b>datetime Module</b></h4>
+    <p>Python has the datetime module to help deal with timestamps in your code. Time values are represented with the time class. Times have attributes for hour, minute, second and microsecond. They can also include time zone information. The arguments to initialise a time instance are optional, but the default of 0 is unlikely to be what you want.</p>
+
+    <h4>time</h4>
+    <p>Let's take a look at how we can extract time information from the datetime module. We can create a timestamp by specifying datetime.time(hour, minute, second, microsecond).</p>
+    <pre><code class="python">
+        import datetime
+        
+        t = datetime.time(4, 20, 1)
+
+        # Let's show the different components
+        print(t)
+        print('hour :', t.hour)
+        print('minute :', t.minute)
+        print('second :', t.second)
+        print('microsecond :', t.microsecond)
+        print('tzinfo :', t.tzinfo)
+        <code>Output: 
+            04:20:01
+            hour  : 4
+            minute: 20
+            second: 1
+            microsecond: 0
+            tzinfo: None</code>
+    </code></pre>
+
+    <p>Note: A time instance only holds values of time, and not a date associated with the time.</p>
+
+    <p>We can also check the min and max values a time of day can have in the module:</p>
+    <pre><code class="python">
+        print('Earliest :', datetime.time.min)
+        print('Latest :', datetime.time.max)
+        print('Resolution :', datetime.time.resolution)
+        <code>Output: 
+            Earliest  : 00:00:00
+            Latest    : 23:59:59.999999
+            Resolution: 0:00:00.000001</code>
+    </code></pre>
+
+    <p>The min and max class attributes reflect the valid range of times in a single day.</p>
+
+    <h4>Dates</h4>
+    <p>datetime (as you might suspect) also allows us to work with date timstamps. Calendar data values are represented with the data classes. Instances have attributes for year, month and day. It is easy to create a date representing today's date using the today() class method.</p>
+
+    <p>Let's see some examples:</p>
+    <pre><code class="python">
+        today = datetime.date.today()
+        print(today)
+        print('ctime:', today.ctime())
+        print('tuple:', today.timetuple())
+        print('ordinal:', today.toordinal())
+        print('Year :', today.year)
+        print('Month:', today.month)
+        print('Day :', today.day)
+        <code>Output: 
+            2022-01-27
+            ctime: Thu Jan 27 00:00:00 2022
+            tuple: time.struct_time(tm_year=2022, tm_mon=1, tm_mday=27, tm_hour=0, tm_min=0, tm_sec=0, tm_wday=2, tm_yday=27, tm_isdst=-1)
+            ordinal: 737586
+            Year : 2022
+            Month: 1
+            Day  : 27</code>
+    </code></pre>
+
+    <p>As with time, the range of date values supported can be determined using the min and max attributes.</p>
+    <pre><code class="python">
+        print('Earliest :', datetime.date.min)
+        print('Latest :', datetime.date.max)
+        print('Reserved :', datetime.date.resolution)
+        <code>Output: 
+            Earliest  : 0001-01-01
+            Latest    : 9999-12-31
+            Resolution: 1 day, 0:00:00</code>
+    </code></pre>
+
+    <p>Another way to create new data instances uses the replace() method of an existing date. For example, you can change the year, leaving the day and month alone.</p>
+    <pre><code class="python">
+        d1 = datetime.date(2015, 3, 11)
+        print('d1:', d1)
+
+        d2 = d1.replace(year = 1990)
+        print('d2:', d2)
+        <code>Output:
+            d1 = 2015-03-11
+            d2 = 1990-03-11
+        </code>
+    </code></pre>
+
+    <h4>Arithmetic</h4>
+    <p>We can peform arithmetic on date objects to check for time differences. For example:</p>
+    <pre><code class="python">
+        d1
+        <code>Output: datetime.date(2015, 3, 11)</code>
+    </code></pre>
+
+    <pre><code class="python">
+        d2
+        <code>Output: datetime.date(1990, 3, 11)</code>
+    </code></pre>
+
+    <pre><code class="python">
+        d1 - d2
+        <code>Output: datetime.timedelta(9131)</code>
+    </code></pre>
+
+    <p>This gives us the difference in days between the two dates. You can use the timedelta method to specify various units of times (days, minutes, hours, etc.)</p>
+
+    <p>Great! You should now have a basic understanding of how to use datetime with Python to work with timestamps in your code!</p>
+
+    <h3><u>Math and Random Modules</u></h3>
+    <h4><b>Math and Random Modules</b></h4>
+    <p>Python comes with a built-in math module and random module. In this section we will give a brief tour of their capabilities. Usually you can simply look up the function call you are looking for in the online documentation.</p>
+    <ul>
+        <li><a href="https://docs.python.org/3/library/math.html">math module</a></li>
+        <li><a href="https://docs.python.org/3/library/random.html">random module</a></li>
+    </ul>
+
+    <p>We won't go through every function available in these modules since there are so many, but we will show some useful ones.</p>
+
+    <h4>Useful Math Functions</h4>
+    <pre><code class="python">
+        import math
+    </code></pre>
+
+    <pre><code class="python">
+        help(math)
+        <code>Output: 
+            Help on built-in module math:
+
+            NAME
+                math
+            
+            DESCRIPTION
+                This module is always available.  It provides access to the
+                mathematical functions defined by the C standard.
+            
+            FUNCTIONS
+                acos(...)
+                    acos(x)
+                    
+                    Return the arc cosine (measured in radians) of x.
+                
+                acosh(...)
+                    acosh(x)
+                    
+                    Return the inverse hyperbolic cosine of x.
+                
+                asin(...)
+                    asin(x)
+                    
+                    Return the arc sine (measured in radians) of x.
+                
+                asinh(...)
+                    asinh(x)
+                    
+                    Return the inverse hyperbolic sine of x.
+                
+                atan(...)
+                    atan(x)
+                    
+                    Return the arc tangent (measured in radians) of x.
+                
+                atan2(...)
+                    atan2(y, x)
+                    
+                    Return the arc tangent (measured in radians) of y/x.
+                    Unlike atan(y/x), the signs of both x and y are considered.
+                
+                atanh(...)
+                    atanh(x)
+                    
+                    Return the inverse hyperbolic tangent of x.
+                
+                ceil(...)
+                    ceil(x)
+                    
+                    Return the ceiling of x as an Integral.
+                    This is the smallest integer >= x.
+                
+                copysign(...)
+                    copysign(x, y)
+                    
+                    Return a float with the magnitude (absolute value) of x but the sign 
+                    of y. On platforms that support signed zeros, copysign(1.0, -0.0) 
+                    returns -1.0.
+                
+                cos(...)
+                    cos(x)
+                    
+                    Return the cosine of x (measured in radians).
+                
+                cosh(...)
+                    cosh(x)
+                    
+                    Return the hyperbolic cosine of x.
+                
+                degrees(...)
+                    degrees(x)
+                    
+                    Convert angle x from radians to degrees.
+                
+                erf(...)
+                    erf(x)
+                    
+                    Error function at x.
+                
+                erfc(...)
+                    erfc(x)
+                    
+                    Complementary error function at x.
+                
+                exp(...)
+                    exp(x)
+                    
+                    Return e raised to the power of x.
+                
+                expm1(...)
+                    expm1(x)
+                    
+                    Return exp(x)-1.
+                    This function avoids the loss of precision involved in the direct evaluation of exp(x)-1 for small x.
+                
+                fabs(...)
+                    fabs(x)
+                    
+                    Return the absolute value of the float x.
+                
+                factorial(...)
+                    factorial(x) -> Integral
+                    
+                    Find x!. Raise a ValueError if x is negative or non-integral.
+                
+                floor(...)
+                    floor(x)
+                    
+                    Return the floor of x as an Integral.
+                    This is the largest integer <= x.
+                
+                fmod(...)
+                    fmod(x, y)
+                    
+                    Return fmod(x, y), according to platform C.  x % y may differ.
+                
+                frexp(...)
+                    frexp(x)
+                    
+                    Return the mantissa and exponent of x, as pair (m, e).
+                    m is a float and e is an int, such that x = m * 2.**e.
+                    If x is 0, m and e are both 0.  Else 0.5 <= abs(m) < 1.0.
+                
+                fsum(...)
+                    fsum(iterable)
+                    
+                    Return an accurate floating point sum of values in the iterable.
+                    Assumes IEEE-754 floating point arithmetic.
+                
+                gamma(...)
+                    gamma(x)
+                    
+                    Gamma function at x.
+                
+                gcd(...)
+                    gcd(x, y) -> int
+                    greatest common divisor of x and y
+                
+                hypot(...)
+                    hypot(x, y)
+                    
+                    Return the Euclidean distance, sqrt(x*x + y*y).
+                
+                isclose(...)
+                    isclose(a, b, *, rel_tol=1e-09, abs_tol=0.0) -> bool
+                    
+                    Determine whether two floating point numbers are close in value.
+                    
+                       rel_tol
+                           maximum difference for being considered "close", relative to the
+                           magnitude of the input values
+                        abs_tol
+                           maximum difference for being considered "close", regardless of the
+                           magnitude of the input values
+                    
+                    Return True if a is close in value to b, and False otherwise.
+                    
+                    For the values to be considered close, the difference between them
+                    must be smaller than at least one of the tolerances.
+                    
+                    -inf, inf and NaN behave similarly to the IEEE 754 Standard.  That
+                    is, NaN is not close to anything, even itself.  inf and -inf are
+                    only close to themselves.
+                
+                isfinite(...)
+                    isfinite(x) -> bool
+                    
+                    Return True if x is neither an infinity nor a NaN, and False otherwise.
+                
+                isinf(...)
+                    isinf(x) -> bool
+                    
+                    Return True if x is a positive or negative infinity, and False otherwise.
+                
+                isnan(...)
+                    isnan(x) -> bool
+                    
+                    Return True if x is a NaN (not a number), and False otherwise.
+                
+                ldexp(...)
+                    ldexp(x, i)
+                    
+                    Return x * (2**i).
+                
+                lgamma(...)
+                    lgamma(x)
+                    
+                    Natural logarithm of absolute value of Gamma function at x.
+                
+                log(...)
+                    log(x[, base])
+                    
+                    Return the logarithm of x to the given base.
+                    If the base not specified, returns the natural logarithm (base e) of x.
+                
+                log10(...)
+                    log10(x)
+                    
+                    Return the base 10 logarithm of x.
+                
+                log1p(...)
+                    log1p(x)
+                    
+                    Return the natural logarithm of 1+x (base e).
+                    The result is computed in a way which is accurate for x near zero.
+                
+                log2(...)
+                    log2(x)
+                    
+                    Return the base 2 logarithm of x.
+                
+                modf(...)
+                    modf(x)
+                    
+                    Return the fractional and integer parts of x.  Both results carry the sign
+                    of x and are floats.
+                
+                pow(...)
+                    pow(x, y)
+                    
+                    Return x**y (x to the power of y).
+                
+                radians(...)
+                    radians(x)
+                    
+                    Convert angle x from degrees to radians.
+                
+                sin(...)
+                    sin(x)
+                    
+                    Return the sine of x (measured in radians).
+                
+                sinh(...)
+                    sinh(x)
+                    
+                    Return the hyperbolic sine of x.
+                
+                sqrt(...)
+                    sqrt(x)
+                    
+                    Return the square root of x.
+                
+                tan(...)
+                    tan(x)
+                    
+                    Return the tangent of x (measured in radians).
+                
+                tanh(...)
+                    tanh(x)
+                    
+                    Return the hyperbolic tangent of x.
+                
+                trunc(...)
+                    trunc(x:Real) -> Integral
+                    
+                    Truncates x to the nearest Integral toward 0. Uses the __trunc__ magic method.
+            
+            DATA
+                e = 2.718281828459045
+                inf = inf
+                nan = nan
+                pi = 3.141592653589793
+                tau = 6.283185307179586
+            
+            FILE
+                (built-in)
+            </code>
+    </code></pre>
+
+    <h4>Rounding Numbers</h4>
+    <pre><code class="python">
+        value = 4.35
+    </code></pre>
+
+    <pre><code class="python">
+        math.floor(value)
+        <code>Output: 4</code>
+    </code></pre>
+
+    <pre><code class="python">
+        math.ceil(value)
+        <code>Output: 5</code>
+    </code></pre>
+
+    <pre><code class="python">
+        round(value)
+        <code>Output: 4</code>
+    </code></pre>
+
+    <h4>Mathematical Constants</h4>
+    <pre><code class="python">
+        math.pi
+        <code>Output: 3.141592653589793</code>
+    </code></pre>
+
+    <pre><code class="python">
+        from math import pi
+    </code></pre>
+
+    <pre><code class="python">
+        pi
+        <code>Output: 3.141592653589793</code>
+    </code></pre>
+
+    <pre><code class="python">
+        math.e
+        <code>Output: 2.718281828459045</code>
+    </code></pre>
+
+    <pre><code class="python">
+        math.tau
+        <code>Output: 6.283185307179586</code>
+    </code></pre>
+
+    <pre><code class="python">
+        math.inf
+        <code>Output: inf</code>
+    </code></pre>
+
+    <pre><code class="python">
+        math.nan
+        <code>Output: nan</code>
+    </code></pre>
+
+    <h4>Logarithmic Values</h4>
+    <pre><code class="python">
+        math.e
+        <code>Output: 2.718281828459045</code>
+    </code></pre>
+
+    <pre><code class="python">
+        # Log Base e
+        math.log(math.e)
+        <code>Output: 1.0</code>
+    </code></pre>
+
+    <pre><code class="python">
+        # Will produce an error if value does not exist mathematically
+        math.log(0)
+    </code></pre>
+    <code>Output: <b style="color:maroon">ValueError</b>     Traceback (most recent call last) <br> <b style="color:darkgreen">&lt;ipython-input-12-7563e04a48092&gt;</b> in <b style="color:turquoise">&lt;module&gt;</b><b style="color:darkblue">()</b> <br> <b style="color:darkgreen">----> 1</b> math<b style="color:goldenrod">.</b>log<b style="color:goldenrod">(</b><b style="color:dodgerblue">0</b><b style="color:goldenrod">)</b> <br> <b style="color:maroon">ValueError</b>: math domain error</code>
+
+    <pre><code class="python">
+        math.log(10)
+        <code>Output: 2.302585092994046</code>
+    </code></pre>
+
+    <pre><code class="python">
+        math.e ** 2.302585092994046
+        <code>Output: 10.000000000000002</code>
+    </code></pre>
+
+    <h4>Custom Bases</h4>
+    <pre><code class="python">
+        # math.log(x, base)
+        math.log(100, 10)
+        <code>Output: 2.0</code>
+    </code></pre>
+
+    <pre><code class="python">
+        10 ** 2
+        <code>Output: 100</code>
+    </code></pre>
+
+    <h4>Trigonometric Functions</h4>
+    <pre><code class="python">
+        # Radians
+        math.sin(10)
+        <code>Output: -0.5440211108893698</code>
+    </code></pre>
+
+    <pre><code class="python">
+        math.degrees(pi / 2)
+        <code>Output: 90.0</code>
+    </code></pre>
+
+    <pre><code class="python">
+        math.radians(180)
+        <code>Output: 3.141592653589793</code>
+    </code></pre>
+
+    <h4>Random Module</h4>
+    <p>Random Module allows us to create random numbers. We can even set a seed to produce the same random set every time.</p>
+
+    <p>The explanation of how a computer attempts to generate random numbers is beyond the scope of this section since it involves higher-level mathematics. But if you are interested in this topic, check out:</p>
+    <ul>
+        <li><a href="https://en.wikipedia.org/wiki/Pseudorandom_number_generator">https://en.wikipedia.org/wiki/Pseudorandom_number_generator</a></li>
+        <li><a href="https://en.wikipedia.org/wiki/Random_seed">https://en.wikipedia.org/wiki/Random_seed</a></li>
+    </ul>
+
+    <h4>Understanding a Seed</h4>
+    <p>Setting a seed allows us to start from a seeded pseudorandom number generator, which means the same random numbers will show up in a series. Note, you need the seed to be in the same cell if you're using Jupyter to guarantee the same results each time. Getting a same set of random numbers can be important in situations where you will be trying different variations of functions and want to compare their performance on random values, but want to do it fairly (so you need the same set of random numbers each time).</p>
+    <pre><code class="python">
+        import random
+    </code></pre>
+
+    <pre><code class="python">
+        random.randint(0, 100)
+        <code>Output: 67</code>
+    </code></pre>
+
+    <pre><code class="python">
+        random.randint(0, 100)
+        <code>Output: 53</code>
+    </code></pre>
+
+    <pre><code class="python">
+        # The value 101 is completely arbitrary, you can pass in any number you want
+        random.seed(101)
+
+        # You can run this cell as many times as you want, it will always return the same number
+        random.randint(0, 100)
+        <code>Output: 74</code>
+    </code></pre>
+    
+    <pre><code class="python">
+        random.randint(0, 100)
+        <code>Output: 2</code>
+    </code></pre>
+
+    <pre><code class="python">
+        # The value 101 is completely arbitrary, you can pass in any number you want
+        random.seed(101)
+        print(random.randint(0,100))
+        print(random.randint(0,100))
+        print(random.randint(0,100))
+        print(random.randint(0,100))
+        print(random.randint(0,100))
+        <code>Output: 
+            74
+            24
+            69
+            45
+            59
+        </code>
+    </code></pre>
+
+    <h4>Random Integers</h4>
+    <pre><code class="python">
+        random.randint(0, 100)
+        <code>Output: 56</code>
+    </code></pre>
+
+    <h4>Random Sequences</h4>
+    <p style="font-size: 17px;"><b>Grab a random item from a list</b></p>
+    <pre><code class="python">
+        mylist = list(range(0, 20))
+    </code></pre>
+
+    <pre><code class="python">
+        mylist
+        <code>Output: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]</code></pre>
+    </code></pre>
+
+    <pre><code class="python">
+        random.choice(mylist)
+        <code>Output: 15</code>
+    </code></pre>
+
+    <pre><code class="python">
+        mylist
+        <code>Output: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]</code>
+    </code></pre>
+
+    <h4>Sample with Replacement</h4>
+    <p>Take a sample size, allowing picking elements more than once. Imagine a bag of numbered lottery balls, you reach in to grab a random lotto ball, then after marking down the number, <b>you place it back in the bag</b>, then continue picking another one.</p>
+    <pre><code class="python">
+        random.choices(population = mylist, k = 10)
+        <code>Output: [15, 14, 17, 8, 17, 2, 19, 17, 6, 1]</code>
+    </code></pre>
+
+    <h4>Shuffle a List</h4>
+    <p><b>Note: this effects the object in place!</b></p>
+    <pre><code class="python">
+        # Don't assign this to anything!
+        random.shuffle(mylist)
+    </code></pre>
+
+    <pre><code class="python">
+        mylist
+        <code>Output: [9, 11, 7, 12, 10, 16, 0, 2, 18, 13, 3, 5, 17, 1, 15, 6, 14, 19, 4, 8]</code>
+    </code></pre>
+
+    <h4>Random Distributions</h4>
+    <b><a href="https://en.wikipedia.org/wiki/Uniform_distribution">Uniform Distribution</a></b>
+    <pre><code class="python">
+        # Continuous, random picks a value between a and b, each value has equal chance of being picked
+        random.uniform(a = 0, b = 100)
+        <code>Output: 23.852305703497635</code>
+    </code></pre>
+
+    <b><a href="https://en.wikipedia.org/wiki/Normal_distribution">Normal/Gaussian Distribution</a></b>
+    <pre><code class="python">
+        random.gauss(mu = 0, sigma = 1)
+        <code>Output: -0.21390381464435643</code>
+    </code></pre>
+
+    <p>Final Note: If you find yourself using these libraries a lot, take a look at the NumPy library for Python, it covers all these capabilities with extreme efficiency.</p>
+
+    <h3><u>Python Debugger (pdb)</u></h3>
+    <h4><b>Python Debugger</b></h4>
+    <p>You've probably used a variety of print statements to try to find errors in your code. A better way of doing this is by using Python's built-in debugger module (pdb). The pdb module implements an interactive debugging environment for Python programs. It includes features to let you pause your program, look at the values of variables, and watch program execution step-by-step, so you can understand what your program actually does and finds bugs in the logic.</p>
+
+    <p>This would be pretty difficult to show since it requires creating an error on purpose.</p>
+
+    <p><i>Note: Keep in mind it would be pretty unusual to use pdb in a Jupyter Notebook setting.</i></p>
+
+    <p>Great! For more information on general debugging techniques and more methods, check out the official documentation: <a href="https://docs.python.org/3/library/pdb.html">https://docs.python.org/3/library/pdb.html</a></p>
+
+    <h3><u>Overview of Regular Expressions</u></h3>
+    <h4><b>Overview of Regular Expressions</b></h4>
+    <p>Regular Expressions (sometimes called regex for short) allows a user to search for strings using almost any sort of rule they can come up. For example, finding all capital letters in a string, or finding a phone number in a document.</p>
+
+    <p>Regular expressions are notorious for their seemingly strange syntax. The strange syntax is a byproduct of their flexibility. Regular expressions have to be able to filter out any string pattern you can imagine, which is why they have a complex string pattern format.</p>
+
+    <p>Let's begin by explaining how to search for basic patterns in a string.</p>
+
+    <h4>Searching for Basic Patterns</h4>
+    <p>Let's imagine that we have the following string:</p>
+    <pre><code class="python">
+        text = "The person's phone number is 408-555-1234. Call soon!"
+    </code></pre>
+
+    <p>We'll start off by trying to find out if the string "phone" is inside the text string. Now we could quickly do this with:</p>
+    <pre><code class="python">
+        'phone' in text
+        <code>Output: True</code>
+    </code></pre>
+
+    <p>But let's show the format for regular expressions, because later on we will be searching for patterns that won't have such a simple solution.</p>
+    <pre><code class="python">
+        import re
+    </code></pre>
+
+    <pre><code class="python">
+        pattern = 'phone'
+    </code></pre>
+
+    <pre><code class="python">
+        re.search(pattern, text)
+        <code>Output: &lt;_sre.SRE_Match object; span = (13, 18), match = 'phone'&gt;</code>
+    </code></pre>
+
+    <p>Notice the span, there is also a start and end index information.</p>
+    <pre><code class="python">
+        match.span()
+        <code>Output: (13, 18)</code>
+    </code></pre>
+
+    <pre><code class="python">
+        match.start()
+        <code>Ouput: 13</code>
+    </code></pre>
+
+    <pre><code class="python">
+        match.end()
+        <code>Output: 18</code>
+    </code></pre>
+
+    <p>But what if the pattern occurs more than once?</p>
+    <pre><code class="python">
+        text = 'my phone is a new phone'
+    </code></pre>
+
+    <pre><code class="python">
+        match = re.search("phone", text)
+    </code></pre>
+
+    <pre><code class="python">
+        match.span()
+        <code>Output: (3, 8)</code>
+    </code></pre>
+
+    <p>Notice it only matches the first instance. If we wanted a list of all matches, we can use the .findall() method:</p>
+    <pre><code class="python">
+        matches = re.findall("phone", text)
+    </code></pre>
+
+    <pre><code class="python">
+        matches
+        <code>Output: ['phone', 'phone']</code>
+    </code></pre>
+
+    <pre><code class="python">
+        len(matches)
+        <code>Output: 2</code>
+    </code></pre>
+
+    <p>To get actual match objects, use the iterator:</p>
+    <pre><code class="python">
+        for match in re.finditer("phone", text):
+            print(match.span())
+        <code>Output:
+            (3, 8)
+            (18, 23)
+        </code>
+    </code></pre>
+
+    <p>If you wanted the actual text that matched, you can use the .group() method.</p>
+    <pre><code class="python">
+        match.group()
+        <code>Output: 'phone'</code>
+    </code></pre>
+
+    <h4>Patterns</h4>
+    <p>So far we've learned how to search for a basic string. What about more complex examples? Such as trying to find a telephone number in a large string of text? Or an email address?</p>
+
+    <p>We could just use search method if we know the exact method or email, but what if we don't know it? We may know the general format, and we can use that along with regular expressions to search the document for strings that match a particular pattern.</p>
+
+    <p>This is where the syntax may appear strange at first, but take your time with this, often its just a matter of looking up the pattern code.</p>
+    
+    <p>Let's begin!</p>
+
+    <h4>Identifiers for Characters in Pattern</h4>
+    <p>Characters such as digit or simple string have different codes that represent them. You can use these to build up a pattern string. Notice how these make heavy use of the backwards slash \. Because of this when defining a pattern string for regular expression we use the format:</p>
+    <p style="font-size:17px;font-family:monospace;">&emsp;&emsp;r'mypattern'</p>
+
+    <p>placing the r in front of the string allows Python to understand that the \ in the pattern string are not meant to be escape slashes.</p>
+
+    <p>Below you can find a table of all the possible identifiers:</p>
+
+    <p>For example:</p>
+    <pre><code class="python">
+        text = "My telephone number is 408-555-1234"
+    </code></pre>
+
+    <pre><code class="python">
+        phone = re.search(r'\d\d\d-\d\d\d-\d\d\d\d', text)
+    </code></pre>
+
+    <pre><code class="python">
+        phone.group()
+        <code>Output: '408-555-1234'</code>
+    </code></pre>
+
+    <h4>Quantifiers</h4>
+    <p>Now that we know the special character designations. we can use them along with quantifiers to define how many we expect.</p>
+    <div class="container mt-3">
+        <table class = "table table-hover">
+            <thead>
+                <tr>
+                    <th>Characerr</th>
+                    <th>Description</th>
+                    <th>Example Pattern Code</th>
+                    <th>Example Match</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>\d</td>
+                    <td>A digit</td>
+                    <td>file_\d\d</td>
+                    <td>file_25</td>
+                </tr>
+                <tr>
+                    <td>\w</td>
+                    <td>Alphanumeric</td>
+                    <td>\w-\w\w\w</td>
+                    <td>A-b_1</td>
+                </tr>
+                <tr>
+                    <td>\s</td>
+                    <td>White space</td>
+                    <td>a\sb\sc</td>
+                    <td>a b c</td>
+                </tr>
+                <tr>
+                    <td>\D</td>
+                    <td>A non digit</td>
+                    <td>\D\D\D</td>
+                    <td>ABC</td>
+                </tr>
+                <tr>
+                    <td>\W</td>
+                    <td>Non-alphanumeric</td>
+                    <td>\W\W\W\W\W</td>
+                    <td>*-+=)</td>
+                </tr>
+                <tr>
+                    <td>\S</td>
+                    <td>Non-whitespace</td>
+                    <td>\S\S\S\S</td>
+                    <td>Yoyo</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <p>Let's rewrite our pattern using these quantifiers:</p>
+    <pre><code class="python">
+        re.search(r'\d{3}-\d{3}-\d{4}', text)
+        <code>Output: <_sre.SRE_Match object; span=(23, 35), match='408-555-1234'></_sre.SRE_Match></code>
+    </code></pre>
+
+    <h4>Groups</h4>
+    <p>What if we wanted to do two tasks, find phone numbers, but also be able to quickly extract their area code (the first three digits. We can use groups for any general task that involves grouping together regular expressions (so that we can later break them down.</p>
+
+    <p>Using the phone number example, we can separate groups of regular expressions using parentheses:</p>
+    <pre><code class="python">
+        phone_pattern = re.compile(r'(\d{3})-(\d{3})-(\d{4})')
+    </code></pre>
+
+    <pre><code class="python">
+        results = re.search(phone_pattern, text)
+    </code></pre>
+
+    <pre><code class="python">
+        # The entire result
+        results.group()
+        <code>Output:'408-555-1234'</code>
+    </code></pre>
+
+    <pre><code class="python">
+        # Can then also call by group position
+        # remember groups are seperated by parentheses ()
+        # Something to note is that group ordering starts at 1. Passing in 0 returns everything
+        results.group(1)
+        <code>Output: '408'</code>
+    </code></pre>
+
+    <pre><code class="python">
+        results.group(2)
+        <code>Output: '555'</code>
+    </code></pre>
+
+    <pre><code class="python">
+        results.group(3)
+        <code>Output: '1234'</code>
+    </code></pre>
+
+    <pre><code class="python">
+        # We only had three groups of parenthesis
+        results.group(4)
+    </code></pre>
+    <code>Output: <b style="color:maroon">IndexError</b>      Traceback (most recent call last) <br> <b style="color:darkgreen">&lt;ipython-input-32-866de7a94a57&gt;</b> in <b style="color:turquoise">&lt;module&gt;</b><b style="color:darkblue">()</b> <br>&emsp;&emsp;&emsp;&emsp;&emsp; 1 <b style="color:maroon"># We only had three groups of parenthesis</b> <br> <b style="color:darkgreen">----> 2 </b> results<b style="color:goldenrod">.</b>group<b style="color:goldenrod">(</b><b style="color:dodgerblue">4</b><b style="color:goldenrod">)</b> <br> <b style="color:maroon">IndexError</b>: no such group</code>
+
+    <h4>Additional Regex Syntax</h4>
+    <p style="font-size:17px"><b>Or operator |</b></p>
+    <p>Use the pipe operator to have an <b>or</b> statement. For example</p>
+    <pre><code class="python">
+        re.search(r"man|woman", "This man was here.")
+        <code>Output: <_sre.SRE_Match object; span=(5, 8), match='man'></_sre.SRE_Match></code>
+    </code></pre>
+
+    <pre><code class="python">
+        re.search(r"man|woman", "This man was here.")
+        <code>Output: <_sre.SRE_Match object; span=(5, 10), match='woman'></_sre.SRE_Match></code>
+    </code></pre>
+
+    <h4>The Wildcard Character</h4>
+    <p>Use a "wildcard" as a placement that will match any character placed here. You can use a simple period . for this. For example:</p>
+    <pre><code class="python">
+        re.findall(r".at", "The cat in the hat sat there.")
+        <code>Output: ['cat', 'hat', 'sat']</code>
+    </code></pre>
+
+    <pre><code class="python">
+        re.findall(r".at", "The bat went splat")
+        <code>Output: ['bat', 'lat']</code>
+    </code></pre>
+
+    <p>Notice how we only matched the first 3 letters, that is because we need a . for each wildcard letter. Or use the quantifiers described above to set its own rules.</p>
+    <pre><code class="python">
+        re.findall(r"...at", "The bat went splat")
+        <code>Output: ['e bat', 'splat']</code>
+    </code></pre>
+
+    <p>However this still leads the problem to grabbing more beforehand. Really we only want words that end with "at".</p>
+    <pre><code class="python">
+        # One or more non-whitespace that ends with 'at'
+        re.findall(r'\S+at', "The bat went splat")
+        <code>Output: ['bat', 'splat']</code>
+    </code></pre>
+
+    <h4>Starts With and Ends With</h4>
+    <p>We can use the <b>^</b> to signal starts with, and the <b>$</b> to signal ends with:</p>
+    <pre><code class="python">
+        # Ends with a number
+        re.findall(r'\d$', 'This ends with a number 2')
+        <code>Output: ['2']</code>
+    </code></pre>
+
+    <pre><code class="python">
+        # Starts with a number
+        re.findall(r'^\d', '1 is the loneliest number.')
+        <code>Output: ['1']</code>
+    </code></pre>
+
+    <p>Note that this is for the entire string, not individual words!</p>
+
+    <h4>Exclusion</h4>
+    <p>To exclude characters, we use the <b>^</b> symbol in conjunction with a set of brackets <b>[]</b>. Anything inside the brackets is included. For example:</p>
+    <pre><code class="python">
+        phrase = "there are 3 numbers 34 inside 5 this sentence."
+    </code></pre>
+
+    <pre><code class="python">
+        import re.findall(r'[^\d]', phrase)
+        <code>Output: 
+            ['t',
+            'h',
+            'e',
+            'r',
+            'e',
+            ' ',
+            'a',
+            'r',
+            'e',
+            ' ',
+            ' ',
+            'n',
+            'u',
+            'm',
+            'b',
+            'e',
+            'r',
+            's',
+            ' ',
+            ' ',
+            'i',
+            'n',
+            's',
+            'i',
+            'd',
+            'e',
+            ' ',
+            ' ',
+            't',
+            'h',
+            'i',
+            's',
+            ' ',
+            's',
+            'e',
+            'n',
+            't',
+            'e',
+            'n',
+            'c',
+            'e',
+            '.']
+        </code>
+    </code></pre>
+
+    <p>To get the words back together, use a + sign:</p>
+    <pre><code class="python">
+        re.findall(r'[^\d]+', phrase)
+        <code>Output: ['there are ', ' numbers ', ' inside ', ' this sentence.']</code>
+    </code></pre>
+
+    <p>We can use this to remove punctuation from a sentence.</p>
+    <pre><code class="python">
+        test_phrase = 'This is a string! But it has punctuation. How can we remove it?'
+    </code></pre>
+
+    <pre><code class="python">
+        re.findall('[^!.? ]+', test_phrase)
+        <code>Output: 
+            ['This',
+            'is',
+            'a',
+            'string',
+            'But',
+            'it',
+            'has',
+            'punctuation',
+            'How',
+            'can',
+            'we',
+            'remove',
+            'it']</code>
+    </code></pre>
+
+    <pre><code class="python">
+        clean = ' '.join(re.findall('[^!.? ]+', test_phrase))
+    </code></pre>
+
+    <pre><code class="python">
+        clean
+        <code>Output: 'This is a string But it has punctuation How can we remove it'</code>
+    </code></pre>
+
+    <h4>Brackets for Grouping</h4>
+    <p>As we showed above we can use brackets to group together options, for example if we wanted to find hyphenated words:</p>
+    <pre><code class="python">
+        text = 'Only find the hypen-words in this sentence. But you do not know how long-ish they are'
+    </code></pre>
+
+    <pre><code class="python">
+        re.findall(r'[\w]+-[\w]+', text)
+        <code>Output: ['hyphen-words', 'long-ish']</code>
+    </code></pre>
+
+    <h4>Parenthesis for Multiple Options</h4>
+    <p>If we have multiple options for matching, we can use parenthesis to list out these options. For example:</p>
+    <pre><code class="python">
+        # Fine words that start with cat and end with one of these options: 'fish', 'nap' or 'claw'
+        text = 'Hello, would you like some catfish?'
+        texttwo = 'Hello, would you like to take a catnap?'
+        textthree = 'Hello, have you seen this caterpillar?'
+    </code></pre>
+
+    <pre><code class="python">
+        re.search(r'cat(fish|nap|claw)', text)
+        <code>Output:<_sre.SRE_Match object; span=(27, 34), match='catfish'></_sre.SRE_Match></code>
+    </code></pre>
+
+    <pre><code class="python">
+        re.search(r'cat(fish|nap|claw)', texttwo)
+        <code>Output: <_sre.SRE_Match object; span=(32, 38), match='catnap'></_sre.SRE_Match></code>
+    </code></pre>
+
+    <pre><code class="python">
+        # None returned
+        re.search(r'cat(fish|nap|claw'), textthree)
+    </code></pre>
+
+    <h4>Conclusion</h4>
+    <p>Excellent work! For full information on all possible patterns, check out: <a href="https://docs.python.org/3/howto/regex.html">https://docs.python.org/3/howto/regex.html</a></p>
+    <hr>
+
+    <div class="container mt-3">
+        <table class="table table-hover">
+            <thead>
+                <th>Character</th>
+                <th>Description</th>
+                <th>Example Pattern Code</th>
+                <th>Example Match</th>
+            </thead>
+            <tbody>
+                <td>+</td>
+                <td>Occurs one or more times</td>
+                <td>Version \w-\w+</td>
+                <td>Version A-b1_1</td>
+            </tbody>
+            <tbody>
+                <td>{3}</td>
+                <td>Occurs exactly three times</td>
+                <td>\D{3}</td>
+                <td>abc</td>
+            </tbody>
+            <tbody>
+                <td>{2, 4}</td>
+                <td>Occurs 2 to 4 times</td>
+                <td>\d{2, 4}</td>
+                <td>123</td>
+            </tbody>
+            <tbody>
+                <td>{3,}</td>
+                <td>Occurs 3 or more times</td>
+                <td>\w{3,}</td>
+                <td>anycharacters</td>
+            </tbody>
+            <tbody>
+                <td>\*</td>
+                <td>Occurs zero ore more times</td>
+                <td>A\*B\*C*</td>
+                <td>AAACC</td>
+            </tbody>
+            <tbody>
+                <td>?</td>
+                <td>Once or none</td>
+                <td>plurals?</td>
+                <td>plural</td>
+            </tbody>
+        </table>
+    </div>
+
+    <h3><u>Timing Your Code</u></h3>
+    <h4><b>Timing Your Code</b></h4>
+    <p>Sometimes it's important to know how long your code is taking to run, or at least know if a particular line of code is slowing down your entire project. Python has a built-in timing module to do this.</p>
+
+    <h4>Example Function or Script</h4>
+    <p>Here we have two functions that do the same thing, but in different ways. How can we tell which one is more efficient? Let's time it!</p>
+    <pre><code class="python">
+        def func_one(n):
+            '''
+            Given a number n, returns a list of string integers
+            ['0', '1', '2', ..., 'n']
+            '''
+            return [str(num) for num in range(n)]
+    </code></pre>
+
+    <pre><code class="python">
+        func_one(10)
+        <code>Output: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']</code>
+    </code></pre>
+
+    <pre><code class="python">
+        def func_two(n):
+            '''
+            Given a number n, returns a list of string integers
+            ['0', '1', '2', ..., 'n']
+            '''
+
+            return list(map(str, range(n)))
+    </code></pre>
+
+    <pre><code class="python">
+        func_two(10)
+        <code>Output: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']</code>
+    </code></pre>
+
+    <h4>Timing Start and Stop</h4>
+    <p>We can try using the time module to simply calculate the elapsed time for the code. Keep in mind, due to the time module's precision, the code needs to take <b>at least</b> 0.1 seconds to complete.</p>
+    <pre><code class="python">
+        import time
+    </code></pre>
+
+    <pre><code class="python">
+        # STEP 1: Get start time
+        start_time = time.time()
+        # Step 2: Run your code you want time
+        result = func_one(1000000)
+        # Step 3: Calculate total time elapsed
+        end_time = time.time() - start_time
+    </code></pre>
+
+    <pre><code class="python">
+        end_time
+        <code>Output: 0.18550348281860352</code>
+    </code></pre>
+
+    <pre><code class="python">
+        # STEP 1: Get start time
+        start_time = time.time()
+        # Step 2: Run your code you want to time
+        result = func_two(1000000)
+        # Step 3: Calculate total time elapsed
+        end_time = time.time() - start_time
+    </code></pre>
+
+    <pre><code class="python">
+        end_time
+        <code>Output: 0.1496279239654541</code>
+    </code></pre>
+
+    <h4>Timeit Module</h4>
+    <p>What if we have two blocks of code that are quite fast, the difference from the time.time() method may not be enough to tell which is faster. In this case, we can use the timeit module.</p>
+
+    <p>The timeit module takes in two strings, a statement (stmt) and a setup. It then runs the setup code and runs the stmt code some n number of times and reports back average length of time it took.</p>
+    <pre><code class="python">
+        import timeit
+    </code></pre>
+
+    <p>The setup (anything that needs to be defined beforehand, such as def functions).</p>
+    <pre><code class="python">
+        setup =  '''
+        def func_one(n):
+            return[str(num) for num in range(n)]
+        '''
+    </code></pre>
+
+    <pre><code class="python">
+        stmt = 'func_one(100)'
+    </code></pre>
+
+    <pre><code class="python">
+        timeit.timeit(stmt, setup, number = 100000)
+        <code>Output: 1.3161248000000114</code>
+    </code></pre>
+
+    <p>It looks like func_two is more efficient. You can specify more number of runs if you want to clarify the different fast performing functions.</p>
+    <pre><code class="python">
+        timeit.timeit(stmt, setup, number = 100000)
+    </code></pre>
+
+    <pre><code class="python">
+        timeit.timeit(stmt2,setup2,number=1000000)
+        <code>Output: 10.894090699999992</code>
+    </code></pre>
+
+    <h4>Timing Your Code with Jupyter "magic" Method</h4>
+    <p style="font-size:17px;"><b>Note: This method is ONLY available in Jupyter and the magic command needs to be at the top of the cell with nothing above it (not even commented code).</b></p>
+    <pre><code class="python">
+        %%timeit
+        func_one(100)
+        <code>Output:100000 loops, best of 3: 13.4 µs per loop</code>
+    </code></pre>
+
+    <pre><code class="python">
+        %%timeit
+        func_two(100)
+        <code>Output:100000 loops, best of 3: 10.9 µs per loop</code>
+    </code></pre>
+
+    <p>Great! Check out the documentation for more information: <a href="https://docs.python.org/3/library/timeit.html">https://docs.python.org/3/library/timeit.html</a></p>
+
+    <h3><u>Unzipping and Zipping Files</u></h3>
+    <h4><b>Unzipping and Zipping Files</b></h4>
+    <p>As you are probably aware, files can be compressed to a zip format. Often people use special programs on their computer to unzip these files, luckily for us, Python can do the same task with just a few simple lines of code.</p>
+
+    <h4>Create Files to Compress</h4>
+    <pre><code class="python">
+        # slashes may need to change for Mac OS and Linux
+        f = open('new_file.txt', 'w+')
+        f.write("Here is some text")
+        f.close()
+    </code></pre>
+
+    <pre><code class="python">
+        # slashes may need to change for Mac OS and Linux
+        f = open('new_file2_txt', 'w+')
+        f.write("Here is some text")
+        f.close()
+    </code></pre>
+
+    <h4>Zipping Files</h4>
+    <p>The <a href="https://docs.python.org/3/library/zipfile.html">zipfile library</a> is built into Python, we can use it to compress folders or files. To compress all files in a folder, just use the os.walk() method to iterate this process for all the files in a directory.</p>
+    <pre><code class="python">
+        import zipfile
+    </code></pre>
+
+    <p>Create zip file first, then write to it (the write step compresses the files).</p>
+    <pre><code class="python">
+        comp_file = zipfile.ZipFile('comp_file.zip', 'w')
+    </code></pre>
+
+    <pre><code class="python">
+        comp_file.write("new_file.txt",compress_type=zipfile.ZIP_DEFLATED)
+    </code></pre>
+
+    <pre><code class="python">
+        comp_file.write("new_file2.txt",compress_type=zipfile.ZIP_DEFLATED)
+    </code></pre>
+
+    <pre><code class="python">
+        comp_file.close()
+    </code></pre>
+
+    <h4>Extracting from Zip Files</h4>
+    <p>We can easily extract files with either the extractall() method to get all the files, or just using the extract() method to grab only individual files.</p>
+    <pre><code class="python">
+        zip_obj = zipfile.ZipFile('comp_file.zip', 'r')
+    </code></pre>
+
+    <pre><code class="python">
+        zip_obj.extractall("extracted_content")
+    </code></pre>
+    <hr>
+
+    <h4>Using shutil library</h4>
+    <p>Often you don't want to extract or archive individual files from a .zip, but instead archive everything at once. The shutil library that is built-in to Python has easy to use commands for this:</p>
+    <pre><code class="python">
+        import shutil
+    </code></pre>
+
+    <p>The shutil library can accept a format parameter, <code>format</code> is the archive format: one of "zip", "tar", "bztar", or"xztar".</p>
+    <pre><code class="python">
+        pwd
+        <code>Output: /Users/aarush/Desktop/zero to hero python bootcamp stuff</code>
+    </code></pre>
+
+    <pre><code class="python">
+        directory_to_zip = "/Users/aarush/Desktop/zero to hero python bootcamp stuff"
+    </code></pre>
+
+    <pre><code class="python">
+        # Creating a zip archive
+        output_filename = 'example'
+        # Just fill in the output_filename and the directory to zip
+        # Note this won't run as is because the variable are undefined
+        shutil.make_archive(output_filename, dir_for_extract_result, 'zip', directory_to_zip)
+        <code>Output: '/Users/aarush/Desktop/zero to hero python bootcamp stuff/example.zip'</code>
+    </code></pre>
+
+    <pre><code class="python">
+        # Extracting a zip archive
+        # Notice how the parameter/argument order is slightly different here
+        shutil.unpack_archive(output_filename, dir_for_extract_result, 'zip')
+    </code></pre>
+</body>
+</html>

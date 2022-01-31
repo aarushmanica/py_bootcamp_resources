@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/highlight.min.js"></script>
+    <meta charset="utf-8">
+    <title>Python Object Oriented Programming Documentation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+    <h2><b>04 - Object Oriented Programming</b></h2>
+    <h3><u>Object Oriented Programming</u></h3>
+    <h4><b>Object Oriented Programming</b></h4>
+    <p>Object Oriented Programming (OOP) tends to be one of the major obstacles for beginners when they are first starting to learn Python.</p>
+
+    <p>Let's start the lesson by remembering about the Basic Python Objects. For example:</p>
+    <pre><code class="python">
+        lst = [1, 2, 3]
+    </code></pre>
+
+    <p>Remember how we could call methods on a list?</p>
+    <pre><code class="python">
+        lst.count(2)
+        <code>Output: 1</code>
+    </code></pre>
+
+    <p>What we will basically be doing in this section is exploring how we could create an Object type like a list. We've already learned about how to create functions. So let's explore Objects in general:</p>
+
+    <h4>Objects</h4>
+    <p>In Python <i>everything is an object</i>. Remember from previous sections, we can use type() to check the type of object something is:</p>
+    <pre><code class="python">
+        print(type(1))
+        print(type([]))
+        print(type(()))
+        print(type({}))
+        <code>Output:
+            &lt;class 'int'&gt;
+            &lt;class 'list'&gt;
+            &lt;class 'tuple'&gt;
+            &lt;class 'dict'&gt;
+        </code>
+    </code></pre>
+
+    <p>So we know all these things are objects, so how can we create our own Object types? That is where the <code>class</code> keyword comes in.</p>
+
+    <h4>class</h4>
+    <p>User defined objects are created using the <code>class</code> keyword. The class is a blueprint that defines the nature of a future object. From classes we can construct instances. An instance is a specific object created from a particular class. For example, above we created the object <code>lst</code> which was an instance of a list object.</p>
+
+    <p>Let's see how we can use <code>class</code>:</p>
+    <pre><code class="python">
+        # Create a new object type called Sample
+        class Sample:
+            pass
+
+        # Instance of Sample
+        x = Sample()
+
+        print(type(x))
+        <code>Output: &lt;class '__main__.Sample&gt;</code>
+    </code></pre>
+
+    <p>By convention, we give classes a name that starts with a capital letter. Note how <code>x</code> is now the reference to our new instance of a Sample class. In other words, we <b>instantiate</b> the Sample class.</p>
+
+    <p>Inside of the class we currently just have pass. But we can define class attributes and methods.</p>
+
+    <p>An <b>attribute</b> is a characteristic of an object. A <b>method</b> is an operation we can perform with the object.</p>
+
+    <p>For example, we can create a class called Dog. An attribute of a dog may be its breed or its name, while a method of a dog may be defined by a .bark() method which returns a sound.</p>
+
+    <p>Let's get a better understanding of attributes through an example.</p>
+
+    <h4>Attributes</h4>
+    <p>The syntax for creating an attribute is:</p>
+    <p style="font-family:monospace; font-size:17px;">self.attribute = something</p>
+
+    <p>There is a special method called:</p>
+    <p style="font-family:monospace; font-size:17px;">__init__()</p>
+
+    <p>This method is used to initialise the attributes of an object. For example:</p>
+    <pre><code class="python">
+        class Dog:
+            def __init__(self, breed):
+                self.breed = breed
+
+        frank = Dog(breed = 'Lab')
+        john = Dog(breed = 'Husky')        
+    </code></pre>
+
+    <p>Let's break down what we have above. The special method</p>
+    <p style="font-size: 17px; font-family: monospace;">__init__()</p>
+
+    <p>is called automatically right after the object has been created:</p>
+    <p style="font-size: 17px; font-family: monospace;">def __init__(self, breed):</p>
+
+    <p>Each attribute in a class definition begins with a reference to the instance object. It is by convention named self. The breed is the argument. The value is passed during the class instantiation.</p>
+    <p style="font-size: 17px; font-family: monospace;">self.breed = breed</p>
+
+    <p>Now we have created two instances of the Dog class. With two breed types, we can then access these attributes like this:</p>
+    <pre><code class="python">
+        frank.breed
+        <code>Output: 'Lab'</code>
+    </code></pre>
+
+    <pre><code class="python">
+        john.breed
+        <code>Output: 'Husky'</code>
+    </code></pre>
+
+    <p>Note how we don't have any parentheses after breed; this is because it is an attribute and doesn't take any arguments.</p>
+
+    <p>In Python there are also <i>class object attributes</i>. These Class Object Attributes are the same way for any instance of the class. For example, we could create the attribute <i>species</i> for the Dog class. Dogs, regardless of their breed, name, or other attributes, will always be mammals. We apply this logic in the following manner:</p>
+    <pre><code class="python">
+        class Dog:
+            # Class Object Attribute
+            species = 'mammal'
+
+            def __init__(self, breed, name):
+                self.breed = breed
+                self.name = name
+    </code></pre>
+
+    <pre><code class="python">
+        frank = Dog('Lab', 'Frank')
+    </code></pre>
+
+    <pre><code class="python">
+        frank.name
+        <code>Output: 'Frank'</code>
+    </code></pre>
+
+    <p>Note that the Class Object Attribute is defined outside of any methods in the class. Also by convention, we place them first before the init.</p>
+    <pre><code class="python">
+        frank.species
+        <code>Output: 'mammal'</code>
+    </code></pre>
+
+    <h4>Methods</h4>
+    <p>Methods are functions defined inside the body of a class. They are used to perform operations with the attributes of our objects. Method are a key concept of the OOP paradigm. They are essential to dividing responsibilities in programming, especially in large applications.</p>
+
+    <p>You can basically think of methods as functions acting on an Object that take the Object itself into account through its <i>self</i> argument.</p>
+
+    <p>Let's go through an example of creating a Circle class:</p>
+    <pre><code class="python">
+        class Circle:
+            pi = 3.14
+
+            # Circle gets instaniated with a radius (default is 1)
+            def __init__(self, radius = 1):
+                self.radius = radius
+                self.area = radius * radius * Circle.pi
+            
+            # Method for resetting Radius
+            def setRadius(self, new_radius):
+                self.radius = new_radius
+                self.area = new_radius * new_radius * self.pi
+
+            # Method for getting Circumferences
+            def getCircumference(self):
+                return self.radius * self.pi * 2
+
+        c = Circle()
+
+        print('Radius is ', c.radius)
+        print('Area is ', c.area)
+        print('Circumference is: ', c.getCircumference())
+        <code>Output:
+            Radius is: 1
+            Area is: 3.14
+            Circumference is: 6.28
+        </code>
+    </code></pre>
+
+    <p>In the __init__ method above, in order to calculate the area attribute, we had to call Circle.pi. This is because the object does not yet have its own .pi attribute, so we call the Class Object Attribute pi instead.</p>
+
+    <p>In the setRadius method, however, we'll be working with an existing Circle object that does have its own .pi attribute. Here we can use either Circle.pi or self.pi.</p>
+
+    <p>Now let's change the radius and see how that affects out Circle object:</p>
+    <pre><code class="python">
+        c.setRadius(2)
+
+        print('Radius is ', c.radius)
+        print('Area is ', c.area)
+        print('Circumference is: ', c.getCircumference())
+        <code>Output:
+            Radius is: 2
+            Area is: 12.56
+            Circumference is: 12.56
+        </code>
+    </code></pre>
+
+    <p>Great! Notice how we used self.notation to reference attributes of the class within the method calls.</p>
+
+    <h4>Inheritance</h4>
+    <p>Inheritance is a way to form new classes using classes that have already been defined. The newly formed classes are called derived classes, the classes that we derive from are called the base classes. Important benefits of inheritance are code reuse and reduction of complexity of a program. The derived classes (descendant) override or extend the functionality of base classes (ancestors).</p>
+
+    <p>Let's see an example by incorporating our previous work on the Dog class:</p>
+    <pre><code class="python">
+        class Animal:
+            def __init__(self):
+                print("Animal created")
+            
+            def whoAmI(self):
+                print("Animal")
+
+            def eat(self):
+                print("Eating")
+
+        class Dog(Animal):
+            def __init__(self):
+                Animal.__init__(self)
+                print("Dog created")
+
+            def whoAmI(self):
+                print("Dog")
+
+            def bark(self):
+                print("Woof!")
+    </code></pre>
+
+    <pre><code class="python">
+        d = Dog()
+        <code>Output:
+            Animal created
+            Dog created
+        </code>
+    </code></pre>
+
+    <pre><code class="python">
+        d.whoAmI()
+        <code>Output: Dog</code>
+    </code></pre>
+
+    <pre><code class="python">
+        d.eat()
+        <code>Output: Eating</code>
+    </code></pre>
+
+    <pre><code class="python">
+        d.bark()
+        <code>Output: Woof!</code>
+    </code></pre>
+
+    <p>In this example, we have two classes, Animal and Dog. The Animal is the base class, the Dog is the derived class.</p>
+
+    <p>The derived class inherits the functionality of the base class.</p>
+    <ul>
+        <li>It is shown by the eat() method</li>
+    </ul>
+
+    <p>The derived class modifies existing behaviour of the base class.</p>
+    <ul>
+        <li>shown by the whoAmI() method.</li>
+    </ul>
+
+    <p>Finally, the derived class extends the functionality of the base class, by defining a new bark() method.</p>
+
+    <h4>Polymorphism</h4>
+    <p>We've learned that while functions can take in different arguments, methods belong to the objects they act on. In Python, <i>polymorphism</i> refers to the way in which different object classes can share the same method name, and those methods can be called from the same place even though a variety of different objects might be passed in. The best way to explain this is by an example:</p>
+    <pre><code class="python">
+        class Dog:
+            def __init__(self, name):
+                self.name = name
+
+            def speak(self):
+                return self.name + ' says Woof!'
+
+        class Cat:
+            def __init__(self, name):
+                self.name = name
+
+            def speak(self):
+                return self.name + ' says Meow!'
+
+        frank = Dog('Frank')
+        felix = Cat('Felix')
+
+        print(frank.speak())
+        print(felix.speak())
+        <code>Output: 
+            Frank says Woof!
+            Felix says Meow!
+        </code>
+    </code></pre>
+
+    <p>Here we have a Dog class and a Cat class, and each has a <code>.speak()</code> method. When called, each object's <code>.speak()</code> method returns a result unique to the object.</p>
+
+    <p>There are a few different ways to demonstrate polymorphism. First, with a for loop:</p>
+    <pre><code class="python">
+        for pet in [frank, felix]:
+            print(pet.speak())
+        <code>Output: 
+            Frank says Woof!
+            Felix says  Meow!
+        </code>
+    </code></pre>
+
+    <p>Another is with functions:</p>
+    <pre><code class="python">
+        def pet_speak(self):
+            print(pet.speak())
+
+        pet_speak(frank)
+        pet_speak(felix)
+        <code>Output:
+            Frank says Woof!
+            Felix says Meow!
+        </code>
+    </code></pre>
+
+    <p>In both cases we were able to pass in different object types, and we obtained object-specific results from the same mechanism.</p>
+
+    <p>A more common practice is to use abstract classes and inheritance. An abstract class is one that never expects to be instantiated. For example, we will never have an Animal object, only Dog and Cat objects, although Dogs and Cats are derived from Animals:</p>
+    <pre><code class="python">
+        class Animal:
+            def __init__(self, name):   # Constructor of the class
+                self.name = name
+
+            def speak(self): # Abstract method, defined by convention only
+                raise NotImplementedError('Subclass must be implement abstract method')
+
+        class Dog(Animal):
+            def speak(self):
+                return self.name + ' says Woof!'
+
+        class Cat(Animal):
+            def speak(self):
+                return self.name + ' says Meow!'
+
+        john = Dog('John')
+        tom = Cat('Tom')
+
+        print(john.speak())
+        print(tom.speak())
+        <code>Output:
+            John says Woof!
+            Tom says Meow!
+        </code>
+    </code></pre>
+
+    <p>Real life examples of polymorphism include:</p>
+    <ul>
+        <li>opening different file types - different tools are needed to display Word, pdf and Excel files.</li>
+        <li>adding different objects - the <code>+</code> operators performs arithmetic and concatenation.</li>
+    </ul>
+
+    <h4>Special Methods</h4>
+    <p>Finally, let's go over special methods. Classes in Python can implement certain operations with special method names. These methods are actually not called directly but by Python specific language syntax. For example, let's create a Book class:</p>
+    <pre><code class="python">
+        class Book:
+            def __init__(self, title, author, pages):
+                print("A book is created")
+                self.title = title
+                self.author = author
+                self.pages = pages
+
+            def __str__(self):
+                return 'Title: %s, author: %s, pages: %s' %(self.title, self.author, self.pages)
+
+            def __len__(self):
+                return self.pages
+
+            def __del__(self):
+                print("A book is destroyed")
+    </code></pre>
+
+    <pre><code class="python">
+        book = Book("The Hunger Games", "Suzanne Collins", 400)
+
+        # Special Methods
+        print(book)
+        print(len(book))
+        del book
+        <code>Output:
+            A book is created
+            Title: The Hunger Games, author: Suzanne Collins, pages: 400
+            400
+            A book is destroyed
+        </code>
+    </code></pre>
+
+    <p style="font-size: 17px; font-family:monospace;">&emsp;&emsp;The __init__(), __str__(), __len__() and __del__() methods</p>
+
+    <p>These special methods are defined by their use of underscores. They allow us to use Python specific functions on objects created through our class.</p>
+
+    <p><b>Great! After this section, you should have a basic understanding of how to create your own objects in Python.</b></p>
+
+    <p>For more great resources on this topic, check out:</p>
+    <a href="https://jeffknupp.com/blog/2014/06/18/improve-your-python-python-classes-and-object-oriented-programming/">Jeff Knupp's Post</a><br>
+
+    <a href="https://www.tutorialspoint.com/python/python_classes_objects.htm">Tutorial's Point</a><br>
+
+    <a href="https://docs.python.org/3/tutorial/classes.html">Official Documentation</a>
+</body>
+</html>

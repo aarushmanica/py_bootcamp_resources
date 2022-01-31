@@ -1,0 +1,1401 @@
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/highlight.min.js"></script>
+    <meta charset="utf-8">
+    <title>Object and Data Structure Basics Python Documentation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <style>
+      hr.new2 {
+        border-top: 7px dashed maroon;
+      }
+  </style>
+  <body>
+      <h1 style="text-align:center; color:coral"><u>Zero to Hero Python Bootcamp</u></h1>
+      <h2><b>00 - Python Object and Data Structure Basics</b></h2>
+      <h3><u>Numbers</u></h3>
+      <h4><b>Types of Numbers</b></h4>
+      <p>Python has various "types" of numbers (numeric literals). We'll mainly focus on integers and floating point numbers.</p>
+      <p>Integers are just whole numbers, positive or negative. For example: 2 and -2 are examples of integers</p>
+      <p>Floating point numbers in Python are notable because they have a decimal point in them, or use an exponential (e)to define the number. For example 2.0 and -2.1 are examples of floating point numbers. 4E2 (4 times 10 to the power of 2) is also an example of a floating point number in Python.</p>
+      <p>Here is a table of the two main types we will spend most of our time working with some examples:</p>
+
+      <div class="container mt-3">
+          <table class = "table table-hover">
+              <thead>
+                  <tr>
+                      <th>Examples</th>
+                      <th>Number "Type"</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td>1, 2, -5, 1000</td>
+                      <td>Integers</td>
+                  </tr>
+                  <tr>
+                      <td>1.2, -0.5, 2e2, 3E2</td>
+                      <td>Floating-point Numbers</td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+
+      <p>Now let's start with some basic arithmetic</p>
+
+      <h4>Basic Arithmetic</h4>
+      <pre><code class="python">
+          # Addition
+          3 + 2
+          <code>Output: 5</code>
+      </code></pre>
+
+      <pre><code class="python">
+          # Subtraction
+          5 - 4
+          <code>Output: 1</code>
+      </code></pre>
+      
+      <pre><code class="python">
+          # Multiplication
+           2 * 4
+           <code>Output: 8</code>
+      </code></pre>
+
+      <pre><code class="python">
+          # Division
+          6 / 4
+          <code>Output: 1.5</code>
+      </code></pre>
+      
+      <pre><code class="python">
+          # Floor Division
+          7 // 4
+          <code>Output: 1</code>
+      </code></pre>
+
+      <b>Whoa! What just happened? Last time I checked, 7 divided by 4 equals 1.75 not 1!</b>
+      <p>The reason we get this result is because we are using "<i>floor</i>" division. The // operator (two forward slashes) truncates the decimal without rounding, and returns an integer result.</p>
+      <b>So what if we want just the remainder after division?</b>
+
+      <pre><code class="python">
+          # Modulo 
+        7 % 4
+        <code>Output: 3</code>
+      </code></pre>
+
+      <p>4 goes into 7 once, with a remainder of 3. The % operator returns the remainder after division.</p>
+
+      <h4>Arithmetic Continued</h4>
+      <pre><code class="python">
+          # Powers
+          2 ** 3
+          <code>Output: 8</code>
+      </code></pre>
+
+      <pre><code class="python">
+          # Can also do square roots this way
+          16 ** 0.5
+          <code>Output: 4</code>
+      </code></pre>
+
+      <pre><code class="python">
+          # Order of Operations followed in Python
+          2 + 10 * 10 + 3
+          <code>Output: 105</code>
+      </code></pre>
+
+      <pre><code class="python">
+          # Can use parentheses to specify orders
+          (5 + 10) * (6 + 7)
+          <code>Output: 195</code>
+      </code></pre>
+
+      <h4>Variable Assignment</h4>
+      <p>Now that we've seen how to use numbers in Python as a calculator let's see how we can assign names and create variables.</p>
+      <p>We use a single equals sign to assign labels to variables. Let's see a few examples of how we can do this.</p>
+
+      <pre><code class="python">
+          # Let's create an object called "a" and assign it the number 7.
+          a = 5
+      </code></pre>
+
+      <p>Now if I call <i>a</i> in my Python script, Python will treat it as the number 5.</p>
+
+      <pre><code class="python">
+          # Adding the objects
+          a + a
+          <code>Output: 10</code>
+      </code></pre>
+
+      <p>What happens on reassignment? Will Python let us write it over?</p>
+      <pre><code class="python">
+          # Reassignment
+          a = 10
+      </code></pre>
+
+      <pre><code class="python">
+          # check
+          a
+          <code>Output: 10</code>
+      </code></pre>
+
+      <p>Yes! Python allows you to write over assigned variable names. We can also use the variables themselves when doing the reassignment. Here is an example of what I mean:</p> 
+      <pre><code class="python">
+        # check
+        a
+        <code>Output: 10</code>
+    </code></pre>
+    
+    <pre><code class="python">
+        # Use A to redefine A
+        a = a + 10
+    </code></pre>
+
+    <pre><code class="python">
+        # Check
+        a
+        <code>Output: 20</code>
+    </code></pre>
+
+    <p>The names you use when creating these labels need to follow a few rules:</p>
+    <ol>
+        <li>Names can not start with a number.</li>
+        <li>There can be no spaces in the name, use _ instead</li>
+        <li>Can't use any of these symbols: :'",<>/?|\()!@#$%^&*~-+</li>
+        <li>It's considered best practice (PEP8) that names are lowercase.</li>
+        <li>Avoid using characters 'l' (lowercase letter el), 'O' (uppercase letter Oh), or 'I' (uppercase letter eye) as single character variable names.</li>
+        <li>Avoid using words that have special meaning in Python like "list" and "str".</li>
+    </ol>
+
+    <p>Using variable names can be a very useful way to keep track of different variables in Python. For example:</p>
+    
+    <pre><code class="python">
+        # Use object names to keep better track of what's going on in your code!
+        my_income = 100
+
+        tax_rate = 0.1
+
+        my_taxes = my_income * tax_rate
+    </code></pre>
+
+    <pre><code class="python">
+        # Show my taxes!
+        my_taxes
+        <code>Output: 10.0</code>
+    </code></pre>
+
+    <h3><u>Variable Assignment</u></h3>
+    <h4><b>Rules for Variable Names</b></h4>
+    <ol>
+        <li>Names can not start with a number.</li>
+        <li>Names can not contain spaces, use _ instead</li>
+        <li>Can't use any of these symbols: <br>:'",<>/?|\()!@#$%^&*~-+</li>
+        <li>It's considered best practice (PEP8) that names are lowercase.</li>
+        <li>Avoid using Python built-in keywords like <code>list</code> and <code>str</code></li>
+        <li>Avoid using the single characters <code>l</code> (lowercase letter el), <code>O</code> (uppercase letter Oh> and <code>I</code> (uppercase letter eye) as they can be confused with <code>1</code> and <code>0</code></li><br>
+    </ol>
+
+    <h4>Dynamic Typing</h4>
+    <p>Python uses <i>dynamic typing</i>, meaning you can reassign variables to different data types. This makes Python very flexible in assigning data types; it differs from other languages that are <i>statically typed</i>.</p>
+    
+    <pre><code class="python">
+        my_dogs = 2
+    </code></pre>
+
+    <pre><code class="python">
+        my_dogs
+        <code>Output: 2</code>
+    </code></pre>
+
+    <pre><code class="python">
+        my_dogs = ["Johnny", "Frankie"]
+    </code></pre>
+
+    <pre><code class="python">
+        my_dogs
+        <code>Output: ['Johnny', 'Frankie']</code>
+    </code></pre>
+
+    <h4>Pros and Cons of Dynamic Typing</h4>
+    <h5>Pros of Dynamic Typing</h5>
+    <ul>
+        <li>Very easy to work with</li>
+        <li>Faster development time</li>
+    </ul>
+
+    <h5>Cons of Dynamic Typing</h5>
+    <ul>
+        <li>May result in unexpected bugs!</li>
+        <li>You need to be aware <code>type()</code></li><br>
+    </ul>
+
+    <h4>Assigning Variables</h4>
+    <p>Variable assignment follows <code>name = object</code>, where a single equals sign <code>=</code> is an <i>assignment operator</i>.</p>
+
+    <pre><code class="python">
+        a = 5
+    </code></pre>
+
+    <pre><code class="python">
+        a
+        <code>Output: 5</code>
+    </code></pre>
+
+    <p>Here we assigned the integer object <code>5</code> to the variable name <code>a</code></p>
+    <p>Let's assign <code>a</code> to something else:</p>
+
+    <pre><code class="python">
+        a = 10
+    </code></pre>
+
+    <pre><code class="python">
+        a
+        <code>Output: 10</code>
+    </code></pre>
+
+    <p>You can now use <code>a</code> in place of the number <code>10</code>:</p>
+    <pre><code class="python">
+        a + a
+        <code>Output: 20</code>
+    </code></pre>
+
+    <h4>Reassigning Variables</h4>
+    <p>Python lets you reassign variables with a reference to the same object.</p>
+
+    <pre><code class="python">
+        a = a + 10
+    </code></pre>
+
+    <pre><code class="python">
+        a
+        <code>Output: 20</code>
+    </code></pre>
+
+    <p>There's actually a shortcut for this. Python lets you add, subtract, multiply and divide numbers with reassignment using <code>+=</code>, <code>-=</code>, <code>*=</code>, and <code>/=</code>.</p>
+
+    <pre><code class="python">
+        a += 10        
+    </code></pre>
+
+    <pre><code class="python">
+        a
+        <code>Output: 30</code>
+    </code></pre>
+
+    <pre><code class="python">
+        a *= 2
+    </code></pre>
+
+    <pre><code class="python">
+        a
+        <code>Output: 60</code>
+    </code></pre>
+
+    <h4>Determing Variable Type with <code>type()</code></h4>
+    <p>You can check what type of object is assigned to a variable using Python's built-in <code>type()</code> function. Common data types include:</p>
+    <ul>
+        <li><b>int</b></li>
+        <li><b>float</b></li>
+        <li><b>str</b> (for string)</li>
+        <li><b>list</b></li>
+        <li><b>tuple</b></li>
+        <li><b>dict</b> (for dictionary)</li>
+        <li><b>set</b></li>
+        <li><b>bool</b> (for Boolean True/False)</li>
+    </ul>
+
+    <pre><code class="python">
+        type(a)
+        <code>Output: int</code>
+    </code></pre>
+
+    <pre><code class="python">
+        a = (1, 2)
+    </code></pre>
+
+    <pre><code class="python">
+        type(a)
+        <code>Output: tuple</code>
+    </code></pre>
+
+    <h4>Simple Excercise</h4>
+    <p>This shows how variables make calculations more readable and easier to follow</p>
+    
+    <pre><code class="python">
+        my_income = 100
+        tax_rate = 0.1
+        my_taxes = my_income * tax_rate
+    </code></pre>
+
+    <pre><code class="python">
+        my_taxes
+        <code>Output: 10.0</code>
+    </code></pre>
+
+    <h3><u>Strings</u></h3>
+    <h4><b>Strings</b></h4>
+    <p>Strings are used in Python to record text information, such as names. Strings in Python are actually a <i>sequence</i>, which basically Python keeps track of every element in the string as a sequence. For example, Python understands the string 'hello' to be a sequence of letters in a specific order. This means we will be able to use indexing to grab particular letters (like the first letter, or the last letter).</p>
+
+    <p>This idea of a sequence is an important one in Python.</p>
+
+    <h4>Creating a String</h4>
+    <p>To create a string in Python you need to use either single quotes or double quotes. For example:</p>
+    <pre><code class="python">
+        # Single Word
+        'hello'
+        <code>Output: 'hello</code>
+    </code></pre>
+
+    <pre><code class="python">
+        # Entire phrase
+        'This is also a string'
+        <code>'This is also a string'</code>
+    </code></pre>
+
+    <pre><code class="python">
+        # We can also use double quotes
+        "String built with double quotes"
+        <code>Output: 'String built with double quotes'</code>
+    </code></pre>
+
+    <pre><code class="python">
+        # Be careful with quotes!
+        'I'm using single quotes, but this will create an error'
+    </code></pre>
+    <code>Output: </code>
+    <b style="color:dodgerblue">File </b><b style="color: darkgreen">"&lt;ipython-input-4-da9a34b3dc31&gt;" </b><b style="color: dodgerblue">line </b> <b style="color: darkgreen">2</b> <br> <b style="color: darkgoldenrod;">'I'm using single quotes, but this will create an error'</b> <br> <b style="color: maroon">SyntaxError: </b> invalid syntax
+    
+    <p>The reason for the error above is because the single quote in <code>I'm</code> stopped the string. You can use combinations of double and single quotes to get the complete statement.</p>
+    <pre><code class="python">
+        "Now I'm ready to use the single quotes inside a string!"
+        <code>Output: "Now I'm ready to use the single quotes inside a string!"</code>
+    </code></pre>
+
+    <p>Now let's learn about printing strings!</p>
+
+    <h4>Printing a String</h4>
+    <p>Using Jupyter Notebook with just a string in a cell will automatically output strings, but the correct way to display strings in your output is by using a print function.</p>
+    <pre><code class="python">
+        # We can simply declare a string
+        'Hello World'
+        <code>Output: 'Hello World'</code>
+    </code></pre>
+
+    <pre><code class="python">
+        # Note that we can't output multiple strings this way
+        'Hello World 1'
+        'Hello World 2'
+        <code>Output: 'Hello World 2'</code>
+    </code></pre>
+
+    <p>We can use a print statement to print a string.</p>
+    <pre><code class="python">
+        print('Hello World 1')
+        print('Hello World 2')
+        print('Use \n to print a new line')
+        print('\n')
+        print('See what I mean?')
+    </code></pre>
+    <code>Output: Hello World 1 <br> Hello World 2 <br> Use</code><br>
+    <code>      to print a new line <br> See what I mean?</code>
+
+    <h4>String Basics</h4>
+    <p>We can also use a function called len() to check the length of a string!</p>
+    <pre><code class="python">
+        len('Hello World')
+        <code>Output: 11</code>
+    </code></pre>
+
+    <p>Python's built-in len() function counts all of the characters in the string, including spaces and punctuation.</p>
+
+    <h4>String Indexing</h4>
+    <p>We know strings are a sequence, which means Python can use indexes to call parts of the sequence. Let's learn how this works.</p>
+    <p>In Python, we use brackets <code>[]</code> after an object to call its index. We should also note that indexing starts at 0 for Python. Let's create a new object called <code>s</code> and then walk through a few examples of indexing.</p>
+
+    <pre><code class="python">
+        # Assign s as a string
+        s = 'Hello World'
+    </code></pre>
+
+    <pre><code class="python">
+        # Check
+        s
+        <code>Output: 'Hello World'</code>
+    </code></pre>
+
+    <pre><code class="python">
+        # Print the object
+        print(s)
+        <code>Output: Hello World</code>
+    </code></pre>
+    <p>Let's start indexing!</p>
+
+    <pre><code class="python">
+        # Show the first element (in this case a letter)
+        s[0]
+        <code>Output: 'H'</code>
+    </code></pre>
+
+    <pre><code class="python">
+        s[1]
+        <code>Output: 'e'</code>
+    </code></pre>
+
+    <pre><code class="python">
+        s[2]
+        <code>Output: '1'</code>
+    </code></pre>
+
+    <p>We can use a <code>:</code> to perform <i>slicing</i> which grabs everything up to a designated point. For example:</p>
+
+    <pre><code class="python">
+        # Grab everything past the first term all the way to the length of s which is len(s)
+        s[1:]
+        <code>Output: 'ello World'</code>
+    </code></pre>
+
+    <pre><code class="python">
+        # Note that there is no change to the original s
+        s
+        <code>Output: 'Hello World'</code>
+    </code></pre>
+
+    <pre><code class="python">
+        # Grab everything UP TO the 3rd index
+        s[:3]
+        <code>Output: 'Hel'</code>
+    </code></pre>
+
+    <p>Note the above slicing. Here we're telling Python to grab everything from 0 up to 3. It doesn't include the 3rd index. You'll notice this a lot in Python, where statements and are usually in the context of "up to, but not including".</p>
+
+    <pre><code class="python">
+        # Everything
+        s[:]
+        <code>Output: 'Hello World'</code>
+    </code></pre>
+
+    <p>We can also use negative indexing to go backwards.</p>
+    <pre><code class="python">
+        # Last letter (one index behind 0 so it loops back around)
+        s[-1]
+        <code>Output: 'd'</code>
+    </code></pre>
+
+    <pre><code class="python">
+        # Grab everything but the last letter
+        s[:-1]
+        <code>Output: 'Hello Worl'</code>
+    </code></pre>
+
+    <p>We can also use index and slice notation to grab elements of a sequence by a specified step size (the default is 1). For instance we can use two colons in a row and then a number specifying the frequency to grab elements. For example:</p>
+    <pre><code class="python">
+        # Grab everything, but go in step sizes of 1
+        s[::1]
+        <code>Output: 'Hello World'</code>
+    </code></pre>
+
+    <pre><code class="python">
+        # Grab everything but go in step sizes of 2
+        s[::2]
+        <code>Output: 'HloWrd</code>
+    </code></pre>
+
+    <pre><code class="python">
+        # We can use this to print a string backwards.
+        s[::-1]
+        <code>Output: 'dlroW olleH'</code>
+    </code></pre>
+
+    <h4>String Properties</h4>
+    <p>It's important to note that strings have an important property known as <i>immutability</i>. This means that once a string is created, the elements within it can not be changed or replaced. For example:</p>
+    <pre><code class="python">
+        s
+        <code>Output: 'Hello World'</code>
+    </code></pre>
+
+    <pre><code class="python">
+        # Let's try to change the first letter to 'x' 
+        s[0] = 'x'
+    </code></pre>
+    <hr class="new2">
+    <code>Output: <b style="color: maroon">TypeError</b><br> <b style="color: darkgreem">&lt;ipython-input-26-976942677f11&gt; </b>in <code style="color:aqua">&lt;module&gt;</code><b style="color:darkblue">()</b><br>&emsp;&emsp;&ensp;&emsp;<code style="color: lightseagreen">1</code> <b style="color: maroon"># Let's try to change the first letter to 'x'</b><br> <b style="color: darkgreen">--> 2</b> s<b style="color: goldenrod">[</b><b style="color:dodgerblue">0</b><b style="color: goldenrod">]</b><br> <b style="color:maroon">TypeError</b></code>
+    'str' object does not support item assignment <br>
+    <p>Notice how the error tells us directly what we can't do, change the item assignment!</p>
+    <p>Something we <i>can</i> do is concatenate strings!</p>
+    <pre><code class="python">
+        s
+        <code>Output: 'Hello World'</code>
+    </code></pre>
+
+    <pre><code class="python">
+        # Concatenate strings!
+        s + ' concatenate me!'
+        <code>Output: 'Hello World concatenate me!'</code>
+    </code></pre>
+
+    <pre><code class="python">
+        # We can reassign s completely though!
+        s = s + ' concatenate me!'
+    </code></pre>
+
+    <pre><code class="python">
+        print(s)
+        <code>Output: 'Hello World concatenate me!'</code>
+    </code></pre>
+
+    <pre><code class="python">
+        s
+        <code>Output: 'Hello World concatenate me!'</code>
+    </code></pre>
+
+    <p>We can use the multiplication symbol to create repetition!</p>
+    <pre><code class="python">
+        letter = 'z'
+    </code></pre>
+
+    <pre><code class="python">
+        letter * 10
+        <code>Output: 'zzzzzzzzzzz'</code>
+    </code></pre>
+
+    <h4>Basic Built-in String Methods</h4>
+    <p>Objects in Python usually have built-in methods. These methods are functions inside the object that can perform actions or commands on the objects itself.</p>
+
+    <p>We call methods with a period and then the method name. Methods are in the form: <br> object.method(parameters)</p>
+
+    <p>Where parameters are extra arguments we can pass into the method. Don't worry if the details don't make 100% sense right now.</p>
+
+    <p>Here are some examples of built-in methods in strings: </p>
+    <pre><code class="python">
+        s
+        <code>Output: 'Hello World concatenate me!'</code>
+    </code></pre>
+
+    <pre><code class="python">
+        # Upper Case a string
+        s.upper()
+        <code>Output: 'HELLO WORLD CONCATENATE ME!'</code>
+    </code></pre>
+
+    <pre><code class="python">
+        # Lower Case 
+        s.lower()
+        <code>Output: 'hello world concatenate me!'</code>
+    </code></pre>
+
+    <pre><code class="python">
+        # Split a string by blank space (this is the default)
+        s.split()
+        <code>Output: ['Hello', 'World', 'concatenate', 'me!']</code>
+    </code></pre>
+
+    <pre><code class="python">
+        # Split by a specific element (doesn't include the element that was split on)
+        s.split('W')
+        <code>Output: ['Hello ', 'orld concatenate me!']</code>
+    </code></pre>
+
+    <p>There are many more methods than the ones covered here.</p>
+
+    <h4>Print Formatting</h4>
+    <p>We can use the .format() method to add formatted objects to printed string statements.</p>
+
+    <p>The easiest way to show this is through an example: </p>
+    <pre><code class="python">
+        'Insert another string with curly brackets: {}'.format('The inserted string')
+        <code>Output: 'Insert another string with curly brackets: The inserted string'</code>
+    </code></pre><br>
+
+    <h3><u>String Formatting</u></h3>
+    <h4><b>String Formatting</b></h4>
+    <p>String formatting lets you inject items into a string rather than trying to chain items together using commas or string concatenation. As a quick comparison, consider: </p>
+    <p style="font-size: 18px; font-family: monospace;">&emsp;&ensp;player = 'Aarush' <br>&ensp;&emsp;runs = 67 <br> &ensp;&emsp;'Last night, '+ player + ' scored '+ str(runs) +' runs.' # concatenation <br> &emsp;&ensp;f'Last night, {player} scored {runs} runs.' # string formatting</p>
+
+    <p>There are three ways to perform string formatting: </p>
+    <ul>
+    <li>The oldest method involves placeholders using the modulo <code>%</code> character.</li>
+    <li>An improved technique uses the <code>.format()</code> string method.</li>
+    <li>The newest method, introduced with Python 3.6, uses formatted string literals, called <i>f-strings</i>.</li>
+    </ul>
+
+    <p>Since you will likely encounter all three versions in someone else's code, we describe each of them here.</p>
+    
+    <h4>Formatting with Placeholders</h4>
+    <p>You can use <code>%s</code> to inject strings into your print statements. The modulo <code>%</code> is referred to as a "string formatting operator".</p>
+    <pre><code class="python">
+        print("I'm going to inject %s here." %'something.')
+        <code>Output: I'm going to inject something here.</code>
+    </code></pre>
+
+    <p>You can pass multiple items by placing them inside a tuple after the <code>%</code> operator.</p>
+    <pre><code class="python">
+        print("I'm going to inject %s text here, and %s text here." %('some', 'more'))
+        <code>Output: I'm going to inject some text here, and more text here.</code>
+    </code></pre>
+
+    <p>You can also pass variable names: </p>
+    <pre><code class="python">
+        x, y = 'some', 'more'
+        print("I'm going to inject %s text here, and &s text here."%(x, y))
+        <code>Output: I'm going to inject some text here, and more text here.</code>
+    </code></pre>
+
+    <h4>Format Conversions Method</h4>
+    <p>It should be noted that two methods <code>%s</code> and <code>%r</code> convert any Python object to a string using two separate methods: <code>str()</code> and <code>repr()</code>. You should note that <code>%r</code> and <code>repr()</code> deliver the <i>string representation</i> of the object, including quotation marks any escape characters.</p>
+    <pre><code class="python">
+        print('He said his name was %s.' %'Aarush')
+        print('He said his name was %r.' %'Aarush')
+        <code>He said his name was Aarush.</code>
+        <code>He said his name was 'Aarush'.</code>
+    </code></pre>
+
+    <p>As another example, <code>\t</code> inserts a tab into a string</p>
+    <pre><code class="python">
+        print('I once caught a fish %s.' %'this \tbig')
+        print('I once caught a fish %r.' %'this \tbig')
+        <code>Output: I once caught a fish this     big.</code>
+        <code>Output: I once caught a fish 'this \tbig'.</code>
+    </code></pre>
+
+    <p>The <code>%s</code> operator converts whatever it sees into a string, including integers and floats. The <code>%d</code> operator converts numbers to integers first, without rounding. Note the difference below: </p>
+    <pre><code class="python">
+        print('I wrote %s programs today.' %3.14)
+        print('I wrote %d programs today.' %3.14)
+        <code>Output: I wrote 3.14 programs today.</code>
+        <code>Output: I wrote 3 programs today.</code>
+    </code></pre>
+
+    <h4>Padding and Precision of Floating Point Numbers</h4>
+    <p>Floating point numbers use the format <code>%5.2f</code>. Here, <code>5</code> would be the minimum number of characters the string should contain; these may be padded with whitespace if the entire number does not have this many digits. Next to this, <code>.2f</code> stands for how many numbers to show past the decimal point. Let's see some examples: </p>
+
+    <pre><code class="python">
+        print('Floating point numbers: %5.2f' %(13.144))
+        <code>Output: Floating point numbers: 13.14</code>
+    </code></pre>
+
+    <pre><code class="python">
+        print('Floating point numbers: %1.0f' %(13.144))
+        <code>Output: Floating point numbers: 13</code>
+    </code></pre>
+
+    <pre><code class="python">
+        print('Floating point numbers: %1.5f' %(13.144))
+        <code>Output: Floating point numbers: 13.14400</code>
+    </code></pre>
+
+    <pre><code class="python">
+        print('Floating point numbers: %10.2f' %(13.144))
+        <code>Output: Floating point numbers: 13.14</code>
+    </code></pre>
+
+    <pre><code class="python">
+        print('Floating point numbers: %25.2f' %(13.144))
+        <code>Output: Floating point numbers: 13.14</code>
+    </code></pre>
+
+    <p>For more information on string formatting with placeholders, visit <a href=" https://docs.python.org/3/library/stdtypes.html#old-string-formatting"> https://docs.python.org/3/library/stdtypes.html#old-string-formatting</a></p>
+
+    <h4>Multiple Formatting</h4>
+    <p>Nothing prohibits using more than one conversion tool in the same print statement: </p>
+    <pre><code class="python">
+        print('First: %s, Second: %5.2f, Third: %r' %('hi!', 3.1415, 'bye!'))
+        <code>Output: First: hi!, Second: 3.14, Third: 'bye!'</code>
+    </code></pre>
+
+    <h4>Formatting with the <code>.format()</code> Method</h4>
+    <p>A better way to format objects into your strings for print statements is with the string <code>.format()</code> method. The syntax is:</p>
+    <p style="font-size: 18px; font-family: monospace;">&emsp;&ensp;'String here {} and also {}'.format('something1', 'something2')</p>
+
+    <p>For example: </p>
+    <pre><code class="python">
+        print('This is a string with an {}'.format('insert'))
+        <code>Output: This is a string with an insert</code>
+    </code></pre>
+
+    <h5><b>The .format() method has several advantages over the %s placeholder method:</b></h5>
+    <p style="font-size: 17px;"><b>1. Inserted objects can be called by index positions:</b></p>
+    <pre><code class="python">
+        print('The {2} {1} {0}'.format('fox', 'brown', 'quick'))
+        <code>Output: The quick brown fox</code>
+    </code></pre>
+
+    <p style="font-size: 17px;"><b>2. Inserted objects can be reused, avoiding duplication: </b></p>
+    <pre><code class="python">
+        print('First Object: {a}, Second Object: {b}, Third Object: {c}'.format(a = 1, b = 'Two', c = 12.3))
+        <code>Output: First Object: 1, Second Object: Two, Third Object: 12.3</code>
+    </code></pre>
+
+    <p style="font-size: 17px;"><b>3. Inserted objects can be reused, avoiding duplication: </b></p>
+    <pre><code class="python">
+        print('A %s saved is a %s earned.' %('dollar', 'dollar'))
+        # vs
+        print('A {d} saved is a {d} earned.'.format(d = 'dollar'))
+        <code>Output: A dollar saved is a dollar earned. <br> &emsp;&ensp;&ensp;&emsp;&emsp;&emsp;&emsp;A dollar saved is a dollar earned.</code>
+    </code></pre>
+
+    <h4>Alignment, Padding and Precision with <code>.format()</code></h4>
+    <p>Within the curly braces you can assign field lengths, left/right alignments, rounding parameters and more.</p>
+    <pre><code class="python">
+        print('{0:8}' | {1:9}'.format('Fruit', 'Quantity'))
+        print('{0:8}' | {1:9}'.format('Apples', 3.))
+        print('{0:8}' | {1:9}'.format('Oranges', 10))
+        <code>Output: Fruit | Quantity <br> &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&emsp;&ensp;&ensp;&emsp;&emsp;&emsp;&emsp;&emsp;Apples | 3.0 <br> &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&emsp;&ensp;&ensp;&emsp;&emsp;&emsp;&emsp;&emsp;Oranges | 1.0</code>
+    </code></pre>
+
+    <p>By default, <code>.format()</code> aligns text to the left, numbers to the right. You can pass an optional <code>&lt;</code>, <code>^</code>, or <code>&gt;</code> to set a left, centre or right aligment:</p>
+    <pre><code class="python">
+        print('{0:<8} | {1:^8} | {2:>8}'.format('Left', 'Centre', 'Right'))
+        print('{0:<8} | {1:^8} | {2:>8}'.format(11, 22, 33))
+        <code>Output: Left  |   Centre  | Right <br> &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;11   |     22    |  33</code>
+    </code></pre>
+
+    <p>You can precede the alignment operator with a padding character:</p>
+    <pre><code class="python">
+        print('{0:=<8} | {1:-^8} | {2:.>8}'.format('Left', 'Centre', 'Right')
+        print('{0:=<8} | {1:-^8} | {2:.>8}'.format(11, 22, 33))
+        <code>Output: Left==== | -Centre- | ...Right <br>                11=====  | ---22--- | ......33</code>
+    </code></pre>
+
+    <p>Field widths and float precision are handled in a way similar to placeholders. The following two print statements are equivalent: </p>
+    <pre><code class="python">
+        print('This is my ten-character, two-decimal number: %10.2f' %13.579)
+        print('This is my ten-character, two-decimal number: {0:10:.2f}'.format(13.579))
+        <code>Output: This is my ten-character, two-decimal number: 13.58 <br>                This is my ten-character, two-decimal number: 13.58</code>
+    </code></pre>
+
+    <p>Note that there are 5 spaces following the colon, and 5 characters taken up by 13.58, for a total of ten characters.</p>
+
+    <p>For more information on the string <code>.format()</code> method visit <a href=" https://docs.python.org/3/library/string.html#formatstrings"> https://docs.python.org/3/library/string.html#formatstrings</a></p>
+
+    <h4>Formatted String Literals (f-strings)</h4>
+    <p>Introduced in Python 3.6, f-strings offer several benefits over the older <code>.format()</code> string method described above. For one, you can bring outside variables immediately into the string rather than pass them as arguments through <code>.format(var)</code>.</p>
+    <pre><code class="python">
+        name = 'Aarush'
+        print(f'He said his name is {name}')
+        <code>Output: He said his name is Aarush</code>
+    </code></pre>
+
+    <p>Pass <code>!r</code> to get the string representation:</p>
+    <pre><code class="python">
+        print(f"He said his name is {name!r}")
+        <code>Output: He said his name is 'Aarush'</code>
+    </code></pre>
+
+    <p style="font-size: 17px;"><b>Float formatting follows <code>"result: {value:{width}.{precision}}"</code></b></p>
+    <p>Where with the <code>.format()</code> method you might see <code>{value:10.4f}</code>, with f-strings this can become <code>{value:{10}.{6}}</code></p>
+    <pre><code class="python">
+        num = 23.45678
+        print("My 10 character, four decimal number is: {0:10.4f}".format(num))
+        print(f"My 10 character, four decimal number is: {num:{10}.{6}}")
+        <code>Output: My 10 character, four decimal number is: 23.4568 <br>                My 10 character, four decimal number is: 23.4568</code>
+    </code></pre>
+
+    <p>Note that with f-strings, <i>precision</i> refers to the total number of digits, not just those following the decimal. This fits more closely with scientific notation and statistical analysis. Unfortunately, f-strings do not pad to the right of the decimal, even if precision allows it:</p>
+    <pre><code class="python">
+        num = 23.45
+        print("My 10 character, four decimal number is: {0:10.4f}".format(num))
+        print(f"My 10 character, four decimal number is: {num:{10}.{6}}")
+        <code>Output: My 10 character, four decimal number is: 23.4500 <br>                My 10 character, four decimal number is: 23.45</code>
+    </code></pre>
+
+    <p>If this becomes important, you can always use <code>.format()</code> method syntax inside an f-string: </p>
+    <pre><code class="python">
+        num = 23.45
+        print("My 10 character, four decimal number is:{0:10.4f}".format(num))
+        print(f"My 10 character, four decimal number is:{num:10.4f}")
+        <code>Output: My 10 character, four decimal number is: 23.4500 <br>                My 10 character, four decimal number is: 23.4500</code>
+    </code></pre>
+
+    <p>For more info on formatted string literals visit <a href="https://docs.python.org/3/reference/lexical_analysis.html#f-strings">https://docs.python.org/3/reference/lexical_analysis.html#f-strings</a></p>
+    <p>That is the basics of string formatting!</p>
+
+    <h3><u>Lists</u></h3>
+    <h4><b>Lists</b></h4>
+    <p>Eariler when discussing strings we introduced the concept of a <i>sequence</i> in Python. Lists can be thought of as the most general version of a <i>sequence</i> in Python. Unlike strings, they are mutable, meaning the elements inside a list can be changed!</p>
+
+    <p>Lists are constructed with square brackets [] and commas separating every item in the list.</p>
+
+    <p>Let's go ahead and see how we can construct lists!</p>
+    <pre><code class="python">
+        # Assign a list to a variable named my_list
+        my_list = [1, 2, 3]
+    </code></pre>
+
+    <p>We just created a list of integers, but lists can actually hold different object types. For example:</p>
+    <pre><code class="python">
+        my_list = ['A string', 23, 100.23, 'o']
+    </code></pre>
+
+    <p>Just like strings, the len() function will tell you how many items are in the sequence of the list.</p>
+    <pre><code class="python">
+        len(my_list)
+        <code>Output: 4</code>
+    </code></pre>
+
+    <h4>Indexing and Slicing</h4>
+    <p>Indexing and slicing work just like in strings. Let's make a new list to remind ourselves of how this works:</p>
+    <pre><code class="python">
+        my_list = ['one', 'two', 'three', 4, 5]
+    </code></pre>
+
+    <pre><code class="python">
+        # Grab element at index 0
+        my_list[0]
+        <code>Output: 'one'</code>
+    </code></pre>
+
+    <pre><code class="python">
+        # Grab index 1 and everything past it
+        my_list[1::]
+        <code>Output: ['one', 'two', 'three']</code>
+    </code></pre>
+
+    <p>We can also use + to concatenate lists, just like we did for strings.</p>
+    <pre><code class="python">
+        my_list + ["new item"]
+        <code>Output: ['one', 'two', 'three', 4, 5, 'new item']</code>
+    </code></pre>
+
+    <p>Note: This doesn't actually change the original list!</p>
+    <pre><code class="python">
+        my_list
+        <code>Output: ['one', 'two', 'three', 4, 5]</code>
+    </code></pre>
+
+    <p>You would have to reassign the list to make the change permanent.</p>
+    <pre><code class="python">
+        # Reassign
+        my_list = my_list + ['add new item permanently']
+    </code></pre>
+
+    <pre><code class="python">
+        my_list
+        <code>Output: ['one', 'two', 'three', 4, 5, 'add new item permanently']</code>
+    </code></pre>
+
+    <p>We can also use the * for a duplication method similar to strings:</p>
+    <pre><code class="python">
+        # Make the list double
+        my_list * 2
+        <code>Output: ['one',
+            'two',
+            'three',
+            4,
+            5,
+            'add new item permanently',
+            'one',
+            'two',
+            'three',
+            4,
+            5,
+            'add new item permanently']</code>
+    </code></pre>
+
+    <pre><code class="python">
+        # Again doubling not permanent
+        my_list
+        <code>Output: ['one', 'two', 'three', 4, 5, 'add new item permanently']</code>
+    </code></pre>
+
+    <h4>Basic List Methods</h4>
+    <p>If you are familiar with another programming language, you might start to draw parallels between arrays in another language and lists in Python. Lists in Python, however, tend to be more flexible than arrays in other languages for two good reasons: they have no fixed size (meaning we don't have to specify how big a list will be), and they have no fixed type constraint (like we've seen above).</p>
+
+    <p>Let's go ahead and explore some more special methods for lists:</p>
+    <pre><code class="python">
+        # Create a new list
+        list1 = [1, 2, 3]
+    </code></pre>
+
+    <p>Use the <b>append</b> method to permanently add an item to the end of a list:</p>
+    <pre><code class="python">
+        # Append
+        list1.append('append me!')
+    </code></pre>
+
+    <pre><code class="python">
+        # Show 
+        list1
+        <code>Output: [1, 2, 3, 'append me!']</code>
+    </code></pre>
+
+    <p>Use <b>pop</b> to "pop off" an item from the list. By default, pop takes off the last index, but you can also specify which index to pop off. Let's see an example:</p>
+    <pre><code class="python">
+        # Pop off the 0 indexed item
+        list1.pop(0)
+        <code>Output: 1</code>
+    </code></pre>
+
+    <pre><code class="python">
+        # Show
+        list1
+        <code>Output: [2, 3, 'append me!']</code>
+    </code></pre>
+
+    <pre><code class="python">
+        # Assign the popped element, remember default popped index is -1
+        popped_item = list1.pop()
+    </code></pre>
+
+    <pre><code class="python">
+        popped_item
+        <code>Output: 'append me!'</code>
+    </code></pre>
+
+    <pre><code class="python">
+        # Show remaining list
+        list1
+        <code>Output: [2, 3]</code>
+    </code></pre>
+
+    <p>It should also be noted that lists indexing will return an error if there is no element at that index. For example:</p>
+    <pre><code class="python">
+        list1[100]
+    </code></pre>
+    <code>Output: <b style="color: maroon;">IndexError</b>      Traceback (most recent call last) <br>                <b style="color:darkgreen;">&lt;ipython-input-22-af6d2015fa1f&gt;</b> in <b style="color:aqua;">&lt;module&gt;</b><b style="color:darkblue">()</b> <br><b style="color:darkgreen;">-----> 1</b> list1<b style="color:goldenrod">[</b><b style="color:dodgerblue;">100</b><b style="color:goldenrod">]</b> <br> <b style="color:maroon">IndexError</b>: list index out of range</code><br>
+    
+    <p>We can use the <b>sort</b> method and the <b>reverse</b> methods to also effect your lists:</p>
+    <pre><code class="python">
+        new_list = ['a', 'e', 'x', 'b', 'c']
+    </code></pre>
+
+    <pre><code class="python">
+        # Show
+        new_list
+        <code>Output: ['a', 'e', 'x', 'b', 'c']</code>
+    </code></pre>
+
+    <pre><code class="python">
+        # Use reverse to reverse order (this is permanent!)
+        new_list.reverse()
+    </code></pre>
+
+    <pre><code class="python">
+        new_list
+        <code>Output: ['c', 'b', 'x', 'e', 'a']</code>
+    </code></pre>
+
+    <h4>Nesting List</h4>
+    <p>A great feature of Python data structures is that they support <i>nesting</i>. This means we can have data structures within data structures. For example: A list inside a list.</p>
+
+    <p>Let's see how this works!</p>
+    <pre><code class="python">
+        # Let's make three lists
+        lst_1 = [1, 2, 3]
+        lst_2 = [4, 5, 6]
+        lst_3 = [7, 8, 9]
+
+        # Make a list of lists to form a matrix
+        matrix = [lst_1, lst_2, lst_3]
+    </code></pre>
+
+    <pre><code class="python">
+        # Show
+        matrix
+        <code>Output: [[1, 2, 3], [4, 5, 6] [7, 8, 9]]</code>
+    </code></pre>
+
+    <p>We can again use indexing to grab elements, but now there are two levels for the index. The items in the matrix object, and then the items inside that list!</p>
+    <pre><code class="python">
+        # Grab first item in matrix object
+        matrix[0]
+        <code>Output: [1, 2, 3]</code>
+    </code></pre>
+
+    <pre><code class="python">
+        # Grab first item of the first item in the matrix object
+        matrix[0][0]
+        <code>Output: 1</code>
+    </code></pre>
+
+    <h4>List Comprehensions</h4>
+    <p>Python has an advanced feature called list comprehensions. They allow for quick construction of lists. To fully understand list comprehensions we need to understand for loops.</p>
+
+    <p>But in case you want to know now, here are a few examples!</p>
+    <pre><code class="python">
+        # Build a list comprehension by deconstructing a for loop within a []
+        first_col = [row[0] for row in matrix]
+    </code></pre>
+    
+    <pre><code class="python">
+        first_col
+        <code>Output: [1, 4, 7]</code>
+    </code></pre>
+
+    <p>We used a list comprehension here to grab the first element of every row in the matrix object.</p>
+
+    <h3><u>Dictionary</u></h3>
+    <h4><b>Dictionaries</b></h4>
+    <p>We've been learning about <i>sequences</i> in Python but now we're going to switch gears and learn about <i>mappings</i> in Python. If you're familiar with other languages you can think of these Dictionaries as hash tables.</p>
+
+    <p>So what are mappings? Mappings are a collection of objects that are stored by a <i>key</i>, unlike a sequence that stored objects by their relative position. This is an important distinction, since mappings won't retain order since they have objects defined by a key.</p>
+
+    <p>A Python dictionary consists of a key and then an associated value. That value can be almost any Python object.</p>
+    <h4>Constructing a Dictionary</h4>
+    <p>Let's see how we can construct dictionaries to get a better understanding of how they work!</p>
+    <pre><code class="python">
+        # Make a dictionary with {} and : to signify a key and a value
+        my_dict = {'key1': 'value1', 'key2': 'value2'}
+    </code></pre>
+
+    <pre><code class="python">
+        # Call values by their key
+        my_dict['key2']
+        <code>Output: 'value2'</code>
+    </code></pre>
+
+    <p>It's important to note that dictionaries are very flexible in the data types they can hold. For example:</p>
+    <pre><code class="python">
+        my_dict = {'key1': 123, 'key2': [12, 23, 33], 'key3': ['item0', 'item1', 'item2']}
+    </code></pre>
+
+    <pre><code class="python">
+        # Let's call items from the dictionary
+        my_dict['key3']
+        <code>Output: ['item0', 'item1', 'item2']</code>
+    </code></pre>
+
+    <pre><code class="python">
+        # Can call an index on that value
+        my_dict['key3'][0]
+        <code>Output: 'item0'</code>
+    </code></pre>
+
+    <pre><code class="python">
+        # Can then even call methods on that value
+        my_dict['key3'][0].upper()
+        <code>Output: 'ITEM0'</code>
+    </code></pre>
+
+    <p>We can affect the values of a key as well. For instance:</p>
+    <pre><code class="python">
+        my_dict['key1']
+        <code>Output: 123</code>
+    </code></pre>
+
+    <pre><code class="python">
+        # Subtract 123 from the value
+        my_dict['key1'] = my_dict['key1'] - 123
+    </code></pre>
+
+    <pre><code class="python">
+        # Check
+        my_dict['key1']
+        <code>Output: 0</code>
+    </code></pre>
+
+    <p>A quick note, Python has a built-in method of doing a self subtraction or addition (or multiplication or division). We could have also used += or -= for the above statement. For example:</p>
+    <pre><code class="python">
+        # Set the object equal to itself minus 123
+        my_dict['key1'] -= 123
+        my_dict['key1']
+        <code>Output: -123</code>
+    </code></pre>
+
+    <p>We can also create keys by assignment. For instance if we started off with an empty dictionary, we could continually add to it:</p>
+    <pre><code class="python">
+        # Create a new dictionary
+        d = {}
+    </code></pre>
+    
+    <pre><code class="python">
+        # Create a new key through assignment
+        d['human'] = 'Aarush'      
+    </code></pre>
+
+    <pre><code class="python">
+        # Can do this with any object
+        d['answer'] = 42
+    </code></pre>
+
+    <pre><code class="python">
+        # Show
+        d
+        <code>Output: {'human': 'Aarush', 'answer': 42}</code>
+    </code></pre>
+
+    <h4>Nesting with Dictionaries</h4>
+    <p>Hopefully you're starting to see how powerful Python is with its flexibility of nesting objects and calling methods on them. Let's see a dictionary nested inside a dictionary:</p>
+    <pre><code class="python">
+        # Dictionary nested inside a dictionary nested inside a dictionary
+        d = {'key1': {'nestkey': {'subnestkey': 'value'}}}
+    </code></pre>
+
+    <p>Wow! That's quite the inception of dictionaries! Let's see how we can grab that value:</p>
+    <pre><code class="python">
+        # Keep calling the keys
+        d['key1']['nestkey']['subnestkey']
+        <code>Output: 'value'</code>
+    </code></pre>
+
+    <h4>A Few Dictionary Methods</h4>
+    <p>There are a few methods we can call on a dictionary. Let's get a quick introduction to a few of them:</p>
+    <pre><code class="python">
+        # Create a typical dictionary
+        d = {'key1': 1, 'key2': 2, 'key3': 3}
+    </code></pre>
+
+    <pre><code class="python">
+        # Method to return a list of all keys
+        d.keys()
+        <code>Output: dict_keys(['key1', 'key2', 'key3'])</code>
+    </code></pre>
+
+    <pre><code class="python">
+        # Method to grab all values
+        d.values()
+        <code>Output: dict_values([1, 2, 3])</code>
+    </code></pre>
+
+    <pre><code class="python">
+        # Method to return tuples of all items
+        d.items()
+        <code>Output: dict_items([('key1', 1), ('key2', 2), ('key3', 3)])</code>
+    </code></pre>
+
+    <p>Hopefully now you have a basic understanding of how to construct dictionaries.</p>
+
+    <h3><u>Tuples</u></h3>
+    <h4><b>Tuples</b></h4>
+    <p>In Python, tuples are very similar to lists, however, unlike lists they are <i>immutable</i> meaning they can not be changed. You would use tuples to present things that shouldn't be changed, such as days of the week, or dates on a calendar.</p>
+
+    <p>You'll have an intuition of how to use tuples based on what you've learned about lists. We can treat them very similarly with the major distinction being that tuples are immutable.</p>
+
+    <h4>Constructing Tuples</h4>
+    <p>The constructing of a tuples use () with elements separated by commas. For example:</p>
+    <pre><code class="python">
+        # Create a tuple
+        t = (1, 2, 3)
+    </code></pre>
+
+    <pre><code class="python">
+        # Check len just like a list
+        len(t)
+        <code>Output: 3</code>
+    </code></pre>
+
+    <pre><code class="python">
+        # Can also mix object types
+        t = ('one', 2)
+
+        # Show
+        t
+        <code>Output: ('one', 2)</code>
+    </code></pre>
+
+    <pre><code class="python">
+        # Use indexing just like we did in lists
+        t[0]
+        <code>Output: 'one'</code>
+    </code></pre>
+
+    <pre><code class="python">
+        # Slicing just like a list
+        t[-1]
+        <code>Output: 2</code>
+    </code></pre>
+
+    <h4>Basic Tuple Methods</h4>
+    <p>Tuples have built-in methods, but not as many as lists do. Let's look at two of them:</p>
+    <pre><code class="python">
+        # Use .index to enter a value and return the index
+        t.index('one')
+        <code>Output: 0</code>
+    </code></pre>
+
+    <pre><code class="python">
+        # Use .count to count the number of times a value appears
+        t.count('one')
+        <code>Output: 1</code>
+    </code></pre>
+
+    <h4>Immutability</h4>
+    <p>It can't be stressed enough that tuples are immutable. To drive that point home:</p>
+    <pre><code class="python">
+        t[0] = 'change'
+    </code></pre>
+    <code>Output:<b style="color:maroon;">TypeError</b>        Traceback (most recent call last) <br> <b style="color:darkgreen;">&lt;ipython-input-8-1257c0aa9edd&gt;</b> in <b style="color:aqua;">&lt;module&gt;</b><b style="color:darkblue">()</b> <br> <b style="color:darkgreen">----> 1</b> t<b style="color:goldenrod">[</b><b style="color:dodgerblue">0</b><b style="color:goldenrod">]=</b> <b style="color:darkblue">'change'</b> <br> <b style="color:maroon">TypeError</b>: 'tuple' object does not support item assignment</code>
+
+    <p>Because of this immutability, tuples can't grow. Once a tuple is made we can not add to it.</p>
+    <pre><code class="python">
+        t.append('nope')
+    </code></pre>
+    <code>Output: <b style="color:maroon">AttributeError</b>    Traceback (most recent call last) <br> <b style="color:darkgreen">&lt;ipython-input-9-b75f5b09ac19&gt;</b> in <b style="color:aqua">&lt;module&gt;</b><b style="color: darkblue">()</b> <br> <b style="color:darkgreen">----> 1</b> t.append<b style="color:goldenrod">(</b> <b style="color:darkblue">'nope'</b><b style="color:goldenrod">)</b> <br> <b style="color:maroon">AttributeError</b>: 'tuple' object has no attribute 'append'</code>
+
+    <h4>When to Use Tuples</h4>
+    <p>You may be wondering, "Why bother using tuples when they have fewer available methods?" To be honest, tuples are not used as often as lists in programming, but are used when immutability is necessary. If in your program you are passing around an object and need to make sure it does not get changed, then a tuple becomes your solution. It provices a convenient source of data integrity.</p>
+
+    <p>You should now be able to create and use tuples in your programming as well as have an understanding of their immutability.</p>
+
+    <h3><u>Files</u></h3>
+    <h4><b>Files</b></h4>
+    <p>Python uses file objects to interact with external files on your computer. These file objects can be any sort of file that you have on your computer, whether it be an audio file, a text file, emails, Excel documents, etc. Note: you will probably need to install certain libraries or modules to interact with those various file types, but they are easily available.</p>
+
+    <p>Python has a built-in open function that allows us to open and play with basic file types. First we will need a file though. We're going to use some IPython magic to create a text file!</p>
+
+    <h4>IPython Writing a File</h4>
+    <p style="font-size: 17px"><b>The function is specific to Jupyter Notebooks! Alternatively, quickly create a simple .txt file with Sublime Text Editor.</b></p>
+    <pre><code class="python">
+        %%writefile test.txt
+        Hello, this is a quick test file
+        <code>Output: Overwriting test.txt</code>
+    </code></pre>
+
+    <h4>Python Opening a File</h4>
+    <p>Let's begin by opening the file test.txt that is located in the same directory as this notebook. For now we will work with files located in the same directory as the notebook or .py script you are using.</p>
+
+    <p>It is very easy to get an error on this step:</p>
+    <pre><code class="python">
+        myfile = open('error.txt')
+    </code></pre>
+    <code>Output: <b style="color:maroon">FileNotFoundError</b>&emsp;&emsp; Traceback (most recent call last) <br> <b style="color:darkgreen">&lt;ipython-input-1-dafe28ee473f&gt;</b> in <b style="color:aqua">&lt;module&gt;</b><b style="color:darkblue">()</b> <br> <b style="color:darkgreen">----> 1</b> myfile <b style="color:goldenrod">=</b> open<b style="color:goldenrod">(</b><b style="color:dodgerblue">'error.txt'</b><b style="color:goldenrod">)</b> <br> <b style="color:maroon">FileNotFoundError</b>: [Errno 2] No such file or directory: 'error.txt'</code>
+
+    <p>To avoid this error, make sure your .txt file is saved in the same location as your notebook, to check your notebook location, use <b>pwd</b></p>
+    <pre><code class="python">
+        pwd
+        <code>Output: /Users/Desktop/zero to hero python bootcamp stuff/</code>
+    </code></pre>
+
+    <p><b>Alternatively, to grab files from any location on your computer, simply pass in the entire file path.</b></p>
+
+    <p>For Windows you need to use double \ so Python doesn't treat the second \ as an escape character, a file path is in the form:</p>
+    <p style="font-family: monospace; font-size: 18px;">myfile = open("C:\\Users\\YourUserName\\Home\\Folder\\myfile.txt")</p>
+
+    <p>For Mac OS and Linux you use slashes in the opposite direction:</p>
+    <p style="font-family: monospace; font-size: 18px">myfile = open("/Users/YourUserName/Folder/myfile.txt")</p>
+    <pre><code class="python">
+        # Open the test.txt we made made earlier
+        my_file = open('test.txt')
+    </code></pre>
+
+    <pre><code class="python">
+        # We can now read the file
+        my_file.read()
+        <code>Output: 'Hello this is a quick test file'</code>
+    </code></pre>
+
+    <pre><code class="python">
+        # But what happens if we try to read it again?
+        my_file.read()
+        <code>Output: ''</code>
+    </code></pre>
+
+    <p>This happens because you can imagine the reading 'cursor' is at the end of the file after having read it. So there is nothing left to read. We can reset the "cursor" like this:</p>
+    <pre><code class="python">
+        # Seek to the start of file (index 0)
+        my_file.seek(0)
+        <code>Output: 0</code>
+    </code></pre>
+
+    <pre><code class="python">
+        # Now read again
+        my_file.read()
+        <code>Output: 'Hello, this is a quick test file'</code>
+    </code></pre>
+
+    <p>You can read a file line by using the readlines method. Use caution with large files, since everything will be held in memory.</p>
+    <pre><code class="python">
+        # Readlines returns a list of the lines in the file
+        my_file.seek(0)
+        my_file.readlines()
+        <code>Output: ['Hello, this is a quick test file']</code>
+    </code></pre>
+
+    <p>When you have finished using a file, it is always good practice to close it.</p>
+    <pre><code class="python">
+        my_file.close()
+    </code></pre>
+
+    <h4>Writing to a File</h4>
+    <p>By default, the <code>open()</code> function will only allow us to read the file. We need to pass the argument <code>'w'</code> to write over the file. For example:</p>
+    <pre><code class="python">
+        # Add a second argument to the function, 'w', which stands for write
+        # Passing 'w+' lets us read and write to the file.
+        my_file = open('test.txt', 'w+')
+    </code></pre>
+
+    <h4><b>Use caution!</b></h4>
+    <p>Opening a file with <code>'w'</code> or <code>'w+'</code> truncates the original, meaning that anything that was in the original file <b>is deleted!</b></p>
+    <pre><code class="python">
+        # Write to the file
+        my_file.write('This is a new line')
+        <code>Output: 18</code>
+    </code></pre>
+
+    <pre><code class="python">
+        # Read the file
+        my_file.seek(0)
+        my_file.read()
+        <code>Output: 'This is a new line.'</code>
+    </code></pre>
+
+    <pre><code class="python">
+        my_file.close() # always do this when you're done with a file
+    </code></pre>
+
+    <h4>Appending to a File</h4>
+    <p>Passing the argument <code>'a'</code> opens the file and puts the pointer at the end, so anything written is appended. Like <code>'w+'</code>, <code>'a+'</code> lets us read and write to a file. If the file does not exist, one will be created.</p>
+    <pre><code class="python">
+        my_file = open('test.txt', 'a+')
+        my_file.write('\nThis is text being appended to test.txt.')
+        my_file.write('\nAnd another line here.')
+        <code>Output: 23</code>
+    </code></pre>
+
+    <pre><code class="python">
+        my_file.seek(0)
+        print(my_file.read())
+        <code>Output: This is a new line. <br>                This is text appended to test.txt. <br>                And another line here.</code>
+    </code></pre>
+
+    <pre><code class="python">
+        my_file.close()
+    </code></pre>
+
+    <h4>Appending with <code>%%writefile</code></h4>
+    <p>We can do the same thing using IPython cell magic:</p>
+    <pre><code class="python">
+        %%writefile -a test.txt
+
+        This is text being appended to test.txt
+        And another line here
+        <code>Output: Appending to test.txt</code>
+    </code></pre>
+
+    <p>Add a blank space if you want the first line to begin on its own line, as Jupyter won't recognise escape sequences like <code>\n</code>.</p>
+
+    <h4>Iterating Through a File</h4>
+    <p>Let's get a quick preview of a for loop by iterating over a text file. First, let's make a new text file with some IPython Magic:</p>
+    <pre><code class="python">
+        %%writefile test.txt
+        First Line
+        Second Line
+        <code>Output: Overwriting test.txt</code>
+    </code></pre>
+
+    <p>Now we can use a little bit of flow to tell the program to go through every line of the file and do something:</p>
+    <pre><code class="python">
+        for line in open('test.txt'):
+            print(line)
+        <code>Output: First Line <br>                Second Line</code>
+    </code></pre>
+
+    <p>Don't worry about fully understanding this yet, for loops are coming up soon. But we'll break down what we did above. We said that for every line in this text file, go ahead and print that line. It's important to note a few things here:</p>
+    <ol>
+        <li>We could have called the "line" object anything (see example below).</li>
+        <li>By not calling <code>.read()</code> on the file, the whole text file was not stored in memory.</li>
+        <li>Notice the indent on the second line for print. This whitespace is required in Python.</li>
+    </ol>
+
+    <pre><code class="python">
+        # Pertaining to the first point above
+        for asdf in open('test.txt'):
+            print(asdf)
+        <code>Output: First Line <br>                Second Line</code>
+    </code></pre>
+    </body>
+</html>

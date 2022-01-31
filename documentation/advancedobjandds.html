@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/highlight.min.js"></script>
+    <meta charset="utf-8">
+    <title>Python Advanced Python Objects and Data Structures Documentation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+    <h2><b>16 - Advanced Python Objects and Data Structures</b></h2>
+    <h3><u>Advanced Numbers</u></h3>
+    <h4><b>Advanced Numbers</b></h4>
+    <p>We will learn about a few more representations of numbers in Python.</p>
+
+    <h4>Hexadecimal</h4>
+    <p>Using the function <code>hex()</code> you can convert numbers into a <a href="https://en.wikipedia.org/wiki/Hexadecimal">hexadecimal</a> format:</p>
+    <pre><code class="python">
+        hex(246)
+        <code>Output: '0xf6'</code>
+    </code></pre>
+
+    <pre><code class="python">
+        hex(512)
+        <code>Output: '0x200'</code>
+    </code></pre>
+
+    <h4>Binary</h4>
+    <p>Using the function <code>bin()</code> you can convert numbers into their <a href="https://en.wikipedia.org/wiki/Binary_number">binary</a> format:</p>
+    <pre><code class="python">
+        bin(1234)
+        <code>Output: '0b10011010010'</code>
+    </code></pre>
+
+    <pre><code class="python">
+        bin(128)
+        <code>Output: '0b10000000'</code>
+    </code></pre>
+
+    <pre><code class="python">
+        bin(512)
+        <code>Output: '0b1000000000'</code>
+    </code></pre>
+
+    <h4>Exponentials</h4>
+    <p>The function <code>pow()</code> takes two arguments, equivalent to <code>x^y</code>. With three arguments it is equivalent to <code>(x^y)%z</code>, but may be more efficient for long integers.</p> 
+    <pre><code class="python">
+        pow(3, 4)
+        <code>Output: 81</code>
+    </code></pre>
+
+    <pre><code class="python">
+        pow(3, 4, 5)
+        <code>Output: 1</code>
+    </code></pre>
+
+    <h4>Absolute Value</h4>
+    <p>The function <code>abs()</code> returns the absolute value of a number. The argument may be an integer or a floating point number. If the argument is a complex number, its magnitude is returned.</p>
+    <pre><code class="python">
+        abs(-3.14)
+        <code>Output: 3.14</code>
+    </code></pre>
+
+    <pre><code class="python">
+        abs(3)
+        <code>Output: 3</code>
+    </code></pre>
+
+    <h4>Round</h4>
+    <p>The function <code>round()</code> will round a number to a given precision in decimal digits (default 0 digits). It does not convert integers to floats.</p>
+    <pre><code class="python">
+        round(3, 2)
+        <code>Output: 3</code>
+    </code></pre>
+
+    <pre><code class="python">
+        round(395, -2)
+        <code>Output: 400</code>
+    </code></pre>
+
+    <pre><code class="python">
+        round(3.1415926535, 2)
+        <code>Output: 3.14</code>
+    </code></pre>
+
+    <p>Python has a built-in math library that is also useful to play around with in case you are ever in need of some mathematical operations. Explore the documentation <a href="https://docs.python.org/3/library/math.html">here</a>!</p>
+
+    <h3><u>Advanced Strings</u></h3>
+    <h4><b>Advanced Strings</b></h4>
+    <p>String objects have a variety of methods we can use to save time and add functionality. Let's explore some of them in this section:</p>
+    <pre><code class="python">
+        s = 'hello world'
+    </code></pre>
+
+    <h4>Changing Case</h4>
+    <p>We can use methods to capitalise the first word of a string, or change the case of the entire string.</p>
+    <pre><code class="python">
+        # Capitalise first word in a string
+        s.capitalize()
+        <code>Output: 'Hello world'</code>
+    </code></pre>
+
+    <pre><code class="python">
+        s.upper()
+        <code>Output: 'HELLO WORLD'</code>
+    </code></pre>
+
+    <pre><code class="python">
+        s.lower()
+        <code>Output: 'hello world'</code>
+    </code></pre>
+
+    <p>Remember, strings are mutable. None of the above methods change the string in place, they only return modified copies of the original string.</p>
+    <pre><code class="python">
+        s
+        <code>Output: 'hello world'</code>
+    </code></pre>
+
+    <p>To change a string requires reassignment:</p>
+    <pre><code class="python">
+        s = s.upper()
+        s
+        <code>Output: 'HELLO WORLD'</code>
+    </code></pre>
+
+    <pre><code class="python">
+        s = s.lower()
+        s
+        <code>Output: 'hello world'</code>
+    </code></pre>
+
+    <h4>Location and Counting</h4>
+    <pre><code class="python">
+        s.count('o') # Returns the number of occurences, without overlap
+        <code>Output: 2</code>
+    </code></pre>
+
+    <pre><code class="python">
+        s.find('o') # returns the starting index position of the first occurence
+        <code>Output: 4</code>
+    </code></pre>
+
+    <h4>Formatting</h4>
+    <p>The <code>center()</code> method allows you to place your string 'centered' between a provided string with a certain length.</p>
+    <pre><code class="python">
+        s.center(20, 'z')
+        <code>Output: 'zzzzhello worldzzzzz'</code>
+    </code></pre>
+
+    <p>The <code>expandtabs()</code> method will expand tab notations <code>\t</code> into spaces:</p>
+    <pre><code class="python">
+        'hello\thi'.expandtabs()
+        <code>Output: 'hello    hi'</code>
+    </code></pre>   
+
+    <h4>is check Methods</h4>
+    <p>These various methods below check if the string is some case. Let's explore them:</p>
+    <pre><code class="python">
+        s = 'hello'
+    </code></pre>
+
+    <p><code>isalnum()</code> will return True if all characters in <b>s</b> are alphanumeric.</p>
+    <pre><code class="python">
+        s.isalnum()
+        <code>Output: True</code>
+    </code></pre>
+
+    <p><code>isalpha()</code> will return True if all characters in <b>s</b> are alphabetic.</p>
+    <pre><code class="python">
+        s.isalpha()
+        <code>Output: True</code>
+    </code></pre>
+
+    <p><code>islower()</code> will return True if all cased characters in <b>s</b> are lowercase and there is at least one cased character in <b>s</b>, False otherwise.</p>
+    <pre><code class="python">
+        s.islower()
+        <code>Output: True</code>
+    </code></pre>
+
+    <p><code>isspace()</code> will return True if all characters in <b>s</b> are whitespace.</p>
+    <pre><code class="python">
+        s.isspace()
+        <code>Output: False</code>
+    </code></pre>
+
+    <p><code>istitle()</code> will return True if <b>s</b> is a title cased string and there is at least one character in <b>s</b>, i.e uppercase characters may only follow uncased characters and lowercase characters only cased ones, it returns False otherwise.</p>
+    <pre><code class="python">
+        s.istitle()
+        <code>Output: False</code>
+    </code></pre>
+
+    <p><code>isupper()</code> will return True if all cased characters in <b>s</b> are uppercase and there is at least one cased character is <b>s</b>, False otherwise.</p>
+    <pre><code class="python">
+        s.isupper()
+        <code>Output: True</code>
+    </code></pre>
+
+    <p>Another method is <code>endswith()</code> which is essentially the same as a boolean check on <code>s[-1]</code>.</p>
+    <pre><code class="python">
+        s.endswith('o')
+        <code>Output: False</code>
+    </code></pre>
+
+    <h4>Built-in Reg. Expressions</h4>
+    <p>Strings have some built-in methods that can resemble regular expression operations. We use <code>split()</code> to split the string at a certain element and return a list of the results. We can use <code>partition()</code> to return a tuple that includes the first occurence of the separator sandwiched between the first half and the end half.</p>
+    <pre><code class="python">
+        s.split('e')
+        <code>Output: ['h', 'llo']</code>
+    </code></pre>
+
+    <pre><code class="python">
+        s.partition(1)
+        <code>Output: ('he', 'l', 'lo')</code>
+    </code></pre>
+
+    <p>Great! You should now feel comfortable using the variety of methods that are built-in string objects!</p>
+
+    <h3><u>Advanced Sets</u></h3>
+    <h4><b>Advanced Set</b></h4>
+    <p>We will learn about the various methods for sets that you may not have seen yet. We'll go over the basic ones you already know and then dive a little deeper.</p>
+    <pre><code class="python">
+        s = set()
+    </code></pre>
+
+    <h4>add</h4>
+    <p>Add elements to a set. Remember, a set won't duplicate elements; it will only present them once (that's why it's called a set!).</p>
+    <pre><code class="python">
+        s.add(1)
+    </code></pre>
+
+    <pre><code class="python">
+        s.add(2)
+    </code></pre>
+
+    <pre><code class="python">
+        s
+        <code>Output: {1, 2}</code>
+    </code></pre>
+
+    <h4>clear</h4>
+    <p>Removes all elements from the set.</p>
+    <pre><code class="python">
+        s.clear()
+    </code></pre>
+
+    <pre><code class="python">
+        s
+        <code>Output: set()</code>
+    </code></pre>
+
+    <h4>copy</h4>
+    <p>Returns a copy of the set. Note it is a copy, so changes to the original don't affect the copy.</p>
+    <pre><code class="python">
+        s = {1, 2, 3}
+        sc = s.copy()
+    </code></pre>
+
+    <pre><code class="python">
+        sc
+        <code>Output: {1, 2, 3}</code>
+    </code></pre>
+
+    <pre><code class="python">
+        s
+        <code>Output: {1, 2, 3}</code>
+    </code></pre>
+
+    <pre><code class="python">
+        s.add(4)
+    </code></pre>
+
+    <pre><code class="python">
+        s
+        <code>Output: {1, 2, 3, 4}</code>
+    </code></pre>
+
+    <pre><code class="python">
+        sc
+        <code>Output: {1, 2, 3}</code>
+    </code></pre>
+
+    <h4>difference</h4>
+    <p>difference returns the difference of two or more sets. The syntax is:</p>
+    <p style="font-size: 17px; font-family: monospace;">&emsp;&emsp;set1.difference(set2)</p>
+
+    <p>For example:</p>
+    <pre><code class="python">
+        s.difference(sc)
+        <code>Output: 4</code>
+    </code></pre>
+
+    <h4>difference_update</h4>
+    <p>The difference_update syntax is:</p>
+    <p style="font-size: 17px; font-family: monospace;">&emsp;&emsp;set1.difference_update(set2)</p>
+    
+    <p>The method returns set1 after removing elements found in set2.</p>
+    <pre><code class="python">
+        s1 = {1, 2, 3}
+    </code></pre>
+
+    <pre><code class="python">
+        s2 = {1, 4, 5}
+    </code></pre>
+
+    <pre><code class="python">
+        s1.difference_update(s2)
+    </code></pre>
+
+    <pre><code class="python">
+        s1
+        <code>Output: {2, 3}</code>
+    </code></pre>
+
+    <h4>discard</h4>
+    <p>Removes an element from a set if it is a member. If the element is not a member, do nothing.</p>
+    <pre><code class="python">
+        s
+        <code>Output: {1, 2, 3, 4}</code>
+    </code></pre>
+
+    <pre><code class="python">
+        s.discard(2)
+    </code></pre>
+
+    <pre><code class="python">
+        s
+        <code>Output: {1, 3, 4}</code>
+    </code></pre>
+
+    <h4>intersection and intersection_update</h4>
+    <p>Returns the intersection of two or more sets as a new set (i.e elements that are common to all of the sets).</p>
+    <pre><code class="python">
+        s1 = {1, 2, 3}
+    </code></pre>
+
+    <pre><code class="python">
+        s2 = {1, 2, 4}
+    </code></pre>
+
+    <pre><code class="python">
+        s1.intersection(s2)
+        <code>Output: {1, 2}</code>
+    </code></pre>
+
+    <pre><code class="python">
+        s1
+        <code>Output: {1, 2, 3}</code>
+    </code></pre>
+
+    <p>intersection_update will update a set with the intersection of itself and another.</p>
+    <pre><code class="python">
+        s1.intersection_update(s2)
+    </code></pre>
+
+    <pre><code class="python">
+        s1
+        <code>Output: {1, 2}</code>
+    </code></pre>
+
+    <h4>isdisjoint</h4>
+    <p>This method will return True if two sets have a null intersection.</p>
+    <pre><code class="python">
+        s1 = {1, 2}
+        s2 = {1, 2, 4}
+        s3 = {5}
+    </code></pre>
+
+    <pre><code class="python">
+        s1.isdisjoint(s2)
+        <code>Output: False</code>
+    </code></pre>
+
+    <pre><code class="python">
+        s1.isdisjoint(s3)
+        <code>Output: True</code>
+    </code></pre>
+
+    <h4>issubset</h4>
+    <p>This method reports whether another set contains this set.</p>
+    <pre><code class="python">
+        s1
+        <code>Output: {1, 2}</code>
+    </code></pre>
+
+    <pre><code class="python">
+        s2
+        <code>Output: {1, 2, 4}</code>
+    </code></pre>
+
+    <pre><code class="python">
+        s1.issubset(s2)
+        <code>Output: True</code>
+    </code></pre>
+
+    <h4>issuperset</h4>
+    <p>This method will report whether this set contains another set.</p>
+    <pre><code class="python">
+        s2.issuperset(s1)
+        <code>Output: True</code>
+    </code></pre>
+
+    <pre><code class="python">
+        s1.issuperset(s2)
+        <code>Output: False</code>
+    </code></pre>
+
+    <h4>symmetric_difference and symmetric_update</h4>
+    <p>Return the symmetric difference of two sets as a new set (i.e all elements that are in exactly one of the sets).</p>
+    <pre><code class="python">
+        s1
+        <code>Output: {1, 2}</code>
+    </code></pre>
+
+    <pre><code class="python">
+        s2
+        <code>Output: {1, 2, 4}</code>
+    </code></pre>
+
+    <pre><code class="python">
+        s1.symmetric_difference(s2)
+        <code>Output: {4}</code>
+    </code></pre>
+
+    <h4>union</h4>
+    <p>Returns the union of two sets (i.e all elements that are in either set).</p>
+    <pre><code class="python">
+        s1.union(s2)
+        <code>Output: {1, 2, 4}</code>
+    </code></pre>
+
+    <h4>update</h4>
+    <p>Updates a set with the union of itself and others.</p>
+    <pre><code class="python">
+        s1.update(s2)
+    </code></pre>
+
+    <pre><code class="python">
+        s1
+        <code>Output: {1, 2, 4}</code>
+    </code></pre>
+
+    <p>Great! You should now have a complete awareness of all the methods available to you for a set object type. This data structure is extremely useful and is under utilised for beginners, so try to keep that in mind!</p>
+
+    <p>Good Job!</p>
+
+    <h3><u>Advanced Dictionaries</u></h3>
+    <h4><b>Advanced Dictionaries</b></h4>
+    <p>Unlike some of the other data structures we've worked with, most of the really useful methods available to us in Dictionaries have already been explored. Here we will touch on just a few more for good measure:</p>
+
+    <h4>Dictionary Comprehensions</h4>
+    <p>Just like List Comprehensions, Dictionary Data Types also support their own version of comprehension for quick creation. It is not as commonly used as List Comprehensions, but the syntax is:</p>
+    <pre><code class="python">
+        {x: x ** 2 for x in range(10)}
+        <code>Output: {0: 0, 1: 1, 2: 4, 3: 9, 4: 16, 5: 25, 6: 36, 7: 49, 8: 64, 9: 81}</code>
+    </code></pre>
+
+    <p>One of the reasons it is not as common is the difficulty in structuring key names that are not based off the values.</p>
+
+    <h4>Iteration over keys, values and items</h4>
+    <p>Dictionaries can be iterated over using the keys(), values() and items() methods. For example:</p>
+    <pre><code class="python">
+        d = {'k1': 1, 'k2': 2}
+    </code></pre>
+
+    <pre><code class="python">
+        for k in d.keys():
+            print(k)
+        <code>Output:
+            k1
+            k2
+        </code>
+    </code></pre>
+
+    <pre><code class="python">
+        for v in d.values():
+            print(v)
+        <code>Output:
+            1
+            2
+        </code>
+    </code></pre>
+
+    <pre><code class="python">
+        for item in d.items():
+            print(item)
+        <code>Output:
+            ('k1', 1)
+            ('k2', 2)
+        </code>
+    </code></pre>
+
+    <h4>Viewing keys, values and items</h4>
+    <p>By themselves, the keys(), values() and items() methods returns a dictionary <i>view object</i>. This is not separate of items. Instead the view is always tied to the original dictionary.</p>
+    <pre><code class="python">
+        key_view = d.keys()
+        key_view
+        <code>Output: dict_keys(['k1', 'k2'])</code>
+    </code></pre>
+
+    <pre><code class="python">
+        d['k3'] = 3
+        d
+        <code>Output: {'k1': 1, 'k2': 2, 'k3': 3}</code>
+    </code></pre>
+
+    <pre><code class="python">
+        key_view
+        <code>Output: dict_keys(['k1', 'k2', 'k3'])</code>
+    </code></pre>
+
+    <p>Great! You should now feel very comfortable using the variety of methods available to you in Dictionaries!</p>
+
+    <h3><u>Advanced Lists</u></h3>
+    <h4><b>Advanced Lists</b></h4>
+    <p>We will be diving a little deeper into all the methods available in a list object. Those aren't officially "advanced" features, just methods that you wouldn't typically encounter without some additional exploring. It's pretty likely you've already encountered some of these yourself!</p>
+
+    <p>Let's begin!</p>
+    <pre><code class="python">
+        list1 = [1, 2, 3]
+    </code></pre>
+
+    <h4>append</h4>
+    <p>You will definitely have used this method by now, which merely appends an element to the end of a list:</p>
+    <pre><code class="python">
+        list1.append(4)
+        list1
+        <code>Output: [1, 2, 3, 4]</code>
+    </code></pre>
+
+    <h4>count</h4>
+    <p><code>count()</code> takes in an element and returns the number of times it occurs in your list:</p>
+    <pre><code class="python">
+        list1.count(10)
+        <code>Output: 0</code>
+    </code></pre>
+
+    <pre><code class="python">
+        list1.count(2)
+        <code>Output: 2</code>
+    </code></pre>
+
+    <h4>extend</h4>
+    <p>Many times people find the difference between extend and append to be unclear. So note:</p>
+
+    <p><b>append: appends whole object at the end:</b></p>
+    <pre><code class="python">
+        x = [1, 2, 3]
+        x.append([4, 5])
+        print(x)
+        <code>Output: [1, 2, 3, [4, 5]]</code>
+    </code></pre>
+
+    <p><b>extend: extends list by appending elements from the iterable:</b></p>
+    <pre><code class="python">
+        x = [1, 2, 3]
+        x.extend([4, 5])
+        print(x)
+        <code>Output: [1, 2, 3, 4, 5]</code>
+    </code></pre>
+
+    <p>Note how <code>extend()</code> appends each element from the passed-in list. That is the key difference.</p>
+
+    <h4>index</h4>
+    <p><code>index()</code> will return the index of whatever element is placed as an argument. Note: if the element is not in the list an error is raised.</p>
+    <pre><code class="python">
+        list1.index(2)
+    </code></pre>
+
+    <pre><code class="python">
+        list1.index(12)
+    </code></pre>
+    <code>Output: <b style="color:maroon">ValueError</b>    Traceback (most recent call last) <br> <b style="color:darkgreen">&lt;ipython-input-8-56b94ada72bf&gt;</b> in <b style="color:turquoise">&lt;module&gt;</b><b style="color:darkblue">()</b> <br> <b style="color:darkgreen">----> 1</b> list1<b style="color:goldenrod">.</b>index<b style="color:goldenrod">(</b><b style="color:dodgerblue">12</b><b style="color:goldenrod">)</b> <br> <b style="color:maroon">ValueError</b>: 12 is not in the list</code>
+
+    <h4>insert</h4>
+    <p><code>insert()</code> takes in two arguments: <code>insert(index, object)</code>. This method places the object at the index supplied. For example:</p>
+    <pre><code class="python">
+        list1
+        <code>Output: [1, 2, 3, 4]</code>
+    </code></pre>
+
+    <pre><code class="python">
+        # Place a letter at the index 2
+        list1.insert(2, 'inserted')
+    </code></pre>
+
+    <pre><code class="python">
+        list1
+        <code>Output: [1, 2, 'inserted', 3, 4]</code>
+    </code></pre>
+
+    <h4>pop</h4>
+    <p>You most likely have already seen <code>pop()</code>, which allows us to "pop" off the last element of a list. However, by passing an index position you can remove and return a specific element.</p>
+    <pre><code class="python">
+        ele = list1.pop(1) # pop the second element
+    </code></pre>
+
+    <pre><code class="python">
+        list1
+        <code>Output: [1, 'inserted', 3, 4]</code>
+    </code></pre>
+
+    <pre><code class="python">
+        ele
+        <code>Output: 2</code>
+    </code></pre>
+
+    <h4>remove</h4>
+    <p>The<code>remove()</code> method removes the first occurence of a value. For example:</p>
+    <pre><code class="python">
+        list1
+        <code>Output: [1, 'inserted', 3, 4]</code>
+    </code></pre>
+
+    <pre><code class="python">
+        list1
+        <code>Output: [1, 3, 4]</code>
+    </code></pre>
+
+    <pre><code class="python">
+        list2 = [1, 2, 3, 4, 3]
+    </code></pre>
+
+    <pre><code class="python">
+        list2.remove(3)
+    </code></pre>
+
+    <pre><code class="python">
+        list2
+        <code>[1, 2, 4, 3]</code>
+    </code></pre>
+
+    <h4>reverse</h4>
+    <p>As you might have guessed, <code>reverse()</code> reverses a list. Note this occurs in place! Meaning it affects your list permanently.</p>
+    <pre><code class="python">
+        list2.reverse()
+    </code></pre>
+    
+    <pre><code class="python">
+        list2
+        <code>Output: [3, 4, 2, 1]</code>
+    </code></pre>
+
+    <h4>sort</h4>
+    <p>The <code>sort()</code> method will sort your list in place:</p>
+    <pre><code class="python">
+        list2
+        <code>Output: [3, 4, 2, 1]</code>
+    </code></pre>
+
+    <pre><code class="python">
+        list2.sort()
+    </code></pre>
+
+    <pre><code class="python">
+        list2
+        <code>Output: [1, 2, 3, 4]</code>
+    </code></pre>
+
+    <p>The <code>sort()</code> method takes an optional argument for reverse sorting. Note this is different than simply reversing the order of items.</p>
+    <pre><code class="python">
+        list2.sort(reverse = True)
+    </code></pre>
+
+    <pre><code class="python">
+        list2
+        <code>Output: [4, 3, 2, 1]</code>
+    </code></pre>
+
+    <h4>Be Careful with Assignment!</h4>
+    <p>A common programming mistake is to assume you can assign a modified list to a new variable. While this typically works with immutable object like strings and tuples:</p>
+    <pre><code class="python">
+        x = 'hello world'
+    </code></pre>
+
+    <pre><code class="python">
+        y = x.upper()
+    </code></pre>
+
+    <pre><code class="python">
+        print(y)
+        <code>Output: HELLO WORLD</code>
+    </code></pre>
+
+    <p>This will NOT work the same way with lists:</p>
+    <pre><code class="python">
+        x = [1, 2, 3]
+    </code></pre>
+
+    <pre><code class="python">
+        y = x.append(4)
+    </code></pre>
+
+    <pre><code class="python">
+        print(y)
+        <code>Output: None</code>
+    </code></pre>
+
+    <p>What happened? In this case, since lists methods like <code>append()</code> affect the list <i>in-place</i>, the operation returns a None value. This is what was passed to <b>y</b>. In order to retain <b>x</b> you would have to assign a <i>copy</i>> of <b>x</b> to <b>y</b>, and then modify <b>y</b>:</p>
+    <pre><code class="python">
+        x = [1, 2, 3]
+        y = x.copy()
+        y.append(4)
+    </code></pre>
+
+    <pre><code class="python">
+        print(x)
+        <code>Output: [1, 2, 3]</code>
+    </code></pre>
+
+    <pre><code class="python">
+        print(y)
+        <code>Output: [1, 2, 3, 4]</code>
+    </code></pre>
+
+    <p>Great! You should now have an understanding of all the methods available for a list in Python!</p>
+</body>
+</html>

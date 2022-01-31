@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/highlight.min.js"></script>
+    <meta charset="utf-8">
+    <title>Python Decorators Documentation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+    <h2><b>10 - Python Decorators</b></h2>
+    <h3><u>Decorators</u></h3>
+    <h4><b>Decorators</b></h4>
+    <p>Decorators can be though of as functions which modify the <i>functionality</i> of another function. They help to make your code shorter and more "Pythonic".</p>
+
+    <p>To properly explain decorators we will slowly build up from functions.</p>
+
+    <p>So let's break down the steps.</p>
+
+    <h4>Functions Review</h4>
+    <pre><code class="python">
+        def func():
+            return 1
+    </code></pre>
+
+    <pre><code class="python">
+        func()
+        <code>Output: 1</code>
+    </code></pre>
+
+    <h4>Scope Review</h4>
+    <p>Remember from the nested statements section that Python uses Scope to know what a label is referring to. For example:</p>
+    <pre><code class="python">
+        s = 'Global Variable'
+
+        def check_for_locals():
+            print(locals())
+    </code></pre>
+
+    <p>Remember that Python functions creates a new scope, meaning the function has its new namespace to find variable names when they are mentioned within the function. We can check for local variables and global variables with the <code>locals()</code> and <code>globals()</code> functions. For example:</p>
+    <pre><code class="python">
+        print(globals())
+    </code></pre>
+
+    <p>Here we get back a dictionary of all the global variables, many of them are predefined in Python. So let's go ahead and look at the keys.</p>
+    <pre><code class="python">
+        print(globals().keys())
+    </code></pre>
+
+    <p>Note how <b>s</b> is there, the Global Variable we defined as a string:</p>
+    <pre><code class="python">
+        globals()['s']
+    </code></pre>
+
+    <p>Now let's run our function to check for local variables that might exist inside our function (there shouldn't be any).</p>
+    <pre><code class="python">
+        check_for_locals()
+    </code></pre>
+
+    <p>Great! Now let's continue with building out the logic of what a decorator is. Remember than in Python <b>everything is an object</b>. That means function are objects which can be assigned labels and passed into other functions. Let's start with some simple examples:</p>
+    <pre><code class="python">
+        def hello(name = 'Aarush'):
+            return 'Hello ' + name
+    </code></pre>
+
+    <pre><code class="python">
+        hello()
+        <code>Output: 'Hello Aarush'</code>
+    </code></pre>
+
+    <p>Assign another label to the function. Note that we are not using parentheses here because we are not calling the function <b>hello</b>, instead we are just passing a function object to the <b>greet</b> variable.</p>
+    <pre><code class="python">
+        greet = hello
+    </code></pre>
+
+    <pre><code class="python">
+        greet
+        <code>Output: &lt;function __main__.hello&gt;</code>
+    </code></pre>
+
+    <pre><code class="python">
+        greet()
+        <code>Output: 'Hello Aarush'</code>
+    </code></pre>
+
+    <p>So what happens when we delete the name <b>hello</b>?</p>
+    <pre><code class="python">
+        del hello
+    </code></pre>
+
+    <pre><code class="python">
+        hello()
+    </code></pre>
+    <code>Output: <b style="color:maroon">NameError</b>     Traceback (most recent call last) <br> <b style="color:darkgreen">&lt;ipython-input-9-175d7781aaeb&gt;</b> in <b style="color:turquoise">&lt;module&gt;</b><b style="color:darkblue">()</b> <br> <b style="color:darkgreen">----> 1</b> hello<b style="color:goldenrod">()</b> <br> <b style="color:maroon">NameError</b>: name 'hello' is not defined</code>
+
+    <pre><code class="python">
+        greet()
+        <code>Output: 'Hello Aarush'</code>
+    </code></pre>
+
+    <p>Even though we deleted the name <b>hello</b>, the name <b>greet</b> <i>still points</i> to our original function object. It is important to know that functions are objects that can be passed to other objects!</p>
+
+    <h4>Functions within Functions</h4>
+    <p>Great! So we've seen how we can treat functions as objects, now let's see how we can defined functions inside of other functions:</p>
+    <pre><code class="python">
+        def hello(name = 'Aarush'):
+            print('The hello() function has been executed')
+            
+            def greet():
+                return '\t This is inside the greet() function'
+
+            def welcome(): 
+                return '\t This is inside the welcome() function'
+
+            print(greet())
+            print(welcome())
+            print("Now we are back inside the hello() function")
+    </code></pre>
+
+    <pre><code class="python">
+        hello()
+        <code>Output:
+        The hello() function has been executed
+            This is inside the greet() function
+            This is inside the welcome() function
+       Now we are back inside the hello() function
+       </code>
+    </code></pre>
+
+    <pre><code class="python">
+        welcome()
+    </code></pre>
+    <code>Output: <b style="color:maroon">NameError</b>     Traceback (most recent call last) <br> <b style="color:darkgreen">&lt;ipython-input-13-a401d7101853&gt;</b> in <b style="color:turquoise">&lt;module&gt;</b><b style="color:darkblue">()</b> <br> <b style="color:darkgreen">----> 1</b> welcome<b style="color:goldenrod">()</b> <br> <b style="color:maroon">NameError</b>: name 'welcome' is not defined</code>
+
+    <p>Note how due to scope, the welcome() function is not defined outside of the hello() function. Now let's learn about returning function from within functions.</p>
+
+    <h4>Returning Functions</h4>
+    <pre><code class="python">
+        def hello(name = 'Aarush'): 
+            def greet():
+                return '\t This is inside the greet() function'
+
+            def welcome():
+                return '\t This is inside the welcome() function'
+
+            if name == 'Aarush':
+                return greet
+            else:
+                return welcome
+    </code></pre>
+    
+    <p>Now let's see what function is returned if we set x to hello(), note how the empty parentheses means that name has been defined as Aarush.</p>
+    <pre><code class="python">
+        x = hello()
+    </code></pre>
+
+    <pre><code class="python">
+        x
+        <code>Output: &lt;function __main__.hello.&lt;locals&gt;.greet&gt;</code>
+    </code></pre>
+
+    <p>Great now we can see how x is pointing to the greet function inside of the hello function.</p>
+    <pre><code class="python">
+        print(x())
+        <code>Output:   This is inside the greet() function</code>
+    </code></pre>
+
+    <p>Let's take a quick look at the code again.</p>
+
+    <p>In the <code>if/else</code> clause we are returning <code>greet</code> and <code>welcome</code>, not <code>greet()</code> and <code>welcome()</code>.</p>
+
+    <p>This is because when you put a pair of parentheses after it, the function gets executed; whereas if you don't put parentheses after it, then it can be passed around and can be assigned to other variables without executing it.</p>
+
+    <p>When we write <code>x = hello()</code>, hello() gets executed and because the name is Aarush by default, the function <code>greet</code> is returned. If we change the statement to <code>x = hello(name = "John")</code> then the <code>welcome</code> function will be returned. We can also do <code>print(hello()())</code> which outputs <i>This is inside the greet() function</i>.</p>
+
+    <h4>Functions as Arguments</h4>
+    <p>Now let's see how we can pass functions as arguments into other functions.</p>
+    <pre><code class="python">
+        def hello():
+            return 'Hi Aarush!'
+        
+        def other(func):
+            print('Other code would go here')
+            print(func())
+    </code></pre>
+
+    <pre><code class="python">
+        other(hello)
+        <code>Output: 
+            Other code would go here
+            Hi Aarush!
+        </code>
+    </code></pre>
+
+    <p>Great! Note how can pass the functions as objects and then use them within other functions. Now we can get started with writing our first decorator:</p>
+
+    <h4>Creating a Decorator</h4>
+    <p>In the previous example we actually manually created a Decorator. Here we will modify it to make its use case clear:</p>
+    <pre><code class="python">
+        def new_decorator(func):
+            def wrap_func():
+                print("Code would be here, before executing the func")
+
+                func()
+
+                print("Code here will execute after the func()")
+
+            return wrap_func
+
+        def func_needs_decorator():
+            print("This function is in need of a Decorator")
+    </code></pre>
+
+    <pre><code class="python">
+        func_needs_decorator()
+        <code>Output: This function is in need of a Decorator</code>
+    </code></pre>
+
+    <pre><code class="python">
+        # Reassign func_needs_decorator
+        func_needs_decorator = new_decorator(func_needs_decorator)
+    </code></pre>
+
+    <pre><code class="python">
+        func_needs_decorator()
+        <code>Output: 
+            Code would be here, before executing the func
+            This function is in need of a Decorator
+            Code here will execute after the func()
+        </code>
+    </code></pre>
+
+    <p>So what just happened here? A decorator simply wrapped the function and modified its behaviour. Now let's understand how we can rewrite this code using the @ symbol, which is what Python uses for Decorators:</p>
+    <pre><code class="python">
+        @new_decorator
+        def func_needs_decorator(): 
+            print("This function is in need of a Decorator")
+    </code></pre>
+
+    <pre><code class="python">
+        func_needs_decorator()
+        <code>Output: 
+            Code would be here, before executing the func
+            This function is in need of a Decorator
+            Code here will execute after the func()</code>
+    </code></pre>
+
+    <p><b>Great! You've now built a Decorator manually and then saw how we can use the @ symbol in Python to automate this and clean our code. You'll run into Decorators a lot if you begin using Python for Web Development, such as Flask or Django!</b></p>
+</body>
+</html>
